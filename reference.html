@@ -1,0 +1,756 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>bevel.css reference</title>
+  <link rel="stylesheet" href="bevel.css">
+  <style>
+    /* Page-only styles for this reference's background grid, demo boxes and
+       swatches. They use data attributes rather than classes, so the coverage
+       gate stays exact: every class on this page comes from bevel.css. */
+
+    /* The 2.0 docs' masked 18px grid, in a 306px band under the navbar:
+       faint lines every 18px, every fifth vertical one darker, fading out
+       after the first 200px. In 2.0 this was a docs page decoration
+       (docs.css), not part of bootstrap.css. */
+    body {
+      background-image:
+        linear-gradient(transparent 200px, var(--bv-color-surface) 330px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.025) 0 1px, transparent 1px 90px),
+        repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.027) 0 1px, transparent 1px 18px),
+        repeating-linear-gradient(rgba(0, 0, 0, 0.027) 0 1px, transparent 1px 18px);
+      background-repeat: no-repeat;
+      background-position: 0 2.5rem;
+      background-size: 100% 306px;
+    }
+
+    [data-demo] {
+      padding: 0.5625rem 0.75rem;
+      background-color: var(--bv-color-surface-alt);
+      border: 1px solid var(--bv-color-border);
+      border-radius: var(--bv-radius);
+    }
+
+    [data-spaced] {
+      margin-block-end: var(--bv-space-5);
+    }
+
+    [data-demo] > :last-child {
+      margin-block-end: 0;
+    }
+
+    [data-chips] {
+      row-gap: var(--bv-space-3);
+      padding: 0;
+      margin-block-end: var(--bv-space-5);
+      list-style: none;
+    }
+
+    [data-chips] li {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+      min-width: 0;
+    }
+
+    [data-chips] code {
+      overflow-wrap: anywhere;
+    }
+
+    [data-swatch] {
+      flex: none;
+      width: 1.75rem;
+      height: 1.75rem;
+      border-radius: var(--bv-radius);
+      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <nav class="nav" aria-label="Main">
+          <a href="reference.html" aria-current="page">Reference</a>
+          <a href="CHANGELOG.md">Changelog</a>
+          <span class="divider-vertical"></span>
+          <a href="bevel.css">Source</a>
+        </nav>
+        <a class="brand" href="reference.html">bevel.css</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Overview ======================================================== -->
+    <section class="section" id="overview">
+      <div class="page-header">
+        <h1>bevel.css <small>v0.1.0 reference</small></h1>
+      </div>
+      <p class="lead">Bootstrap 2.0&rsquo;s look for every app on hearth, in one plain stylesheet built only on CSS that has worked in every major browser for at least 30 months.</p>
+
+      <div class="row cols-3" data-spaced>
+        <div>
+          <h3>One file</h3>
+          <p>Copy the release file into your app&rsquo;s static folder and link it before your own stylesheet. No build step, no web fonts, no images, no JavaScript.</p>
+        </div>
+        <div>
+          <h3>Your CSS wins</h3>
+          <p>Everything sits in <code>@layer bevel.*</code>. Write your app&rsquo;s CSS outside any layer and it overrides the library without <code>!important</code>.</p>
+        </div>
+        <div>
+          <h3>Accessible markup is styled markup</h3>
+          <p>States take the class or the ARIA form: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
+        </div>
+      </div>
+
+      <pre><code>&lt;link rel="stylesheet" href="/static/bevel-0.1.0.css"&gt;
+&lt;link rel="stylesheet" href="/static/app.css"&gt;</code></pre>
+
+      <nav class="btn-toolbar" aria-label="On this page">
+        <a class="btn btn-small" href="#tokens">Tokens</a>
+        <a class="btn btn-small" href="#typography">Typography</a>
+        <a class="btn btn-small" href="#layout">Layout</a>
+        <a class="btn btn-small" href="#navbar">Navbar</a>
+        <a class="btn btn-small" href="#buttons">Buttons</a>
+        <a class="btn btn-small" href="#forms">Forms</a>
+        <a class="btn btn-small" href="#tables">Tables</a>
+        <a class="btn btn-small" href="#alerts">Alerts</a>
+        <a class="btn btn-small" href="#labels">Labels and badges</a>
+        <a class="btn btn-small" href="#utilities">Utilities</a>
+      </nav>
+    </section>
+
+    <!-- Tokens ========================================================== -->
+    <section class="section" id="tokens">
+      <div class="page-header">
+        <h1>Tokens <small>Override any of them in your own :root</small></h1>
+      </div>
+      <p>Every custom property starts with <code>--bv-</code>. The swatches below read the live values, so an override in your app shows up here too.</p>
+      <pre><code>:root {
+  --bv-color-link: #0066A0;
+}</code></pre>
+      <h2>Neutrals</h2>
+      <ul class="row" data-chips>
+        <li><span data-swatch style="background-color: var(--bv-color-text)"></span><code>--bv-color-text</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-muted)"></span><code>--bv-color-muted</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-input-text)"></span><code>--bv-color-input-text</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-surface)"></span><code>--bv-color-surface</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-surface-alt)"></span><code>--bv-color-surface-alt</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-stripe)"></span><code>--bv-color-stripe</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-border)"></span><code>--bv-color-border</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-border-soft)"></span><code>--bv-color-border-soft</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-border-strong)"></span><code>--bv-color-border-strong</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-border-bottom)"></span><code>--bv-color-border-bottom</code></li>
+      </ul>
+      <h2>Action and focus</h2>
+      <ul class="row" data-chips>
+        <li><span data-swatch style="background-color: var(--bv-color-link)"></span><code>--bv-color-link</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-link-hover)"></span><code>--bv-color-link-hover</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-primary-top)"></span><code>--bv-color-primary-top</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-primary-bottom)"></span><code>--bv-color-primary-bottom</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-primary)"></span><code>--bv-color-primary</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-primary-active)"></span><code>--bv-color-primary-active</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-danger-top)"></span><code>--bv-color-danger-top</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-danger-bottom)"></span><code>--bv-color-danger-bottom</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-danger)"></span><code>--bv-color-danger</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-danger-active)"></span><code>--bv-color-danger-active</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-focus)"></span><code>--bv-color-focus</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-focus-glow)"></span><code>--bv-color-focus-glow</code></li>
+      </ul>
+      <h2>Navbar</h2>
+      <ul class="row" data-chips>
+        <li><span data-swatch style="background-color: var(--bv-color-navbar-top)"></span><code>--bv-color-navbar-top</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-navbar-bottom)"></span><code>--bv-color-navbar-bottom</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-navbar)"></span><code>--bv-color-navbar</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-navbar-link)"></span><code>--bv-color-navbar-link</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-navbar-link-active)"></span><code>--bv-color-navbar-link-active</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-brand)"></span><code>--bv-color-brand</code></li>
+      </ul>
+      <h2>Status</h2>
+      <ul class="row" data-chips>
+        <li><span data-swatch style="background-color: var(--bv-color-label)"></span><code>--bv-color-label</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-success)"></span><code>--bv-color-success</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-warning)"></span><code>--bv-color-warning</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-important)"></span><code>--bv-color-important</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-info)"></span><code>--bv-color-info</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-inverse)"></span><code>--bv-color-inverse</code></li>
+      </ul>
+      <h2>Alerts</h2>
+      <ul class="row" data-chips>
+        <li><span data-swatch style="background-color: var(--bv-alert-warning-bg)"></span><code>--bv-alert-warning-bg</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-warning-border)"></span><code>--bv-alert-warning-border</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-warning-text)"></span><code>--bv-alert-warning-text</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-error-bg)"></span><code>--bv-alert-error-bg</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-error-border)"></span><code>--bv-alert-error-border</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-error-text)"></span><code>--bv-alert-error-text</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-success-bg)"></span><code>--bv-alert-success-bg</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-success-border)"></span><code>--bv-alert-success-border</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-success-text)"></span><code>--bv-alert-success-text</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-info-bg)"></span><code>--bv-alert-info-bg</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-info-border)"></span><code>--bv-alert-info-border</code></li>
+        <li><span data-swatch style="background-color: var(--bv-alert-info-text)"></span><code>--bv-alert-info-text</code></li>
+      </ul>
+      <h2>Form errors and code</h2>
+      <ul class="row" data-chips>
+        <li><span data-swatch style="background-color: var(--bv-color-error)"></span><code>--bv-color-error</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-error-border)"></span><code>--bv-color-error-border</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-error-focus)"></span><code>--bv-color-error-focus</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-error-glow)"></span><code>--bv-color-error-glow</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-code-text)"></span><code>--bv-color-code-text</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-code-bg)"></span><code>--bv-color-code-bg</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-code-border)"></span><code>--bv-color-code-border</code></li>
+      </ul>
+    </section>
+
+    <!-- Typography ====================================================== -->
+    <section class="section" id="typography">
+      <div class="page-header">
+        <h1>Typography <small>13px on an 18px line</small></h1>
+      </div>
+
+      <div class="row cols-2" data-spaced>
+        <div>
+          <h1>h1. Heading 1</h1>
+          <h2>h2. Heading 2</h2>
+          <h3>h3. Heading 3</h3>
+          <h4>h4. Heading 4</h4>
+          <h5>h5. Heading 5</h5>
+          <h6>h6. Heading 6</h6>
+        </div>
+        <div>
+          <h1>Apps <small>Five on hearth-01</small></h1>
+          <h2>Deploy <small>Ship something new</small></h2>
+          <h3>Backups <small>The last one finished 6 hours ago</small></h3>
+        </div>
+      </div>
+
+      <h2>Body text</h2>
+      <p class="lead">The lead paragraph: 20px on a 27px line, for the one sentence that sets up a page.</p>
+      <p id="link-demo">Body text is 13px on an 18px line. It carries <a href="#typography">links</a>, <strong>strong words</strong>, <small>small text that keeps the surrounding size</small> and inline code such as <code>hearth deploy recipes</code>.</p>
+      <p>A longer paragraph wraps the way you&rsquo;d expect. Each app keeps a small manifest next to its code, and hearth reads it to decide how to pull, build and run the app, which port it listens on, and whether it should come back after the machine restarts. Everything else has a sensible default, so most manifests are four or five lines long.</p>
+
+      <h2>Code blocks</h2>
+      <pre><code># hearth.toml
+name = "recipes"
+source = "git@github.com:you/recipes.git"
+port = 8086
+start_on_boot = true</code></pre>
+      <pre>2026-10-08T14:02:11Z eink-sync exited with status 1: open /var/lib/eink-sync/state/cache/2026-10/display-frame-buffer.bin: no such file or directory (retrying in 30s)</pre>
+
+      <h2>Rule</h2>
+      <p>An <code>&lt;hr&gt;</code> is 2.0&rsquo;s etched line.</p>
+      <hr>
+    </section>
+
+    <!-- Layout ========================================================== -->
+    <section class="section" id="layout">
+      <div class="page-header">
+        <h1>Layout <small>A container, rows and sections</small></h1>
+      </div>
+      <p>The <code>.container</code> centers content at 724px, 940px or 1170px, and is fluid below 768px. Each <code>.section</code> starts 60px below the one before; the first sits 18px below the navbar. A <code>.page-header</code> opens each section.</p>
+      <pre><code>&lt;main class="container"&gt;
+  &lt;section class="section"&gt;
+    &lt;div class="page-header"&gt;&lt;h1&gt;Apps &lt;small&gt;Five apps on hearth-01&lt;/small&gt;&lt;/h1&gt;&lt;/div&gt;
+    &lt;div class="row cols-3"&gt;&hellip;&lt;/div&gt;
+  &lt;/section&gt;
+&lt;/main&gt;</code></pre>
+
+      <h2>Rows</h2>
+      <p>With no modifier, <code>.row</code> fits as many equal columns as it can, each at least 220px wide.</p>
+      <div class="row" data-spaced>
+        <div data-demo>One</div>
+        <div data-demo>Two</div>
+        <div data-demo>Three</div>
+        <div data-demo>Four</div>
+        <div data-demo>Five</div>
+      </div>
+
+      <h2>Fixed columns</h2>
+      <p><code>.cols-2</code>, <code>.cols-3</code> and <code>.cols-4</code> fix the count from 768px up and stack below it.</p>
+      <div class="row cols-2" data-spaced>
+        <div data-demo>.cols-2</div>
+        <div data-demo>.cols-2</div>
+      </div>
+      <div class="row cols-3" data-spaced>
+        <div data-demo>.cols-3</div>
+        <div data-demo>.cols-3</div>
+        <div data-demo>.cols-3</div>
+      </div>
+      <div class="row cols-4" data-spaced>
+        <div data-demo>.cols-4</div>
+        <div data-demo>.cols-4</div>
+        <div data-demo>.cols-4</div>
+        <div data-demo>A column with more text than the others wraps inside its own track and never pushes the grid wider.</div>
+      </div>
+    </section>
+
+    <!-- Navbar ========================================================== -->
+    <section class="section" id="navbar">
+      <div class="page-header">
+        <h1>Navbar <small>The dark top bar</small></h1>
+      </div>
+      <p>Links on the left, the brand on the right. Mark the current page with <code>aria-current="page"</code> (as in the bar at the top of this page) or <code>.active</code> (below). Below 768px the links wrap onto more rows and the divider hides.</p>
+      <p>Add <code>.navbar-sticky</code> to keep the bar at the top while the page scrolls under it, as the bar on this page does. Below 768px it scrolls away with the page.</p>
+
+      <div class="navbar" id="navbar-demo" data-spaced>
+        <div class="navbar-inner">
+          <div class="container">
+            <nav class="nav" aria-label="Example app">
+              <a class="active" href="#navbar">Apps</a>
+              <a href="#navbar">Deploy</a>
+              <a href="#navbar">Machine</a>
+              <a href="#navbar">Logs</a>
+              <a href="#navbar">Backups</a>
+              <span class="divider-vertical"></span>
+              <a href="#navbar">Settings</a>
+              <a href="#navbar">Help</a>
+            </nav>
+            <a class="brand" href="#navbar">hearth</a>
+          </div>
+        </div>
+      </div>
+
+      <pre><code>&lt;header class="navbar navbar-sticky"&gt;
+  &lt;div class="navbar-inner"&gt;
+    &lt;div class="container"&gt;
+      &lt;nav class="nav" aria-label="Main"&gt;
+        &lt;a href="/apps" aria-current="page"&gt;Apps&lt;/a&gt;
+        &lt;a href="/logs"&gt;Logs&lt;/a&gt;
+        &lt;span class="divider-vertical"&gt;&lt;/span&gt;
+        &lt;a href="/settings"&gt;Settings&lt;/a&gt;
+      &lt;/nav&gt;
+      &lt;a class="brand" href="/"&gt;hearth&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
+    </section>
+
+    <!-- Buttons ========================================================= -->
+    <section class="section" id="buttons">
+      <div class="page-header">
+        <h1>Buttons <small>Default, primary and danger</small></h1>
+      </div>
+
+      <h2>Variants</h2>
+      <p>Blue is the one action you most expect someone to take; red is the one they can&rsquo;t undo.</p>
+      <div class="btn-toolbar" id="buttons-variants">
+        <button class="btn" id="btn-default" type="button">Default</button>
+        <button class="btn btn-primary" id="btn-primary" type="button">Primary</button>
+        <button class="btn btn-danger" id="btn-danger" type="button">Danger</button>
+      </div>
+
+      <h2>Elements</h2>
+      <p><code>.btn</code> works the same on <code>&lt;button&gt;</code>, <code>&lt;a&gt;</code> and <code>&lt;input type="submit"&gt;</code>.</p>
+      <div class="btn-toolbar">
+        <button class="btn" type="button">Button</button>
+        <a class="btn" href="#buttons">Link</a>
+        <input class="btn" type="submit" value="Submit input">
+        <a class="btn btn-primary" href="#buttons">Primary link</a>
+        <input class="btn btn-danger" type="submit" value="Danger input">
+      </div>
+
+      <h2>Sizes</h2>
+      <div class="btn-toolbar">
+        <button class="btn btn-small" type="button">Small</button>
+        <button class="btn btn-primary btn-small" type="button">Small primary</button>
+        <button class="btn btn-danger btn-small" type="button">Small danger</button>
+      </div>
+      <div class="btn-toolbar">
+        <button class="btn" type="button">Default</button>
+        <button class="btn btn-primary" type="button">Default primary</button>
+        <button class="btn btn-danger" type="button">Default danger</button>
+      </div>
+      <div class="btn-toolbar">
+        <button class="btn btn-large" type="button">Large</button>
+        <button class="btn btn-primary btn-large" type="button">Large primary</button>
+        <button class="btn btn-danger btn-large" type="button">Large danger</button>
+      </div>
+
+      <h2>With an icon</h2>
+      <div class="btn-toolbar">
+        <button class="btn" type="button">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg>
+          Restart
+        </button>
+        <button class="btn btn-primary" type="button">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 13V3"/><path d="M3.5 7.5 8 3l4.5 4.5"/></svg>
+          Deploy
+        </button>
+        <button class="btn btn-danger btn-small" type="button">
+          <svg width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+          Stop
+        </button>
+      </div>
+
+      <h2>Pressed</h2>
+      <p>Pressed buttons lose their gradient and sink. Use <code>.active</code>, or <code>aria-pressed="true"</code> on a toggle.</p>
+      <div class="btn-toolbar" id="buttons-pressed">
+        <button class="btn active" type="button">.active</button>
+        <button class="btn" type="button" aria-pressed="true">aria-pressed</button>
+        <button class="btn btn-primary" type="button" aria-pressed="true">Primary</button>
+        <button class="btn btn-danger" type="button" aria-pressed="true">Danger</button>
+      </div>
+
+      <h2>Disabled</h2>
+      <p>Use the <code>disabled</code> attribute on buttons and inputs. Links can&rsquo;t be disabled natively, so give them <code>.disabled</code> together with <code>aria-disabled="true"</code> and no <code>href</code>.</p>
+      <div class="btn-toolbar" id="buttons-disabled">
+        <button class="btn" id="btn-disabled" type="button" disabled>Disabled</button>
+        <button class="btn btn-primary" type="button" disabled>Primary</button>
+        <button class="btn btn-danger" type="button" disabled>Danger</button>
+        <a class="btn disabled" role="link" aria-disabled="true">Disabled link</a>
+        <button class="btn btn-small" type="button" aria-disabled="true">aria-disabled</button>
+        <input class="btn btn-large" type="submit" value="Disabled input" disabled>
+      </div>
+
+      <h2>Groups and toolbars</h2>
+      <p>A <code>.btn-group</code> joins buttons into one control. A <code>.btn-toolbar</code> lines up groups and loose buttons, and wraps when it runs out of room.</p>
+      <div class="btn-toolbar" id="group-demo">
+        <div class="btn-group" role="group" aria-label="Filter apps">
+          <button class="btn" type="button" aria-pressed="true">All</button>
+          <button class="btn" type="button">Running</button>
+          <button class="btn" type="button">Stopped</button>
+        </div>
+        <button class="btn btn-primary" type="button">Deploy an app</button>
+      </div>
+      <div class="row cols-3" data-spaced>
+        <div data-demo>
+          <div class="btn-toolbar" id="toolbar-wrapped">
+            <div class="btn-group" role="group" aria-label="Filter apps, narrow">
+              <button class="btn btn-small" type="button" aria-pressed="true">All</button>
+              <button class="btn btn-small" type="button">Running</button>
+              <button class="btn btn-small" type="button">Needs attention</button>
+            </div>
+            <div class="btn-group" role="group" aria-label="Bulk actions">
+              <button class="btn btn-small" type="button">Restart all</button>
+              <button class="btn btn-small" type="button">Stop all</button>
+            </div>
+            <div class="btn-group" role="group" aria-label="Deploy">
+              <button class="btn btn-small btn-primary" type="button">Deploy</button>
+              <button class="btn btn-small btn-primary" type="button">Roll back</button>
+            </div>
+          </div>
+        </div>
+        <div data-demo>
+          <div class="btn-toolbar">
+            <button class="btn" type="button">Deploy every app on hearth-01 to the newest version in its repository</button>
+          </div>
+        </div>
+        <div data-demo>
+          <div class="btn-toolbar">
+            <div class="btn-group" role="group" aria-label="Sizes">
+              <button class="btn btn-large" type="button">One</button>
+              <button class="btn btn-large" type="button">Two</button>
+            </div>
+            <div class="btn-group" role="group" aria-label="Danger zone">
+              <button class="btn btn-danger" type="button">Stop</button>
+              <button class="btn btn-danger" type="button" disabled>Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <pre><code>&lt;div class="btn-toolbar"&gt;
+  &lt;div class="btn-group" role="group" aria-label="Filter apps"&gt;
+    &lt;button class="btn" aria-pressed="true"&gt;All&lt;/button&gt;
+    &lt;button class="btn"&gt;Running&lt;/button&gt;
+    &lt;button class="btn"&gt;Stopped&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;button class="btn btn-primary"&gt;Deploy an app&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- Forms =========================================================== -->
+    <section class="section" id="forms">
+      <div class="page-header">
+        <h1>Forms <small>Stacked: label above field</small></h1>
+      </div>
+      <p>A bare field already looks right. <code>.control-group</code> spaces a label, field and help text; <code>.error</code> or <code>aria-invalid="true"</code> marks a problem.</p>
+
+      <form action="#forms" method="get">
+        <div class="row cols-2">
+          <div>
+            <h2>Fields</h2>
+            <div class="control-group" id="group-name">
+              <label for="f-name">Name</label>
+              <input id="f-name" type="text" placeholder="recipes" aria-describedby="f-name-help">
+              <p class="help-block" id="f-name-help">Lowercase letters, numbers and dashes.</p>
+            </div>
+            <div class="control-group">
+              <label for="f-email">Email for alerts</label>
+              <input id="f-email" type="email" value="me@example.com">
+            </div>
+            <div class="control-group">
+              <label for="f-password">Deploy key passphrase</label>
+              <input id="f-password" type="password" value="correct horse">
+            </div>
+            <div class="control-group">
+              <label for="f-search">Search</label>
+              <input id="f-search" type="search" placeholder="Filter apps">
+            </div>
+            <div class="control-group">
+              <label for="f-memory">Memory limit (MB)</label>
+              <input id="f-memory" type="number" value="256">
+            </div>
+            <div class="control-group">
+              <label for="f-url">Health check URL</label>
+              <input id="f-url" type="url" value="https://recipes.hearth.local/healthz">
+            </div>
+            <div class="control-group">
+              <label for="f-tel">Phone for pages</label>
+              <input id="f-tel" type="tel" value="+1 555 0100">
+            </div>
+            <div class="control-group">
+              <label for="f-date">Maintenance date</label>
+              <input id="f-date" type="date" value="2026-10-08">
+            </div>
+            <div class="control-group">
+              <label for="f-time">Maintenance time</label>
+              <input id="f-time" type="time" value="03:30">
+            </div>
+            <div class="control-group">
+              <label for="f-runtime">Runtime</label>
+              <select id="f-runtime">
+                <option>Go binary</option>
+                <option>Static site</option>
+                <option>Python</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="f-notes">Notes</label>
+              <textarea id="f-notes" placeholder="Anything future you should know"></textarea>
+            </div>
+            <div class="control-group">
+              <label for="f-source">Source (<code>.input-block</code>)</label>
+              <input id="f-source" class="input-block" type="text" value="git@github.com:you/recipes.git">
+            </div>
+          </div>
+
+          <div>
+            <h2>States</h2>
+            <div class="control-group error" id="group-port">
+              <label for="f-port">Port</label>
+              <input id="f-port" class="input-small" type="text" value="8081" aria-invalid="true" aria-describedby="f-port-help">
+              <p class="help-block" id="f-port-help">Taken by chess-trainer. Try 8086.</p>
+            </div>
+            <div class="control-group">
+              <label for="f-domain">Domain</label>
+              <input id="f-domain" type="text" value="recipes.hearth" aria-invalid="true" aria-describedby="f-domain-help">
+              <p class="help-block" id="f-domain-help">With <code>aria-invalid</code> alone, the field turns red; the label and help keep their color.</p>
+            </div>
+            <div class="control-group error">
+              <label for="f-branch">Branch</label>
+              <select id="f-branch" aria-describedby="f-branch-help">
+                <option>main</option>
+                <option>deploy</option>
+              </select>
+              <p class="help-block" id="f-branch-help">This branch has no commits yet.</p>
+            </div>
+            <div class="control-group">
+              <label for="f-host">Host</label>
+              <input id="f-host" type="text" value="hearth-01" disabled>
+            </div>
+            <div class="control-group">
+              <label for="f-region">Region</label>
+              <select id="f-region" disabled>
+                <option>Living room</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="f-id">App ID</label>
+              <input id="f-id" type="text" value="app_7f3a9c" readonly aria-describedby="f-id-help">
+              <p class="help-block" id="f-id-help">Read-only: you can select and copy it.</p>
+            </div>
+            <div class="control-group" id="group-checkboxes">
+              <label class="checkbox"><input id="f-boot" type="checkbox" checked> Start on boot</label>
+              <label class="checkbox"><input type="checkbox"> Restart automatically after a crash, waiting a little longer between each attempt so a broken app can&rsquo;t spin the fans up all night</label>
+              <label class="checkbox"><input type="checkbox" disabled> Back up hourly (needs more disk)</label>
+            </div>
+            <div class="control-group" role="radiogroup" aria-labelledby="f-logs-caption">
+              <p id="f-logs-caption">Keep logs for</p>
+              <label class="radio"><input type="radio" name="logs" value="7" checked> 7 days</label>
+              <label class="radio"><input type="radio" name="logs" value="30"> 30 days</label>
+              <label class="radio"><input type="radio" name="logs" value="0" disabled> Forever</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" type="button">Deploy</button>
+          <button class="btn" type="button">Cancel</button>
+        </div>
+      </form>
+
+      <pre><code>&lt;div class="control-group error"&gt;
+  &lt;label for="port"&gt;Port&lt;/label&gt;
+  &lt;input id="port" class="input-small" type="text" value="8081"
+         aria-invalid="true" aria-describedby="port-help"&gt;
+  &lt;p class="help-block" id="port-help"&gt;Taken by chess-trainer. Try 8086.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="form-actions"&gt;
+  &lt;button class="btn btn-primary"&gt;Deploy&lt;/button&gt;
+  &lt;button class="btn"&gt;Cancel&lt;/button&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- Tables ========================================================== -->
+    <section class="section" id="tables">
+      <div class="page-header">
+        <h1>Tables <small>One style, three modifiers</small></h1>
+      </div>
+
+      <h2>Default</h2>
+      <table class="table">
+        <thead>
+          <tr><th>App</th><th>Status</th><th class="text-right">Port</th><th>Note</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>chess-trainer</td><td><span class="label label-success">Running</span></td><td class="text-right">8081</td><td>Moved to the new opening book last week; the old one is still in the repository if anything breaks.</td></tr>
+          <tr><td>money</td><td><span class="label label-success">Running</span></td><td class="text-right">8082</td><td></td></tr>
+          <tr><td>notebook</td><td><span class="label label-warning">Deploying</span></td><td class="text-right">8083</td><td></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Striped and bordered</h2>
+      <p>Wrap a table in <code>.table-scroll</code> and it scrolls inside its own box on small screens instead of widening the page.</p>
+      <div class="table-scroll" id="table-striped-scroll" role="region" aria-label="Apps on hearth-01" tabindex="0">
+        <table class="table table-bordered table-striped" id="table-striped">
+          <thead>
+            <tr><th>#</th><th>App</th><th>Status</th><th class="text-right">Port</th><th>Version</th><th>Deployed</th><th>Actions</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1</td><td><a href="#tables">chess-trainer</a></td><td><span class="label label-success">Running</span></td><td class="text-right"><code>8081</code></td><td>v0.9.2</td><td>2 hours ago</td><td><button class="btn btn-small" type="button">Restart</button></td></tr>
+            <tr><td>2</td><td><a href="#tables">money</a></td><td><span class="label label-success">Running</span></td><td class="text-right"><code>8082</code></td><td>v1.4.0</td><td>yesterday</td><td><button class="btn btn-small" type="button">Restart</button></td></tr>
+            <tr><td>3</td><td><a href="#tables">notebook</a></td><td><span class="label label-warning">Deploying</span></td><td class="text-right"><code>8083</code></td><td>v0.3.1</td><td>just now</td><td><button class="btn btn-small" type="button" disabled>Restart</button></td></tr>
+            <tr><td>4</td><td><a href="#tables">feeds</a></td><td><span class="label">Stopped</span></td><td class="text-right"><code>8084</code></td><td>v2.0.0</td><td></td><td><button class="btn btn-small" type="button">Start</button></td></tr>
+            <tr><td>5</td><td><a href="#tables">eink-sync</a></td><td><span class="label label-important">Failed</span></td><td class="text-right"><code>8085</code></td><td>v0.1.0</td><td>3 days ago</td><td><button class="btn btn-small btn-danger" type="button">Retry</button></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Condensed</h2>
+      <table class="table table-condensed table-striped">
+        <thead>
+          <tr><th>Time</th><th>Event</th><th class="text-right">Duration</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>14:02</td><td>eink-sync exited with status 1</td><td class="text-right">0.4 s</td></tr>
+          <tr><td>12:10</td><td>chess-trainer deployed</td><td class="text-right">41.2 s</td></tr>
+          <tr><td>08:00</td><td>Backup finished</td><td class="text-right">6 m 12 s</td></tr>
+          <tr><td>03:30</td><td>Nightly restart</td><td class="text-right"></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Bordered, no header</h2>
+      <table class="table table-bordered table-condensed">
+        <tbody>
+          <tr><th scope="row">Host</th><td>hearth-01</td></tr>
+          <tr><th scope="row">Uptime</th><td>18 days, 4 hours</td></tr>
+          <tr><th scope="row">Disk</th><td>118 of 192 GB used</td></tr>
+          <tr><th scope="row">Kernel</th><td></td></tr>
+        </tbody>
+      </table>
+
+      <h2>Wide</h2>
+      <div class="table-scroll" role="region" aria-label="Resource use by app" tabindex="0">
+        <table class="table table-bordered">
+          <thead>
+            <tr><th>App</th><th class="text-right">CPU</th><th class="text-right">Memory</th><th class="text-right">Disk</th><th class="text-right">Requests / day</th><th class="text-right">Errors / day</th><th>Repository</th><th>Last log line</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>chess-trainer</td><td class="text-right">1.2%</td><td class="text-right">48 MB</td><td class="text-right">210 MB</td><td class="text-right">1,204</td><td class="text-right">0</td><td>github.com/you/chess-trainer</td><td>served /puzzles/daily in 12ms</td></tr>
+            <tr><td>money</td><td class="text-right">0.3%</td><td class="text-right">31 MB</td><td class="text-right">1.4 GB</td><td class="text-right">88</td><td class="text-right">2</td><td>github.com/you/money</td><td>imported 14 transactions from the October statement</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <pre><code>&lt;div class="table-scroll"&gt;
+  &lt;table class="table table-bordered table-striped"&gt;
+    &lt;thead&gt;&lt;tr&gt;&lt;th&gt;App&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th class="text-right"&gt;Port&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;&lt;td&gt;chess-trainer&lt;/td&gt;&lt;td&gt;&lt;span class="label label-success"&gt;Running&lt;/span&gt;&lt;/td&gt;&lt;td class="text-right"&gt;8081&lt;/td&gt;&lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- Alerts ========================================================== -->
+    <section class="section" id="alerts">
+      <div class="page-header">
+        <h1>Alerts <small>Feedback in four tints</small></h1>
+      </div>
+      <p>Use <code>role="alert"</code> for errors that need attention now and <code>role="status"</code> for everything else.</p>
+
+      <div class="alert" role="status"><strong>Disk:</strong> over 60% full. This is the default warning alert.</div>
+      <div class="alert alert-error" role="alert"><strong>Failed.</strong> eink-sync exited with status 1.</div>
+      <div class="alert alert-success" role="status"><strong>Deployed.</strong> chess-trainer v0.9.2 went live 2 hours ago.</div>
+      <div class="alert alert-info" role="status"><strong>Heads up!</strong> notebook is deploying.</div>
+
+      <div class="alert alert-error alert-block" role="alert">
+        <h4 class="alert-heading">eink-sync stopped responding</h4>
+        <p>It exited with status 1 three days ago and hasn&rsquo;t restarted.</p>
+        <p>The last log line says it couldn&rsquo;t open its frame buffer, which usually means the state folder was cleaned up while the app was running. Restoring the folder from last night&rsquo;s backup and retrying is safe.</p>
+        <p>
+          <button class="btn btn-small btn-danger" type="button">Retry eink-sync</button>
+          <button class="btn btn-small" type="button">View logs</button>
+        </p>
+      </div>
+      <div class="alert alert-block" role="status">
+        <h4 class="alert-heading">Backups are running late</h4>
+        <p>The nightly backup took 41 minutes, up from 6. Something large may have landed in a data folder.</p>
+      </div>
+
+      <pre><code>&lt;div class="alert alert-error alert-block" role="alert"&gt;
+  &lt;h4 class="alert-heading"&gt;eink-sync stopped responding&lt;/h4&gt;
+  &lt;p&gt;It exited with status 1 three days ago.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class="alert alert-info" role="status"&gt;&lt;strong&gt;Heads up!&lt;/strong&gt; notebook is deploying.&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- Labels and badges =============================================== -->
+    <section class="section" id="labels">
+      <div class="page-header">
+        <h1>Labels and badges <small>Status words and counts</small></h1>
+      </div>
+      <p>Labels carry a word and badges carry a number; the color only reinforces it.</p>
+
+      <table class="table">
+        <thead>
+          <tr><th>Variant</th><th>Label</th><th>Badge</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Default</td><td><span class="label">Stopped</span></td><td><span class="badge">1</span></td></tr>
+          <tr><td>Success</td><td><span class="label label-success">Running</span></td><td><span class="badge badge-success">2</span></td></tr>
+          <tr><td>Warning</td><td><span class="label label-warning">Deploying</span></td><td><span class="badge badge-warning">4</span></td></tr>
+          <tr><td>Important</td><td><span class="label label-important">Failed</span></td><td><span class="badge badge-important">6</span></td></tr>
+          <tr><td>Info</td><td><span class="label label-info">Scheduled</span></td><td><span class="badge badge-info">8</span></td></tr>
+          <tr><td>Inverse</td><td><span class="label label-inverse">Archived</span></td><td><span class="badge badge-inverse">10</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3>Backups <span class="badge badge-info">7</span></h3>
+      <p><span class="label label-success">OK</span> The last backup finished 6 hours ago. <span class="badge badge-important">128</span> files changed since.</p>
+
+      <pre><code>&lt;span class="label label-success"&gt;Running&lt;/span&gt;
+&lt;span class="badge badge-important"&gt;2&lt;/span&gt;</code></pre>
+    </section>
+
+    <!-- Utilities ======================================================= -->
+    <section class="section" id="utilities">
+      <div class="page-header">
+        <h1>Utilities <small>A handful, no more</small></h1>
+      </div>
+      <p class="muted"><code>.muted</code> sets text in the muted grey, for asides and timestamps. Use it on white only.</p>
+      <p class="text-right"><code>.text-right</code> aligns to the end of the line, for numbers and trailing actions.</p>
+      <p><code>.table-scroll</code> wraps a wide table; see <a href="#tables">Tables</a>.</p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">bevel.css 0.1.0. Styles after Bootstrap 2.0 by @mdo and @fat. MIT licensed.</p>
+  </footer>
+</body>
+</html>

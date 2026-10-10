@@ -1,0 +1,16 @@
+{
+  "name": "bevel-css",
+  "private": true,
+  "description": "Test tooling for bevel.css. The library itself is the one file bevel.css and needs none of this.",
+  "type": "module",
+  "scripts": {
+    "lint": "stylelint bevel.css",
+    "test:browser": "playwright test"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.13.0",
+    "@playwright/test": "1.64.0",
+    "stylelint": "17.16.0",
+    "stylelint-plugin-use-baseline": "1.4.7"
+  }
+}

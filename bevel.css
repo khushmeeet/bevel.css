@@ -1,0 +1,1024 @@
+/*
+ * bevel.css
+ *
+ * Bootstrap 2.0's look, built only on CSS that has been in every major
+ * browser for at least 30 months. One file, no build step, no JavaScript.
+ *
+ * Everything sits in the five bevel.* layers below. Write your app's own CSS
+ * outside any layer and it overrides the library without !important or
+ * specificity tricks.
+ *
+ * Selectors stay at or under one class plus one state (0,2,0). Element and
+ * structural parts of a selector go inside :where() so they add nothing.
+ *
+ * Reference: reference.html shows every class, variant and state.
+ */
+
+@layer bevel.reset, bevel.base, bevel.layout, bevel.components, bevel.utilities;
+
+
+/* ==========================================================================
+   Reset
+   ========================================================================== */
+
+@layer bevel.reset {
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dd) {
+    margin: 0;
+  }
+}
+
+
+/* ==========================================================================
+   Tokens
+   Override any of these in your app's own (unlayered) :root rule.
+   ========================================================================== */
+
+@layer bevel.base {
+  :where(:root) {
+    /* Neutrals */
+    --bv-color-text: #333333;
+    --bv-color-muted: #767676;
+    --bv-color-input-text: #555555;
+    --bv-color-surface: #FFFFFF;
+    --bv-color-surface-alt: #F5F5F5;
+    --bv-color-stripe: #F9F9F9;
+    --bv-color-border: #DDDDDD;
+    --bv-color-border-soft: #EEEEEE;
+    --bv-color-border-strong: #CCCCCC;
+    --bv-color-border-bottom: #BBBBBB;
+
+    /* Action and focus */
+    --bv-color-link: #0077B3;
+    --bv-color-link-hover: #005580;
+    --bv-color-primary-top: #0088CC;
+    --bv-color-primary-bottom: #0055CC;
+    --bv-color-primary: #0074CC;
+    --bv-color-primary-active: #004099;
+    --bv-color-danger-top: #E0524E;
+    --bv-color-danger-bottom: #BD362F;
+    --bv-color-danger: #CF443E;
+    --bv-color-danger-active: #942A25;
+    --bv-color-focus: rgba(82, 168, 236, 0.8);
+    --bv-color-focus-glow: rgba(82, 168, 236, 0.6);
+
+    /* Navbar */
+    --bv-color-navbar-top: #333333;
+    --bv-color-navbar-bottom: #222222;
+    --bv-color-navbar: #2C2C2C;
+    --bv-color-navbar-link: #999999;
+    --bv-color-navbar-link-active: #FFFFFF;
+    --bv-color-brand: #FFFFFF;
+
+    /* Status: labels and badges, under white text */
+    --bv-color-label: #767676;
+    --bv-color-success: #3F7D40;
+    --bv-color-warning: #A86200;
+    --bv-color-important: #B94A48;
+    --bv-color-info: #31769A;
+    --bv-color-inverse: #333333;
+
+    /* Alerts */
+    --bv-alert-warning-bg: #FCF8E3;
+    --bv-alert-warning-border: #FBEED5;
+    --bv-alert-warning-text: #8A6D3B;
+    --bv-alert-error-bg: #F2DEDE;
+    --bv-alert-error-border: #EED3D7;
+    --bv-alert-error-text: #A94442;
+    --bv-alert-success-bg: #DFF0D8;
+    --bv-alert-success-border: #D6E9C6;
+    --bv-alert-success-text: #3C763D;
+    --bv-alert-info-bg: #D9EDF7;
+    --bv-alert-info-border: #BCE8F1;
+    --bv-alert-info-text: #31708F;
+
+    /* Form errors and code */
+    --bv-color-error: #B94A48;
+    --bv-color-error-border: #EE5F5B;
+    --bv-color-error-focus: #E9322D;
+    --bv-color-error-glow: #F8B9B7;
+    --bv-color-code-text: #DD1144;
+    --bv-color-code-bg: #F7F7F9;
+    --bv-color-code-border: #E1E1E8;
+
+    /* Type: 13px on an 18px line */
+    --bv-font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --bv-font-mono: Menlo, Monaco, Consolas, "Courier New", monospace;
+    --bv-font-size: 0.8125rem;
+    --bv-line-height: 1.125rem;
+
+    /* Spacing */
+    --bv-space-1: 0.25rem;    /* 4px */
+    --bv-space-2: 0.3125rem;  /* 5px */
+    --bv-space-3: 0.5625rem;  /* 9px, half rhythm */
+    --bv-space-4: 0.875rem;   /* 14px */
+    --bv-space-5: 1.125rem;   /* 18px, one rhythm line */
+    --bv-space-6: 1.25rem;    /* 20px, gutter */
+    --bv-space-8: 3.75rem;    /* 60px, above each page section */
+    /* --bv-space-7 (36px) arrives with the masthead in v0.2. */
+
+    /* Radius */
+    --bv-radius-sm: 3px;
+    --bv-radius: 4px;
+    --bv-radius-lg: 5px;
+    --bv-radius-pill: 9px;
+    /* --bv-radius-xl (6px) arrives with menus and modals in v0.2. */
+
+    /* Shadows: light comes from above */
+    --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+    --bv-shadow-button-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+    --bv-shadow-field: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    --bv-shadow-field-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px var(--bv-color-focus-glow);
+    --bv-shadow-field-error-focus: 0 0 6px var(--bv-color-error-glow);
+    --bv-shadow-navbar: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+
+    /* Text emboss */
+    --bv-emboss-light: 0 1px 1px rgba(255, 255, 255, 0.75);
+    --bv-emboss-soft: 0 1px 0 rgba(255, 255, 255, 0.5);
+    --bv-emboss-dark: 0 -1px 0 rgba(0, 0, 0, 0.25);
+
+    /* Motion: color, background and shadow only */
+    --bv-duration-fast: 100ms;
+    --bv-duration: 150ms;
+    --bv-duration-slow: 200ms;
+    --bv-ease: linear;
+  }
+}
+
+
+/* ==========================================================================
+   Base: text
+   ========================================================================== */
+
+@layer bevel.base {
+  :where(body) {
+    margin: 0;
+    font-family: var(--bv-font-sans);
+    font-size: var(--bv-font-size);
+    line-height: var(--bv-line-height);
+    color: var(--bv-color-text);
+    background-color: var(--bv-color-surface);
+  }
+
+  :where(p) {
+    margin-block: 0 var(--bv-space-3);
+  }
+
+  :where(a) {
+    color: var(--bv-color-link);
+    text-decoration: none;
+    text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+    transition: color var(--bv-duration) var(--bv-ease);
+  }
+
+  :where(a:hover) {
+    color: var(--bv-color-link-hover);
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+  }
+
+  /* Links inside running text keep a faint underline, so they don't rely on
+     color alone: the link blue is under 3:1 against body text (WCAG 1.4.1). */
+  :where(p, li, dd) :where(a) {
+    text-decoration-line: underline;
+  }
+
+  /* One focus ring for everything that can take focus. Components that need
+     it inside their own box change only the offset. */
+  :where(:focus-visible) {
+    outline: 2px solid var(--bv-color-focus);
+    outline-offset: 1px;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6) {
+    font-weight: 700;
+    color: var(--bv-color-text);
+    text-rendering: optimizeLegibility;
+  }
+
+  :where(h1) { font-size: 1.875rem; line-height: 2.25rem; }
+  :where(h2) { font-size: 1.5rem; line-height: 2.25rem; }
+  :where(h3) { font-size: 1.125rem; line-height: 1.6875rem; }
+  :where(h4) { font-size: 0.875rem; line-height: 1.125rem; }
+  :where(h5) { font-size: 0.75rem; line-height: 1.125rem; }
+
+  :where(h6) {
+    font-size: 0.6875rem;
+    line-height: 1.125rem;
+    color: var(--bv-color-muted);
+    text-transform: uppercase;
+  }
+
+  :where(h1 small, h2 small, h3 small) {
+    font-size: 1.125rem;
+    font-weight: 400;
+    color: var(--bv-color-muted);
+  }
+
+  :where(h3 small) {
+    font-size: 0.875rem;
+  }
+
+  /* 2.0 asked for 200, which today maps to the hairline Thin cut. */
+  :where(.lead) {
+    margin-block-end: var(--bv-space-5);
+    font-size: 1.25rem;
+    font-weight: 300;
+    line-height: 1.6875rem;
+  }
+
+  :where(strong, b) {
+    font-weight: 700;
+  }
+
+  /* Outside headings, small keeps the surrounding size, as in 2.0. */
+  :where(small) {
+    font-size: 100%;
+  }
+
+  :where(code, pre) {
+    font-family: var(--bv-font-mono);
+  }
+
+  /* line-height 1 keeps a line with inline code at 18px. At the inherited
+     18px, the mono font's taller metrics stretch it to 18.5px in Firefox and
+     WebKit. Inside pre, the pre's own line height still sets each line. */
+  :where(code) {
+    padding: 0.125rem 0.25rem;
+    font-size: 0.75rem;
+    line-height: 1;
+    color: var(--bv-color-code-text);
+    background-color: var(--bv-color-code-bg);
+    border: 1px solid var(--bv-color-code-border);
+    border-radius: var(--bv-radius-sm);
+  }
+
+  :where(pre) {
+    display: block;
+    padding: 0.5rem;
+    margin-block: 0 var(--bv-space-3);
+    font-size: 0.75rem;
+    line-height: var(--bv-line-height);
+    color: var(--bv-color-text);
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    background-color: var(--bv-color-surface-alt);
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: var(--bv-radius);
+  }
+
+  :where(pre code) {
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    background-color: transparent;
+    border: 0;
+  }
+
+  /* 2.0's etched line: a soft rule over a white one. */
+  :where(hr) {
+    margin-block: var(--bv-space-5);
+    margin-inline: 0;
+    border: 0;
+    border-block-start: 1px solid var(--bv-color-border-soft);
+    border-block-end: 1px solid var(--bv-color-surface);
+  }
+}
+
+
+/* ==========================================================================
+   Base: form controls
+   A bare field already looks right; classes add grouping, help and errors.
+   ========================================================================== */
+
+@layer bevel.base {
+  :where(label) {
+    display: block;
+    margin-block-end: var(--bv-space-2);
+    font-size: var(--bv-font-size);
+    font-weight: 400;
+    line-height: var(--bv-line-height);
+    color: var(--bv-color-text);
+  }
+
+  :where(
+    input:not([type]),
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="search"],
+    input[type="number"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea
+  ) {
+    display: block;
+    width: 100%;
+    max-width: 17.5rem;
+    height: 1.75rem;
+    padding: 0.25rem 0.375rem;
+    margin: 0;
+    font-family: inherit;
+    font-size: var(--bv-font-size);
+    line-height: var(--bv-line-height);
+    color: var(--bv-color-input-text);
+    background-color: var(--bv-color-surface);
+    border: 1px solid var(--bv-color-border-strong);
+    border-radius: var(--bv-radius-sm);
+    box-shadow: var(--bv-shadow-field);
+    transition:
+      border-color var(--bv-duration-slow) var(--bv-ease),
+      box-shadow var(--bv-duration-slow) var(--bv-ease);
+  }
+
+  /* The native arrow stays. */
+  :where(select) {
+    padding-block: 0.1875rem;
+  }
+
+  :where(textarea) {
+    height: auto;
+    min-height: 5.125rem;
+  }
+
+  /* Not yet Widely available; browsers without it keep their own resizing. */
+  @supports (resize: vertical) {
+    :where(textarea) {
+      resize: vertical;
+    }
+  }
+
+  :where(input, textarea)::placeholder {
+    color: var(--bv-color-muted);
+    opacity: 1;
+  }
+
+  :where(input, select, textarea):where(:disabled, [readonly]) {
+    background-color: var(--bv-color-surface-alt);
+    border-color: var(--bv-color-border);
+  }
+
+  :where(input, select, textarea):where(:disabled) {
+    cursor: not-allowed;
+  }
+
+  /* Text fields only, so checkboxes and submit inputs keep the focus ring.
+     The border and glow replace the outline; a transparent outline still
+     shows in forced-colors mode, where shadows are dropped. */
+  :where(
+    input:not([type]),
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="search"],
+    input[type="number"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea
+  ):where(:focus) {
+    border-color: var(--bv-color-focus);
+    outline: 2px solid transparent;
+    outline-offset: 0;
+    box-shadow: var(--bv-shadow-field-focus);
+  }
+
+  /* Not yet Widely available; browsers without it keep their native tint. */
+  @supports (accent-color: auto) {
+    :where(input[type="checkbox"], input[type="radio"]) {
+      accent-color: var(--bv-color-link);
+    }
+  }
+}
+
+
+/* ==========================================================================
+   Layout
+   ========================================================================== */
+
+@layer bevel.layout {
+  /* Max width is the content width plus 20px of padding each side. */
+  .container {
+    margin-inline: auto;
+    padding-inline: var(--bv-space-6);
+  }
+
+  @media (width >= 768px) {
+    .container { max-width: 764px; }
+  }
+
+  @media (width >= 980px) {
+    .container { max-width: 980px; }
+  }
+
+  @media (width >= 1200px) {
+    .container { max-width: 1210px; }
+  }
+
+  /* Equal columns, as many as fit at 220px or wider. */
+  .row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: var(--bv-space-5) var(--bv-space-6);
+  }
+
+  /* Fixed counts from 768px up; one column below. At the 940px container
+     these give 2.0's span6, span4 and span3 widths. */
+  .cols-2,
+  .cols-3,
+  .cols-4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @media (width >= 768px) {
+    .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  }
+
+  .section {
+    padding-block-start: var(--bv-space-8);
+  }
+
+  .section:first-child {
+    padding-block-start: var(--bv-space-5);
+  }
+
+  .page-header {
+    padding-block-end: 1.0625rem;
+    margin-block: var(--bv-space-5);
+    border-block-end: 1px solid var(--bv-color-border-soft);
+  }
+
+  .page-header :where(h1) {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+}
+
+
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
+
+@layer bevel.components {
+  .navbar-inner {
+    min-height: 2.5rem;
+    background-color: var(--bv-color-navbar);
+    background-image: linear-gradient(var(--bv-color-navbar-top), var(--bv-color-navbar-bottom));
+    background-repeat: no-repeat;
+    box-shadow: var(--bv-shadow-navbar);
+  }
+
+  /* Stays at the top while the page scrolls under it, as in the 2.0 docs.
+     Below 768px the links wrap onto more rows, so the bar scrolls away
+     instead of covering the top of a small screen. */
+  @media (width >= 768px) {
+    .navbar-sticky {
+      position: sticky;
+      inset-block-start: 0;
+      z-index: 1030;
+    }
+
+    /* Anchor jumps and keyboard focus stop below the bar, never under it
+       (WCAG 2.4.11). */
+    :where(html:has(.navbar-sticky)) {
+      scroll-padding-block-start: calc(2.5rem + var(--bv-space-5));
+    }
+  }
+
+  .navbar .container {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: stretch;
+  }
+
+  .nav {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .nav > :where(a) {
+    display: block;
+    padding: 0.625rem 0.625rem 0.6875rem;
+    font-size: var(--bv-font-size);
+    line-height: 1.1875rem;
+    color: var(--bv-color-navbar-link);
+    text-decoration: none;
+    text-shadow: var(--bv-emboss-dark);
+    transition: color var(--bv-duration) var(--bv-ease);
+  }
+
+  .nav > :where(a):hover {
+    color: var(--bv-color-navbar-link-active);
+  }
+
+  .nav > :where(a):is(.active, [aria-current="page"]) {
+    color: var(--bv-color-navbar-link-active);
+    background-color: var(--bv-color-navbar-bottom);
+  }
+
+  /* Keep the ring inside the bar. */
+  .nav > :where(a):focus-visible {
+    outline-offset: -2px;
+  }
+
+  /* 1px of shadow and 1px of highlight; hidden once links start to wrap. */
+  .divider-vertical {
+    display: none;
+    box-sizing: content-box;
+    width: 1px;
+    margin-inline: var(--bv-space-3);
+    background-color: var(--bv-color-navbar-bottom);
+    border-inline-end: 1px solid var(--bv-color-navbar-top);
+  }
+
+  @media (width >= 768px) {
+    .divider-vertical { display: block; }
+  }
+
+  .brand {
+    display: block;
+    margin-inline-start: auto;
+    padding: 0.5rem 0 0.625rem 1.25rem;
+    font-size: 1.25rem;
+    font-weight: 200;
+    line-height: 1.375rem;
+    color: var(--bv-color-brand);
+    text-decoration: none;
+    text-shadow: var(--bv-emboss-dark);
+  }
+}
+
+
+/* ==========================================================================
+   Buttons
+   Variants and sizes only reassign the --bv-btn-* variables.
+   ========================================================================== */
+
+@layer bevel.components {
+  .btn {
+    --bv-btn-color: var(--bv-color-text);
+    --bv-btn-emboss: var(--bv-emboss-light);
+    --bv-btn-gradient: linear-gradient(#FFFFFF, #FFFFFF 25%, #E6E6E6);
+    --bv-btn-bg: #FAFAFA;
+    --bv-btn-bg-hover: #E6E6E6;
+    --bv-btn-bg-active: #E6E6E6;
+    --bv-btn-border: var(--bv-color-border-strong);
+    --bv-btn-border-bottom: var(--bv-color-border-bottom);
+    --bv-btn-padding: 0.25rem 0.625rem;
+    --bv-btn-font-size: var(--bv-font-size);
+    --bv-btn-line-height: var(--bv-line-height);
+    --bv-btn-radius: var(--bv-radius);
+
+    display: inline-flex;
+    gap: var(--bv-space-2);
+    align-items: center;
+    justify-content: center;
+    padding: var(--bv-btn-padding);
+    margin: 0;
+    font-family: inherit;
+    font-size: var(--bv-btn-font-size);
+    font-weight: 400;
+    line-height: var(--bv-btn-line-height);
+    color: var(--bv-btn-color);
+    text-align: center;
+    text-decoration: none;
+    text-shadow: var(--bv-btn-emboss);
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: var(--bv-btn-bg);
+    background-image: var(--bv-btn-gradient);
+    background-repeat: no-repeat;
+    border: 1px solid var(--bv-btn-border);
+    border-block-end-color: var(--bv-btn-border-bottom);
+    border-radius: var(--bv-btn-radius);
+    box-shadow: var(--bv-shadow-button);
+    /* Leaving hover: slide the gradient back down, and keep the hover fill
+       under it until the gradient covers it again. Swapping the fill at once
+       would show the rest fill as a strip along the bottom, wiping from top
+       to bottom. */
+    transition:
+      background-position var(--bv-duration-fast) var(--bv-ease),
+      background-color 0s var(--bv-duration-fast);
+  }
+
+  /* Slide the gradient up to show the hover fill along the bottom. The fill
+     changes at once: it matches the gradient's last stop, so the slide is
+     seamless. */
+  .btn:hover {
+    background-color: var(--bv-btn-bg-hover);
+    background-position: 0 -15px;
+    transition: background-position var(--bv-duration-fast) var(--bv-ease);
+  }
+
+  .btn:is(:active, .active, [aria-pressed="true"]) {
+    background-color: var(--bv-btn-bg-active);
+    background-image: none;
+    box-shadow: var(--bv-shadow-button-pressed);
+  }
+
+  /* Last, so a disabled button never shows hover or press. */
+  .btn:is(:disabled, .disabled, [aria-disabled="true"]) {
+    cursor: not-allowed;
+    background-color: var(--bv-btn-bg);
+    background-image: none;
+    box-shadow: none;
+    opacity: 0.65;
+  }
+
+  .btn-primary,
+  .btn-danger {
+    --bv-btn-color: #FFFFFF;
+    --bv-btn-emboss: var(--bv-emboss-dark);
+    --bv-btn-border: rgba(0, 0, 0, 0.1);
+    --bv-btn-border-bottom: rgba(0, 0, 0, 0.25);
+  }
+
+  .btn-primary {
+    --bv-btn-gradient: linear-gradient(var(--bv-color-primary-top), var(--bv-color-primary-bottom));
+    --bv-btn-bg: var(--bv-color-primary);
+    --bv-btn-bg-hover: var(--bv-color-primary-bottom);
+    --bv-btn-bg-active: var(--bv-color-primary-active);
+  }
+
+  .btn-danger {
+    --bv-btn-gradient: linear-gradient(var(--bv-color-danger-top), var(--bv-color-danger-bottom));
+    --bv-btn-bg: var(--bv-color-danger);
+    --bv-btn-bg-hover: var(--bv-color-danger-bottom);
+    --bv-btn-bg-active: var(--bv-color-danger-active);
+  }
+
+  /* Both sizes keep the 28px default height; large is 40px. */
+  .btn-small {
+    --bv-btn-padding: 0.3125rem 0.5625rem;
+    --bv-btn-font-size: 0.6875rem;
+    --bv-btn-line-height: 1rem;
+  }
+
+  .btn-large {
+    --bv-btn-padding: 0.5625rem 0.875rem;
+    --bv-btn-font-size: 0.9375rem;
+    --bv-btn-line-height: 1.25rem;
+    --bv-btn-radius: var(--bv-radius-lg);
+  }
+
+  .btn-group {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+
+  .btn-group > :where(.btn + .btn) {
+    margin-inline-start: -1px;
+  }
+
+  .btn-group > :where(.btn:not(:first-child)) {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  .btn-group > :where(.btn:not(:last-child)) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
+  /* Lift the hovered or focused button so its whole border shows. */
+  .btn-group > :where(.btn):is(:hover, :focus-visible) {
+    z-index: 1;
+  }
+
+  .btn-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.625rem;
+    align-items: center;
+    margin-block-end: var(--bv-space-5);
+  }
+}
+
+
+/* ==========================================================================
+   Forms
+   ========================================================================== */
+
+@layer bevel.components {
+  .control-group {
+    margin-block-end: var(--bv-space-5);
+  }
+
+  .help-block {
+    display: block;
+    margin-block: var(--bv-space-2) 0;
+    font-size: var(--bv-font-size);
+    line-height: var(--bv-line-height);
+    color: var(--bv-color-muted);
+  }
+
+  .input-block {
+    max-width: none;
+  }
+
+  .input-small {
+    max-width: 5.625rem;
+  }
+
+  .checkbox,
+  .radio {
+    display: flex;
+    gap: 0.375rem;
+    align-items: flex-start;
+    width: fit-content;
+    max-width: 100%;
+    margin-block: 0;
+  }
+
+  /* 6px, not 2.0's 5px, so stacked controls sit 24px apart (WCAG 2.5.8). */
+  :is(.checkbox, .radio) + :is(.checkbox, .radio) {
+    margin-block-start: 0.375rem;
+  }
+
+  /* Centre the 13px control on the first 18px line of text. */
+  .checkbox > :where(input),
+  .radio > :where(input) {
+    flex-shrink: 0;
+    margin: calc((var(--bv-line-height) - 13px) / 2) 0 0;
+  }
+
+  .control-group.error :where(label, .help-block) {
+    color: var(--bv-color-error);
+  }
+
+  .control-group.error :where(input:not(.btn), select, textarea),
+  :where(input, select, textarea)[aria-invalid="true"] {
+    color: var(--bv-color-error);
+    border-color: var(--bv-color-error-border);
+  }
+
+  .control-group.error :where(input:not(.btn):focus, select:focus, textarea:focus),
+  :where(input, select, textarea)[aria-invalid="true"]:focus {
+    border-color: var(--bv-color-error-focus);
+    box-shadow: var(--bv-shadow-field-error-focus);
+  }
+
+  .form-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--bv-space-2);
+    align-items: center;
+    padding: 1.0625rem 1.25rem 1.125rem;
+    margin-block: var(--bv-space-5);
+    background-color: var(--bv-color-surface-alt);
+    border-block-start: 1px solid var(--bv-color-border);
+  }
+}
+
+
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+
+@layer bevel.components {
+  .table {
+    --bv-table-cell-padding: 0.5rem;
+
+    width: 100%;
+    margin-block-end: var(--bv-space-5);
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  .table :where(th, td) {
+    padding: var(--bv-table-cell-padding);
+    font-size: var(--bv-font-size);
+    font-variant-numeric: tabular-nums;
+    line-height: var(--bv-line-height);
+    text-align: start;
+    vertical-align: middle;
+    border-block-start: 1px solid var(--bv-color-border);
+  }
+
+  .table :where(th) {
+    font-weight: 700;
+  }
+
+  .table :where(thead th) {
+    vertical-align: bottom;
+  }
+
+  /* The table's first row has no rule above it. */
+  .table :where(thead, tbody:first-child, caption + tbody) > :where(tr:first-child) > :where(th, td) {
+    border-block-start: 0;
+  }
+
+  .table :where(tbody th, tbody td) {
+    transition: background-color var(--bv-duration-fast) var(--bv-ease);
+  }
+
+  .table-striped :where(tbody > tr:nth-child(odd)) > :where(th, td) {
+    background-color: var(--bv-color-stripe);
+  }
+
+  /* Higher than the stripe, so hover always wins. */
+  .table :where(tbody > tr):hover > :where(th, td) {
+    background-color: var(--bv-color-surface-alt);
+  }
+
+  .table-bordered {
+    border: 1px solid var(--bv-color-border);
+    border-radius: var(--bv-radius);
+  }
+
+  .table-bordered :where(th, td) + :where(th, td) {
+    border-inline-start: 1px solid var(--bv-color-border);
+  }
+
+  /* Round the corner cells too, so stripes and hover stay inside the edge. */
+  .table-bordered :where(thead, tbody:first-child, caption + tbody) > :where(tr:first-child) > :where(:first-child) {
+    border-start-start-radius: calc(var(--bv-radius) - 1px);
+  }
+
+  .table-bordered :where(thead, tbody:first-child, caption + tbody) > :where(tr:first-child) > :where(:last-child) {
+    border-start-end-radius: calc(var(--bv-radius) - 1px);
+  }
+
+  .table-bordered :where(tbody:last-child, tfoot:last-child) > :where(tr:last-child) > :where(:first-child) {
+    border-end-start-radius: calc(var(--bv-radius) - 1px);
+  }
+
+  .table-bordered :where(tbody:last-child, tfoot:last-child) > :where(tr:last-child) > :where(:last-child) {
+    border-end-end-radius: calc(var(--bv-radius) - 1px);
+  }
+
+  .table-condensed {
+    --bv-table-cell-padding: 0.25rem 0.3125rem;
+  }
+}
+
+
+/* ==========================================================================
+   Alerts
+   Variants only reassign the --bv-alert-* variables.
+   ========================================================================== */
+
+@layer bevel.components {
+  /* The 35px end padding leaves room for a close button later. */
+  .alert {
+    --bv-alert-bg: var(--bv-alert-warning-bg);
+    --bv-alert-border: var(--bv-alert-warning-border);
+    --bv-alert-text: var(--bv-alert-warning-text);
+
+    padding-block: 0.5rem;
+    padding-inline: var(--bv-space-4) 2.1875rem;
+    margin-block-end: var(--bv-space-5);
+    font-size: var(--bv-font-size);
+    line-height: var(--bv-line-height);
+    color: var(--bv-alert-text);
+    text-shadow: var(--bv-emboss-soft);
+    background-color: var(--bv-alert-bg);
+    border: 1px solid var(--bv-alert-border);
+    border-radius: var(--bv-radius);
+  }
+
+  .alert-error {
+    --bv-alert-bg: var(--bv-alert-error-bg);
+    --bv-alert-border: var(--bv-alert-error-border);
+    --bv-alert-text: var(--bv-alert-error-text);
+  }
+
+  .alert-success {
+    --bv-alert-bg: var(--bv-alert-success-bg);
+    --bv-alert-border: var(--bv-alert-success-border);
+    --bv-alert-text: var(--bv-alert-success-text);
+  }
+
+  .alert-info {
+    --bv-alert-bg: var(--bv-alert-info-bg);
+    --bv-alert-border: var(--bv-alert-info-border);
+    --bv-alert-text: var(--bv-alert-info-text);
+  }
+
+  .alert-block {
+    padding-block: var(--bv-space-4);
+  }
+
+  .alert-block :where(p) {
+    margin: 0;
+  }
+
+  .alert-block :where(p + p) {
+    margin-block-start: var(--bv-space-3);
+  }
+
+  .alert-heading {
+    margin-block-end: var(--bv-space-1);
+    color: inherit;
+  }
+
+  /* Running text, as in base: see the note on links there. Comes after
+     .btn, so it skips link buttons. */
+  .alert :where(a:not(.btn)) {
+    text-decoration-line: underline;
+  }
+}
+
+
+/* ==========================================================================
+   Labels and badges
+   Badges share the label's --bv-label-bg, so one variant class covers both.
+   ========================================================================== */
+
+@layer bevel.components {
+  .label,
+  .badge {
+    --bv-label-bg: var(--bv-color-label);
+
+    display: inline-block;
+    padding: 0.0625rem 0.25rem 0.125rem;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    line-height: 0.8125rem;
+    color: #FFFFFF;
+    text-shadow: var(--bv-emboss-dark);
+    white-space: nowrap;
+    vertical-align: middle;
+    background-color: var(--bv-label-bg);
+    border-radius: var(--bv-radius-sm);
+  }
+
+  .badge {
+    padding: 0.0625rem 0.5625rem 0.125rem;
+    font-size: 0.75rem;
+    line-height: 0.875rem;
+    border-radius: var(--bv-radius-pill);
+  }
+
+  .label-success,
+  .badge-success {
+    --bv-label-bg: var(--bv-color-success);
+  }
+
+  .label-warning,
+  .badge-warning {
+    --bv-label-bg: var(--bv-color-warning);
+  }
+
+  .label-important,
+  .badge-important {
+    --bv-label-bg: var(--bv-color-important);
+  }
+
+  .label-info,
+  .badge-info {
+    --bv-label-bg: var(--bv-color-info);
+  }
+
+  .label-inverse,
+  .badge-inverse {
+    --bv-label-bg: var(--bv-color-inverse);
+  }
+}
+
+
+/* ==========================================================================
+   Utilities
+   ========================================================================== */
+
+@layer bevel.utilities {
+  .muted {
+    color: var(--bv-color-muted);
+  }
+
+  .text-right {
+    text-align: end;
+  }
+
+  /* Wide tables scroll inside their own box instead of the page. */
+  .table-scroll {
+    overflow-x: auto;
+  }
+
+  .table-scroll :where(th, td) {
+    white-space: nowrap;
+  }
+
+  /* In the last layer so it beats every component transition. */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      transition-duration: 0.01ms;
+      animation-duration: 0.01ms;
+      animation-iteration-count: 1;
+    }
+  }
+}
