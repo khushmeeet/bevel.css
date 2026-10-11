@@ -145,6 +145,7 @@
         <li><span data-swatch style="background-color: var(--bv-color-border-soft)"></span><code>--bv-color-border-soft</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-border-strong)"></span><code>--bv-color-border-strong</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-border-bottom)"></span><code>--bv-color-border-bottom</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-grid)"></span><code>--bv-color-grid</code></li>
       </ul>
       <h2>Action and focus</h2>
       <ul class="row" data-chips>
@@ -764,6 +765,21 @@ start_on_boot = true</code></pre>
       </div>
 
       <pre><code>&lt;div class="hero-unit"&gt;
+  &lt;h1&gt;Welcome to hearth&lt;/h1&gt;
+  &lt;p&gt;Five apps on hearth-01.&lt;/p&gt;
+  &lt;p&gt;&lt;a class="btn btn-primary btn-large" href="/deploy"&gt;Deploy an app&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+
+      <h2>With a grid</h2>
+      <p>Add <code>.hero-unit-grid</code> to swap the grey fill for the 18px grid on white, ruled like the band at the top of this page, with a faint edge.</p>
+
+      <div class="hero-unit hero-unit-grid">
+        <h1>Welcome to hearth</h1>
+        <p>Five apps on hearth-01. Each one deploys with a git push and comes back on its own after the machine restarts.</p>
+        <p><a class="btn btn-primary btn-large" href="#hero">Deploy an app</a></p>
+      </div>
+
+      <pre><code>&lt;div class="hero-unit hero-unit-grid"&gt;
   &lt;h1&gt;Welcome to hearth&lt;/h1&gt;
   &lt;p&gt;Five apps on hearth-01.&lt;/p&gt;
   &lt;p&gt;&lt;a class="btn btn-primary btn-large" href="/deploy"&gt;Deploy an app&lt;/a&gt;&lt;/p&gt;

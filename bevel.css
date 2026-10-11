@@ -52,6 +52,7 @@
     --bv-color-border-soft: #EEEEEE;
     --bv-color-border-strong: #CCCCCC;
     --bv-color-border-bottom: #BBBBBB;
+    --bv-color-grid: rgba(0, 0, 0, 0.027);
 
     /* Action and focus */
     --bv-color-link: #0077B3;
@@ -1057,6 +1058,18 @@
       line-height: 3.75rem;
       letter-spacing: -1px;
     }
+  }
+
+  /* The 2.0 docs' 18px grid on white: a line every rhythm line, and every
+     fifth vertical one darker where two layers overlap. The edge is an
+     inset shadow, not a border, so the box keeps its size. */
+  .hero-unit-grid {
+    background-color: var(--bv-color-surface);
+    background-image:
+      repeating-linear-gradient(90deg, var(--bv-color-grid) 0 1px, transparent 1px calc(var(--bv-space-5) * 5)),
+      repeating-linear-gradient(90deg, var(--bv-color-grid) 0 1px, transparent 1px var(--bv-space-5)),
+      repeating-linear-gradient(var(--bv-color-grid) 0 1px, transparent 1px var(--bv-space-5));
+    box-shadow: inset 0 0 0 1px var(--bv-color-border-soft);
   }
 }
 

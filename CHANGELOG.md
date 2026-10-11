@@ -17,5 +17,5 @@ First release: enough for a page, a nav, text, a form, a table and feedback.
 - Tables: `.table` with striped, bordered and condensed modifiers, and row hover.
 - Alerts: warning, error, success and info in pastel tints, plus `.alert-block`.
 - Labels and badges: default, success, warning, important, info and inverse, as pastel chips.
-- Hero unit: `.hero-unit`, an opt-in large callout to open a page, with a smaller heading and inset below 768px.
+- Hero unit: `.hero-unit`, an opt-in large callout to open a page, with a smaller heading and inset below 768px; `.hero-unit-grid` swaps the grey fill for the 2.0 docs' 18px grid on white.
 - Utilities: `.muted`, `.text-right` and `.table-scroll`.

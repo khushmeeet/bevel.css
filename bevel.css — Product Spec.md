@@ -50,7 +50,7 @@ v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedba
 | Tables | v0.1 | `.table` with bordered, striped and condensed modifiers; row hover |
 | Alerts | v0.1 | Warning (default), error, success, info; `.alert-block` |
 | Labels and badges | v0.1 | Default, success, warning, important, info, inverse |
-| Hero unit | v0.1 | `.hero-unit`, an opt-in large callout to open a page |
+| Hero unit | v0.1 | `.hero-unit`, an opt-in large callout to open a page; `.hero-unit-grid` for the 18px grid on white |
 | Utilities | v0.1 | `.muted`, `.text-right`, `.table-scroll` |
 | Masthead and section bar | Candidate | `.subhead` with the masked 18px grid; sticky `.subnav` |
 | Tabs and pills | Candidate | CSS only, for links between pages |
@@ -122,13 +122,14 @@ The palette is Bootstrap 2.0.0's, with four values darkened so every piece of te
 | `--bv-color-text` | #333333 | same | Body text, headings | 12.6:1 on white |
 | `--bv-color-muted` | #767676 | #999999 | Help text, heading subtitles, `.muted`, placeholders | 4.5:1 on white |
 | `--bv-color-input-text` | #555555 | same | Text typed into fields | 7.5:1 on white |
-| `--bv-color-surface` | #FFFFFF | same | Page background |  |
+| `--bv-color-surface` | #FFFFFF | same | Page background, grid hero unit |  |
 | `--bv-color-surface-alt` | #F5F5F5 | same | Form actions bar, disabled fields, row hover, hero unit |  |
 | `--bv-color-stripe` | #F9F9F9 | same | Odd table rows |  |
 | `--bv-color-border` | #DDDDDD | same | Table borders, form actions top edge, disabled field border |  |
-| `--bv-color-border-soft` | #EEEEEE | same | Page header rule, `hr` |  |
+| `--bv-color-border-soft` | #EEEEEE | same | Page header rule, `hr`, grid hero unit edge |  |
 | `--bv-color-border-strong` | #CCCCCC | same | Field borders, default button border |  |
 | `--bv-color-border-bottom` | #BBBBBB | same | Default button bottom edge |  |
+| `--bv-color-grid` | rgba(0, 0, 0, 0.027) | docs only | Grid hero unit lines; the 2.0 docs drew this grid as a page background image |  |
 
 ### Action and focus
 
@@ -630,6 +631,7 @@ Labels are short status words; badges are counts.
 | Heading (`.hero-unit h1`) | 60px on a 60px line; weight 700; letter-spacing -1px; no margin |
 | Text (`.hero-unit p`) | 18px on a 27px line at weight 300, not 2.0's 200 (see *Typography*); #333333, 11.6:1 on #F5F5F5; the usual 9px paragraph margin |
 | Actions | A button in its own paragraph; 2.0 used `.btn-primary.btn-large` |
+| Grid (`.hero-unit-grid`) | Optional. White fill ruled with 1px `--bv-color-grid` lines every 18px both ways, every fifth vertical line darker where two layers overlap, as in the 2.0 docs' page background; a 1px `--bv-color-border-soft` inset edge, so the box keeps its size. 2.0's hero had no grid |
 | Below 768px | Padding 20px; heading 36px on a 40px line with no letter-spacing, the page header title's size, so it fits a 320px screen without horizontal scrolling. 2.0 had no small-screen hero |
 
 ### Utilities
