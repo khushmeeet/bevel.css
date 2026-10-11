@@ -3,81 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>bevel.css reference</title>
-  <link rel="stylesheet" href="bevel.css">
-  <style>
-    /* Page-only styles for this reference's background grid, demo boxes and
-       swatches. They use data attributes rather than classes, so the coverage
-       gate stays exact: every class on this page comes from bevel.css. */
-
-    /* The 2.0 docs' masked 18px grid, in a 306px band under the navbar:
-       faint lines every 18px, every fifth vertical one darker, fading out
-       after the first 200px. In 2.0 this was a docs page decoration
-       (docs.css), not part of bootstrap.css. */
-    body {
-      background-image:
-        linear-gradient(transparent 200px, var(--bv-color-surface) 330px),
-        repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.025) 0 1px, transparent 1px 90px),
-        repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.027) 0 1px, transparent 1px 18px),
-        repeating-linear-gradient(rgba(0, 0, 0, 0.027) 0 1px, transparent 1px 18px);
-      background-repeat: no-repeat;
-      background-position: 0 2.5rem;
-      background-size: 100% 306px;
-    }
-
-    [data-demo] {
-      padding: 0.5625rem 0.75rem;
-      background-color: var(--bv-color-surface-alt);
-      border: 1px solid var(--bv-color-border);
-      border-radius: var(--bv-radius);
-    }
-
-    [data-spaced] {
-      margin-block-end: var(--bv-space-5);
-    }
-
-    [data-demo] > :last-child {
-      margin-block-end: 0;
-    }
-
-    /* A whole page shown inside this one, such as a confirmation page. */
-    [data-page] {
-      padding-inline: 1.25rem;
-      margin-block-end: var(--bv-space-5);
-      border: 1px solid var(--bv-color-border);
-      border-radius: var(--bv-radius);
-    }
-
-    [data-chips] {
-      row-gap: var(--bv-space-3);
-      padding: 0;
-      margin-block-end: var(--bv-space-5);
-      list-style: none;
-    }
-
-    [data-chips] li {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      min-width: 0;
-    }
-
-    [data-chips] code {
-      overflow-wrap: anywhere;
-    }
-
-    [data-samples] td:last-child code {
-      white-space: nowrap;
-    }
-
-    [data-swatch] {
-      flex: none;
-      width: 1.75rem;
-      height: 1.75rem;
-      border-radius: var(--bv-radius);
-      box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
-    }
-  </style>
+  <title>Reference · bevel.css</title>
+  <link rel="stylesheet" href="../bevel.css">
+  <link rel="stylesheet" href="docs.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -85,39 +13,27 @@
     <div class="navbar-inner">
       <div class="container">
         <nav class="nav" aria-label="Main">
+          <a href="index.html">Overview</a>
           <a href="reference.html" aria-current="page">Reference</a>
-          <a href="CHANGELOG.md">Changelog</a>
+          <a href="changelog.html">Changelog</a>
+          <a href="source.html">Source</a>
           <span class="divider-vertical"></span>
-          <a href="bevel.css">Source</a>
+          <a href="../demo/index.html">Demo</a>
         </nav>
-        <a class="brand" href="reference.html">bevel.css</a>
+        <a class="brand" href="index.html">bevel.css</a>
       </div>
     </div>
   </header>
 
   <main class="container" id="main">
 
-    <!-- Overview ======================================================== -->
-    <section class="section" id="overview">
+    <!-- Contents ======================================================== -->
+    <section class="section" id="contents">
       <div class="page-header">
-        <h1>bevel.css <small>v0.2.0 reference</small></h1>
+        <h1>Reference <small>bevel.css 0.2.0</small></h1>
       </div>
-      <p class="lead">Bootstrap 2.0&rsquo;s look for every app on hearth, in one plain stylesheet built only on CSS that has worked in every major browser for at least 30 months.</p>
-
-      <div class="row cols-3">
-        <div>
-          <h3>One file</h3>
-          <p>Copy the release file into your app&rsquo;s static folder and link it before your own stylesheet. No build step, no web fonts, no images, no JavaScript.</p>
-        </div>
-        <div>
-          <h3>Your CSS wins</h3>
-          <p>Everything sits in <code>@layer bevel.*</code>. Write your app&rsquo;s CSS outside any layer and it overrides the library without <code>!important</code>.</p>
-        </div>
-        <div>
-          <h3>Accessible markup is styled markup</h3>
-          <p>States take the class or the ARIA form: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
-        </div>
-      </div>
+      <p class="lead">Every class, variant and state, with the markup to copy.</p>
+      <p>Link bevel.css before your own stylesheet. Everything in it sits in <code>@layer bevel.*</code>, so your CSS, written outside any layer, overrides it without <code>!important</code>. States take the class or the ARIA attribute: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
 
       <pre><code>&lt;link rel="stylesheet" href="/static/bevel-0.2.0.css"&gt;
 &lt;link rel="stylesheet" href="/static/app.css"&gt;</code></pre>
@@ -145,7 +61,7 @@
     <!-- Tokens ========================================================== -->
     <section class="section" id="tokens">
       <div class="page-header">
-        <h1>Tokens <small>Override any of them in your own :root</small></h1>
+        <h1>Tokens</h1>
       </div>
       <p>Every custom property starts with <code>--bv-</code>. The swatches below read the live values, so an override in your app shows up here too.</p>
       <pre><code>:root {
@@ -241,7 +157,7 @@
     <!-- Typography ====================================================== -->
     <section class="section" id="typography">
       <div class="page-header">
-        <h1>Typography <small>13px on an 18px line</small></h1>
+        <h1>Typography</h1>
       </div>
       <p>A heading sits 9px above what it introduces and 18px below whatever came before it, so it always reads with the block under it. At the top of a column, alert or well it gets no space above.</p>
 
@@ -301,7 +217,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Layout ========================================================== -->
     <section class="section" id="layout">
       <div class="page-header">
-        <h1>Layout <small>A container, rows and sections</small></h1>
+        <h1>Layout</h1>
       </div>
       <p>The <code>.container</code> centers content at 724px, 940px or 1170px, and is fluid below 768px. Each <code>.section</code> starts 60px below the one before; the first sits 18px below the navbar. A <code>.page-header</code> opens each section.</p>
       <pre><code>&lt;main class="container"&gt;
@@ -343,7 +259,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Navbar ========================================================== -->
     <section class="section" id="navbar">
       <div class="page-header">
-        <h1>Navbar <small>The dark top bar</small></h1>
+        <h1>Navbar</h1>
       </div>
       <p>Links on the left, the brand on the right. Mark the current page with <code>aria-current="page"</code> (as in the bar at the top of this page) or <code>.active</code> (below); it turns white on a darker tab with a blue bar along the bottom. Below 768px the links wrap onto more rows and the divider hides.</p>
       <p>Add <code>.navbar-sticky</code> to keep the bar at the top while the page scrolls under it, as the bar on this page does. Below 768px it scrolls away with the page.</p>
@@ -422,7 +338,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Buttons ========================================================= -->
     <section class="section" id="buttons">
       <div class="page-header">
-        <h1>Buttons <small>Default, primary and danger</small></h1>
+        <h1>Buttons</h1>
       </div>
 
       <h2>Variants</h2>
@@ -556,7 +472,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Forms =========================================================== -->
     <section class="section" id="forms">
       <div class="page-header">
-        <h1>Forms <small>Stacked: label above field</small></h1>
+        <h1>Forms</h1>
       </div>
       <p>A bare field already looks right. <code>.control-group</code> spaces a label, field and help text; <code>.error</code> or <code>aria-invalid="true"</code> marks a problem. Group radios and related checkboxes in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>: it draws no box, and the legend reads like a label.</p>
 
@@ -770,7 +686,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Tables ========================================================== -->
     <section class="section" id="tables">
       <div class="page-header">
-        <h1>Tables <small>One style, three modifiers</small></h1>
+        <h1>Tables</h1>
       </div>
 
       <h2>Default</h2>
@@ -851,7 +767,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Pagination ====================================================== -->
     <section class="section" id="pagination">
       <div class="page-header">
-        <h1>Pagination <small>For lists too long for one page</small></h1>
+        <h1>Pagination</h1>
       </div>
       <p>A <code>&lt;nav class="pagination"&gt;</code> around a list of page links. Mark the current page with <code>aria-current="page"</code>; it sinks in like a pressed button. A page you can&rsquo;t go to, such as Previous on the first page, is a <code>&lt;span&gt;</code>, and so is a gap between page numbers. 2.x markup, with <code>.active</code> and <code>.disabled</code> on the <code>&lt;li&gt;</code>, works too.</p>
 
@@ -930,7 +846,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Alerts ========================================================== -->
     <section class="section" id="alerts">
       <div class="page-header">
-        <h1>Alerts <small>Feedback in four tints</small></h1>
+        <h1>Alerts</h1>
       </div>
       <p>Use <code>role="alert"</code> for errors that need attention now and <code>role="status"</code> for everything else.</p>
 
@@ -963,7 +879,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Labels and badges =============================================== -->
     <section class="section" id="labels">
       <div class="page-header">
-        <h1>Labels and badges <small>Status words and counts</small></h1>
+        <h1>Labels and badges</h1>
       </div>
       <p>Labels carry a word and badges carry a number; the color only reinforces it.</p>
 
@@ -991,7 +907,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Progress bars =================================================== -->
     <section class="section" id="progress">
       <div class="page-header">
-        <h1>Progress bars <small>How far along, or how full</small></h1>
+        <h1>Progress bars</h1>
       </div>
       <p>A <code>.progress</code> track holds a <code>.bar</code>; set the bar&rsquo;s width inline. The track is faint on white, so say the value in words too, above the bar or elsewhere in its table row. Give the track <code>role="progressbar"</code> for work under way, such as a backup, or <code>role="meter"</code> for a level, such as disk space or a budget, with <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code> and a name.</p>
 
@@ -1042,7 +958,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Hero unit ======================================================= -->
     <section class="section" id="hero">
       <div class="page-header">
-        <h1>Hero unit <small>One big callout</small></h1>
+        <h1>Hero unit</h1>
       </div>
       <p>Add <code>.hero-unit</code> when a page needs a large callout, such as an app&rsquo;s home page; leave it out and nothing changes. The heading is 60px from 768px up and 36px below it. Paragraphs inside are 18px on a 27px line.</p>
 
@@ -1077,7 +993,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Stats =========================================================== -->
     <section class="section" id="stats">
       <div class="page-header">
-        <h1>Stats <small>A big figure with a small label</small></h1>
+        <h1>Stats</h1>
       </div>
       <p>Add <code>.stats</code> to a <code>&lt;dl&gt;</code> for the few numbers a home page opens with: each <code>&lt;dt&gt;</code> is a muted label and each <code>&lt;dd&gt;</code> a 30px figure. Make the list a <code>.row</code> too, with each pair in a <code>&lt;div&gt;</code>, to set the figures side by side. A <code>&lt;small&gt;</code> in a figure holds its unit or the rest of a fraction.</p>
 
@@ -1105,7 +1021,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Wells and empty states ========================================== -->
     <section class="section" id="wells">
       <div class="page-header">
-        <h1>Wells <small>An inset panel, and the empty list</small></h1>
+        <h1>Wells</h1>
       </div>
       <p>A <code>.well</code> sets a block into the page: something to keep beside the main content without competing with it. Its last block drops its bottom margin, so the padding alone sets the space inside.</p>
 
@@ -1153,7 +1069,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Patterns ======================================================== -->
     <section class="section" id="patterns">
       <div class="page-header">
-        <h1>Patterns <small>Built from the parts above</small></h1>
+        <h1>Patterns</h1>
       </div>
 
       <h2>Confirm before deleting</h2>
@@ -1200,7 +1116,7 @@ abcdefghijklmnopqrstuvwxyz
     <!-- Utilities ======================================================= -->
     <section class="section" id="utilities">
       <div class="page-header">
-        <h1>Utilities <small>A handful, no more</small></h1>
+        <h1>Utilities</h1>
       </div>
       <p class="muted"><code>.muted</code> sets text in the muted grey, for asides and timestamps. It keeps 4.5:1 on white and on bevel&rsquo;s grey surfaces: striped and hovered table rows, the hero unit and the form actions bar.</p>
       <p class="text-right"><code>.text-right</code> aligns to the end of the line, for numbers and trailing actions. On a paragraph it also lifts the line-length cap, so the text reaches the end.</p>
@@ -1230,7 +1146,7 @@ abcdefghijklmnopqrstuvwxyz
 
   <footer class="container">
     <hr>
-    <p class="muted">bevel.css 0.2.0. Styles after Bootstrap 2.0 by @mdo and @fat. MIT licensed.</p>
+    <p class="muted">bevel.css 0.2.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
   </footer>
 </body>
 </html>

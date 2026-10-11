@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Source · bevel.css</title>
+  <link rel="stylesheet" href="../bevel.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <nav class="nav" aria-label="Main">
+          <a href="index.html">Overview</a>
+          <a href="reference.html">Reference</a>
+          <a href="changelog.html">Changelog</a>
+          <a href="source.html" aria-current="page">Source</a>
+          <span class="divider-vertical"></span>
+          <a href="../demo/index.html">Demo</a>
+        </nav>
+        <a class="brand" href="index.html">bevel.css</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+
+    <!-- The file ======================================================== -->
+    <section class="section">
+      <div class="page-header">
+        <h1>Source</h1>
+      </div>
+      <p class="lead">bevel.css is one plain, unminified stylesheet. What you read is what ships: a release is this file with its version in a comment on the first line.</p>
+      <div class="btn-toolbar">
+        <a class="btn btn-primary" href="https://github.com/khushmeeet/bevel.css">View on GitHub</a>
+        <a class="btn" href="../bevel.css">Open bevel.css</a>
+        <a class="btn" href="#file">Read it here</a>
+      </div>
+    </section>
+
+    <!-- Layers ========================================================== -->
+    <section class="section" id="layers">
+      <div class="page-header">
+        <h2>Layers</h2>
+      </div>
+      <p>Every rule sits in one of five cascade layers, declared once at the top of the file. A later layer beats an earlier one whatever the selectors, and CSS outside any layer beats them all, so an app overrides bevel without <code>!important</code> or specificity tricks.</p>
+      <pre><code>@layer bevel.reset, bevel.base, bevel.layout, bevel.components, bevel.utilities;</code></pre>
+
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Layer</th><th>Holds</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>bevel.reset</code></td><td><code>box-sizing: border-box</code> everywhere; no margins on headings, paragraphs and lists; images and video shrink to fit.</td></tr>
+          <tr><td><code>bevel.base</code></td><td>The tokens, and styles for text and form controls, all inside <code>:where()</code>, so a bare element is styled at zero specificity.</td></tr>
+          <tr><td><code>bevel.layout</code></td><td><code>.container</code>, <code>.row</code>, <code>.section</code> and <code>.page-header</code>.</td></tr>
+          <tr><td><code>bevel.components</code></td><td>Navbar, buttons, forms and add-ons, tables, alerts, labels and badges, hero unit, pagination, progress bars, stats and wells.</td></tr>
+          <tr><td><code>bevel.utilities</code></td><td><code>.muted</code>, <code>.text-right</code>, <code>.table-scroll</code> and <code>.visually-hidden</code>, plus the two rules that must beat components: trimming the last margin in a row&rsquo;s columns, and turning motion off for anyone who asks.</td></tr>
+          <tr><td>Your app&rsquo;s CSS</td><td>Unlayered, so it wins.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- House rules ===================================================== -->
+    <section class="section" id="rules">
+      <div class="page-header">
+        <h2>House rules</h2>
+      </div>
+      <ul data-list>
+        <li><strong>Only Baseline Widely available CSS:</strong> features in every major browser for at least 30 months. Anything newer would have to sit inside <code>@supports</code> with a working fallback.</li>
+        <li><strong>Every custom property starts with <code>--bv-</code>.</strong> Global tokens are <code>--bv-&lt;group&gt;-&lt;name&gt;</code>; a component&rsquo;s variables are <code>--bv-&lt;component&gt;-&lt;property&gt;</code>, and its variants only reassign them.</li>
+        <li><strong>Class names follow Bootstrap 2.x</strong>, such as <code>.btn-small</code>, <code>.table-striped</code> and <code>.alert-error</code>, so 2.x markup works for what bevel has.</li>
+        <li><strong>States take the class or the ARIA attribute:</strong> <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</li>
+        <li><strong>Specificity stays flat:</strong> no IDs, no <code>!important</code>, and at most one class plus one state.</li>
+        <li><strong>Units:</strong> <code>rem</code> for type and spacing, <code>px</code> for borders, radii and shadows. Mobile first, with breakpoints at 768px, 980px and 1200px.</li>
+      </ul>
+    </section>
+
+    <!-- Gates =========================================================== -->
+    <section class="section" id="gates">
+      <div class="page-header">
+        <h2>Gates</h2>
+      </div>
+      <p>A release ships only when every gate passes.</p>
+      <table class="table table-bordered">
+        <thead>
+          <tr><th>Gate</th><th>Tool</th><th>Fails when</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Baseline</td><td>Stylelint</td><td>A feature isn&rsquo;t Widely available and isn&rsquo;t inside <code>@supports</code></td></tr>
+          <tr><td>House rules</td><td>Stylelint</td><td><code>!important</code>, an ID selector, specificity above 0,2,0, a custom property without <code>--bv-</code>, or a rule outside a layer</td></tr>
+          <tr><td>Size</td><td>Go</td><td>bevel.css is over 20 KB gzipped</td></tr>
+          <tr><td>Tokens</td><td>Go</td><td>A token is used but never defined, or defined but never used</td></tr>
+          <tr><td>Coverage</td><td>Go</td><td>A class is missing from the reference, or a page uses a class bevel.css doesn&rsquo;t define</td></tr>
+          <tr><td>Releases</td><td>Go</td><td>The changelog page is missing a release, or a page names an old one</td></tr>
+          <tr><td>Visual</td><td>Playwright</td><td>A screenshot of the reference differs from its approved baseline</td></tr>
+          <tr><td>Accessibility</td><td>axe-core</td><td>The reference has a WCAG 2.2 AA violation</td></tr>
+        </tbody>
+      </table>
+      <p>The gates need Node and Go.</p>
+      <pre><code>make test              # every gate
+make update-snapshots  # after reviewing a visual diff
+make release           # runs the gates, then writes dist/bevel-&lt;version&gt;.css</code></pre>
+
+      <h3>Adding a component</h3>
+      <p>A component is styled inside an app first, and joins bevel when a second app needs it:</p>
+      <ol data-list>
+        <li>Add it to the spec, with exact measurements and every state.</li>
+        <li>Add it to the <a href="reference.html">reference</a>, with every state.</li>
+        <li>Build it in <code>bevel.components</code>, using <code>--bv-</code> variables only.</li>
+        <li>Pass every gate and approve the new baselines.</li>
+        <li>Add an entry to <code>CHANGELOG.md</code> and the <a href="changelog.html">changelog page</a>, and bump the minor version.</li>
+      </ol>
+    </section>
+
+    <!-- Read it here ==================================================== -->
+    <section class="section" id="file">
+      <div class="page-header">
+        <h2>bevel.css</h2>
+      </div>
+      <iframe src="../bevel.css" title="bevel.css, the whole file" data-source></iframe>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">bevel.css 0.2.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
+  </footer>
+</body>
+</html>

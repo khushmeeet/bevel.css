@@ -11,7 +11,7 @@
  * Selectors stay at or under one class plus one state (0,2,0). Element and
  * structural parts of a selector go inside :where() so they add nothing.
  *
- * Reference: reference.html shows every class, variant and state.
+ * Reference: site/reference.html shows every class, variant and state.
  */
 
 @layer bevel.reset, bevel.base, bevel.layout, bevel.components, bevel.utilities;

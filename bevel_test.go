@@ -1,5 +1,5 @@
-// Gates that read bevel.css and reference.html directly: size, tokens and
-// coverage. The lint, visual and accessibility gates live in Stylelint and
+// Gates that read bevel.css and the docs pages directly: size, tokens,
+// coverage and releases. The lint, visual and accessibility gates live in Stylelint and
 // Playwright; `make test` runs them all.
 package bevel
 
@@ -22,9 +22,17 @@ var (
 	tokenDefRE  = regexp.MustCompile(`(--bv-[a-z0-9-]+)\s*:`)
 	tokenUseRE  = regexp.MustCompile(`var\(\s*(--bv-[a-z0-9-]+)`)
 	htmlClassRE = regexp.MustCompile(`(?s)<[a-zA-Z][^>]*?\sclass\s*=\s*"([^"]*)"`)
+
+	releaseRE      = regexp.MustCompile(`(?m)^## \[(\d+\.\d+\.\d+)\]`)
+	releaseIDRE    = regexp.MustCompile(`<h2 id="v(\d+\.\d+\.\d+)"`)
+	namedReleaseRE = regexp.MustCompile(`(?:bevel-|bevel\.css |download/v)(\d+\.\d+\.\d+)`)
 )
 
-// The reference page may use these without bevel.css defining them.
+// The docs pages. Each may use only classes bevel.css defines: their
+// page-only styles, in site/docs.css, hang off data attributes instead.
+var pages = []string{"site/index.html", "site/reference.html", "site/changelog.html", "site/source.html"}
+
+// Pages may use these without bevel.css defining them.
 func allowedPageClass(class string) bool {
 	return strings.HasPrefix(class, "js-") // JavaScript hooks
 }
@@ -63,19 +71,43 @@ func TestTokens(t *testing.T) {
 
 func TestCoverage(t *testing.T) {
 	cssClasses := classesInCSS(read(t, "bevel.css"))
-	pageClasses := classesInHTML(read(t, "reference.html"))
+	referenceClasses := classesInHTML(read(t, "site/reference.html"))
 
 	if len(cssClasses) == 0 {
 		t.Fatal("found no classes in bevel.css")
 	}
 	for _, class := range cssClasses {
-		if !slices.Contains(pageClasses, class) {
-			t.Errorf(".%s is in bevel.css but missing from reference.html", class)
+		if !slices.Contains(referenceClasses, class) {
+			t.Errorf(".%s is in bevel.css but missing from site/reference.html", class)
 		}
 	}
-	for _, class := range pageClasses {
-		if !slices.Contains(cssClasses, class) && !allowedPageClass(class) {
-			t.Errorf(".%s is used in reference.html but bevel.css doesn't define it", class)
+	for _, page := range pages {
+		for _, class := range classesInHTML(read(t, page)) {
+			if !slices.Contains(cssClasses, class) && !allowedPageClass(class) {
+				t.Errorf(".%s is used in %s but bevel.css doesn't define it", class, page)
+			}
+		}
+	}
+}
+
+// The changelog page has a section for every release in CHANGELOG.md, in the
+// same order, and every page that names a release names the newest one, so a
+// release can't leave the docs behind.
+func TestReleases(t *testing.T) {
+	releases := allMatches(releaseRE, read(t, "CHANGELOG.md"))
+	if len(releases) == 0 {
+		t.Fatal("found no releases in CHANGELOG.md")
+	}
+	if onPage := allMatches(releaseIDRE, read(t, "site/changelog.html")); !slices.Equal(onPage, releases) {
+		t.Errorf("site/changelog.html has releases %v; CHANGELOG.md has %v", onPage, releases)
+	}
+
+	newest := releases[0]
+	for _, name := range append([]string{"README.md"}, pages...) {
+		for _, release := range unique(allMatches(namedReleaseRE, read(t, name))) {
+			if release != newest {
+				t.Errorf("%s names release %s; the newest is %s", name, release, newest)
+			}
 		}
 	}
 }
@@ -124,12 +156,18 @@ func classesInHTML(html string) []string {
 	return unique(classes)
 }
 
+// matches returns the first group of every match, sorted, without repeats.
 func matches(re *regexp.Regexp, s string) []string {
+	return unique(allMatches(re, s))
+}
+
+// allMatches returns the first group of every match, in order.
+func allMatches(re *regexp.Regexp, s string) []string {
 	var out []string
 	for _, m := range re.FindAllStringSubmatch(s, -1) {
 		out = append(out, m[1])
 	}
-	return unique(out)
+	return out
 }
 
 func unique(s []string) []string {

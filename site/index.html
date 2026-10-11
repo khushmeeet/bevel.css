@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>bevel.css</title>
+  <meta name="description" content="A simple stylesheet that decorates your apps with a hint of nostalgia: Bootstrap 2.0's look, in one file built on CSS that will still work in ten years.">
+  <!-- This page has no CSS of its own: every class on it comes from
+       bevel.css. -->
+  <link rel="stylesheet" href="../bevel.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <nav class="nav" aria-label="Main">
+          <a href="index.html" aria-current="page">Overview</a>
+          <a href="reference.html">Reference</a>
+          <a href="changelog.html">Changelog</a>
+          <a href="source.html">Source</a>
+          <span class="divider-vertical"></span>
+          <a href="../demo/index.html">Demo</a>
+        </nav>
+        <a class="brand" href="index.html">bevel.css</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <section class="section">
+      <div class="hero-unit hero-unit-grid">
+        <h1>bevel.css</h1>
+        <p>A simple stylesheet that decorates your apps with a hint of nostalgia: Bootstrap 2.0&rsquo;s glossy buttons, dark top bar and sunken fields, on CSS that will still work in ten years.</p>
+        <p>
+          <a class="btn btn-primary btn-large" href="https://github.com/khushmeeet/bevel.css/releases/download/v0.2.0/bevel-0.2.0.css">Download bevel-0.2.0.css</a>
+          <a class="btn btn-large" href="reference.html">Read the reference</a>
+        </p>
+      </div>
+
+      <div class="row cols-3">
+        <div>
+          <h2>Who it&rsquo;s for</h2>
+          <p>Small server-rendered apps with little or no JavaScript: a dashboard, a tracker, a tool for one. Each app keeps its own copy and upgrades when it likes.</p>
+          <p>Not for old browsers, or for sites that want all of Bootstrap: there are no jQuery plugins, no 12-column grid and no Sass.</p>
+        </div>
+
+        <div>
+          <h2>Why bevel</h2>
+          <p><strong>Light from above.</strong> Glossy buttons, sunken fields and embossed text, at 2.0&rsquo;s measurements.</p>
+          <p><strong>Built to last.</strong> One plain file and no build step, using only CSS every major browser has had for 30 months.</p>
+          <p><strong>Nothing else to load.</strong> Under 20 KB gzipped, with no web fonts, images or JavaScript.</p>
+          <p><strong>Your CSS wins.</strong> It all sits in <code>@layer bevel.*</code>, so your unlayered CSS overrides it.</p>
+          <p><strong>Today&rsquo;s contrast.</strong> WCAG 2.2 AA, with a focus ring on everything and states styled from ARIA.</p>
+        </div>
+
+        <div>
+          <h2>Get started</h2>
+          <p>Copy <a href="https://github.com/khushmeeet/bevel.css/releases/download/v0.2.0/bevel-0.2.0.css">bevel-0.2.0.css</a> into your app&rsquo;s static folder and link it before your own stylesheet:</p>
+          <pre><code>&lt;link rel="stylesheet"
+      href="/static/bevel-0.2.0.css"&gt;
+&lt;link rel="stylesheet"
+      href="/static/app.css"&gt;</code></pre>
+          <p>Override any <code>--bv-</code> token in your own <code>:root</code>. Before 1.0, breaking changes are flagged in the <a href="changelog.html">changelog</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">bevel.css 0.2.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
+  </footer>
+</body>
+</html>

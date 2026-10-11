@@ -1,0 +1,104 @@
+/* Page-only styles for the bevel.css docs: the reference, changelog and
+   source pages. Like 2.0's docs.css, none of this is part of the library.
+   The home page and the demo don't load it: they use bevel.css alone.
+
+   These styles use data attributes rather than classes, so the coverage
+   gate stays exact: every class on these pages comes from bevel.css. */
+
+/* The 2.0 docs' masked 18px grid, in a 306px band under the navbar:
+   faint lines every 18px, every fifth vertical one darker, fading out
+   after the first 200px. In 2.0 this was a docs page decoration
+   (docs.css), not part of bootstrap.css. */
+body {
+  background-image:
+    linear-gradient(transparent 200px, var(--bv-color-surface) 330px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.025) 0 1px, transparent 1px 90px),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.027) 0 1px, transparent 1px 18px),
+    repeating-linear-gradient(rgba(0, 0, 0, 0.027) 0 1px, transparent 1px 18px);
+  background-repeat: no-repeat;
+  background-position: 0 2.5rem;
+  background-size: 100% 306px;
+}
+
+/* Reference: a grey box that shows where a layout column is. */
+[data-demo] {
+  padding: 0.5625rem 0.75rem;
+  background-color: var(--bv-color-surface-alt);
+  border: 1px solid var(--bv-color-border);
+  border-radius: var(--bv-radius);
+}
+
+[data-spaced] {
+  margin-block-end: var(--bv-space-5);
+}
+
+[data-demo] > :last-child {
+  margin-block-end: 0;
+}
+
+/* Reference: a whole page shown inside this one, such as a confirmation
+   page. */
+[data-page] {
+  padding-inline: 1.25rem;
+  margin-block-end: var(--bv-space-5);
+  border: 1px solid var(--bv-color-border);
+  border-radius: var(--bv-radius);
+}
+
+/* Reference: token swatches and the monospace samples. */
+[data-chips] {
+  row-gap: var(--bv-space-3);
+  padding: 0;
+  margin-block-end: var(--bv-space-5);
+  list-style: none;
+}
+
+[data-chips] li {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  min-width: 0;
+}
+
+[data-chips] code {
+  overflow-wrap: anywhere;
+}
+
+[data-samples] td:last-child code {
+  white-space: nowrap;
+}
+
+[data-swatch] {
+  flex: none;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--bv-radius);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+/* Changelog and source: bevel.css doesn't style lists yet, so give items
+   that run to several lines a paragraph's measure and space, and end the
+   list like a table. The 25px indent is 2.0's. */
+[data-list] {
+  padding-inline-start: 1.5625rem;
+  margin-block-end: var(--bv-space-5);
+}
+
+[data-list] > li {
+  max-inline-size: 56ch;
+}
+
+[data-list] > li + li {
+  margin-block-start: var(--bv-space-3);
+}
+
+/* Source: the whole of bevel.css in a box framed like a pre, 32 lines tall. */
+[data-source] {
+  display: block;
+  inline-size: 100%;
+  block-size: 36rem;
+  margin-block-end: var(--bv-space-5);
+  background-color: var(--bv-color-surface);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: var(--bv-radius);
+}

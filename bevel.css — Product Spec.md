@@ -451,7 +451,7 @@ A release ships only when every automated gate passes; `make test` runs them all
 | Visual | Playwright screenshot comparison | Any screenshot differs from its approved baseline by more than 0.1% of pixels |
 | Accessibility | axe-core in Playwright | Any WCAG 2.2 AA violation on the reference page, other than the documented exception |
 
-- **Reference page:** `reference.html` shows every class, variant and state, including long text, empty cells and wrapped toolbars. It is the fixture for the visual, accessibility and coverage gates, and the library's documentation.
+- **Reference page:** `site/reference.html` shows every class, variant and state, including long text, empty cells and wrapped toolbars. It is the fixture for the visual, accessibility and coverage gates, and the library's documentation.
 - **Visual matrix:** Chromium, Firefox and WebKit at 375px and 1280px widths; the full page plus hover, focus, pressed and disabled states; animations frozen.
 - **Baselines change only on purpose:** after reviewing the diff, update with `--update-snapshots` in the same commit as the CSS change.
 - **Manual check before each release:** tab through the reference page, and look at it in Safari on macOS and iOS.
@@ -460,7 +460,7 @@ A release ships only when every automated gate passes; `make test` runs them all
 
 Each app carries its own copy of the CSS as a versioned file it serves itself; there is no package, import path or shared URL.
 
-- **Repository:** `bevel.css`, `reference.html`, `CHANGELOG.md`, the Stylelint config, the Playwright tests and the Go tests.
+- **Repository:** `bevel.css`, the site's pages in `site/` (`reference.html` among them), `CHANGELOG.md`, the Stylelint config, the Playwright tests and the Go tests.
 - **Release file:** each release is published as `bevel-<version>.css`, identical to `bevel.css` apart from a first-line header such as `/*! bevel.css 0.1.0 */`.
 - **In an app:** copy the release file into the app's static folder and link it before the app's own stylesheet, for example `<link rel="stylesheet" href="/static/bevel-0.1.0.css">`. The folder is the app's choice, so any stack works.
 - **Caching:** because the version is in the filename, apps can cache it forever (`Cache-Control: public, max-age=31536000, immutable`); a new version is a new filename.
@@ -484,7 +484,7 @@ Before 1.0, breaking changes ship in minor versions and are flagged in the chang
 A component is styled locally inside an app first. When a second app needs it, it is promoted:
 
 1. Add its section to this spec, with exact measurements and every state.
-2. Add it, with every state, to `reference.html`.
+2. Add it, with every state, to `site/reference.html`.
 3. Build it in the `bevel.components` layer, using `--bv-` variables only.
 4. Pass every gate and approve the new baselines.
 5. Add a changelog entry and bump the minor version.

@@ -2,7 +2,7 @@
 
 Bootstrap 2.0's look for every app on hearth, in one plain stylesheet built only on CSS that has worked in every major browser for at least 30 months. No build step, no web fonts, no images, no JavaScript.
 
-Open `reference.html` in a browser to see every class, variant and state. Open `demo/index.html` to see them in a small made-up app, with no CSS of its own.
+The site lives in `site/`. Open `site/index.html` in a browser for what it is and why, and `site/reference.html` for every class, variant and state; `changelog.html` and `source.html` sit beside them. Their page-only styles are in `site/docs.css`, which isn't part of the library. Open `demo/index.html` to see the classes in a small made-up app, with no CSS of its own.
 
 ## Using it
 
@@ -36,9 +36,9 @@ make release           # runs the gates, then writes dist/bevel-<version>.css
 | Gate | Where |
 | --- | --- |
 | Baseline (Widely available only) and house rules | `stylelint.config.js`, `stylelint/` |
-| Size, tokens, coverage | `bevel_test.go` |
+| Size, tokens, coverage, releases | `bevel_test.go` |
 | Visual, accessibility | `tests/`, `playwright.config.js` |
 
 Visual baselines live in `tests/__screenshots__/<platform>/`, so each OS keeps its own.
 
-A component is styled inside an app first and promoted here when a second app needs it: add it to the spec and to `reference.html` with every state, build it in `bevel.components` using `--bv-` variables only, pass every gate, then add a changelog entry and bump the minor version.
+A component is styled inside an app first and promoted here when a second app needs it: add it to the spec and to `site/reference.html` with every state, build it in `bevel.components` using `--bv-` variables only, pass every gate, then add a changelog entry to `CHANGELOG.md` and `site/changelog.html` and bump the minor version.

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Changelog · bevel.css</title>
+  <link rel="stylesheet" href="../bevel.css">
+  <link rel="stylesheet" href="docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <nav class="nav" aria-label="Main">
+          <a href="index.html">Overview</a>
+          <a href="reference.html">Reference</a>
+          <a href="changelog.html" aria-current="page">Changelog</a>
+          <a href="source.html">Source</a>
+          <span class="divider-vertical"></span>
+          <a href="../demo/index.html">Demo</a>
+        </nav>
+        <a class="brand" href="index.html">bevel.css</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Keep in step with CHANGELOG.md: the Go tests check that every release
+       there has a section here, in the same order. -->
+  <main class="container" id="main">
+    <section class="section">
+      <div class="page-header">
+        <h1>Changelog</h1>
+      </div>
+      <p>Each release ships as <code>bevel-&lt;version&gt;.css</code>, with its files on <a href="https://github.com/khushmeeet/bevel.css/releases">GitHub</a>. Before 1.0, breaking changes ship in minor versions and are flagged here.</p>
+
+      <h2 id="v0.2.0">0.2.0 <small><time datetime="2026-10-11">Oct 11, 2026</time></small></h2>
+      <p>Everything the money demo had to work around or would have been better with, apart from the file input.</p>
+
+      <h3>Added</h3>
+      <ul data-list>
+        <li>Input add-ons: <code>.input-prepend</code> and <code>.input-append</code> with <code>.add-on</code> put a unit or fixed part of the value, such as <code>$</code>, <code>MB</code> or <code>git@</code>, beside a field. The add-on&rsquo;s place in the markup picks its side, it takes the error state&rsquo;s tint, and the group shrinks the field rather than widen the page.</li>
+        <li>Pagination: <code>.pagination</code> joins page links into one 36px strip, with hover, focus, a current page that sinks in like a pressed button (<code>aria-current="page"</code> or <code>.active</code>) and pages you can&rsquo;t go to (a <code>span</code>, <code>aria-disabled</code> or <code>.disabled</code>). It wraps on a narrow screen.</li>
+        <li>Wells and empty states: <code>.well</code> is 2.0&rsquo;s inset panel, and its last block drops its bottom margin. <code>.well-empty</code> centers a muted message and an action, for a list with nothing in it.</li>
+        <li>Progress bars: <code>.progress</code> with a <code>.bar</code> set to a width inline, in default blue, <code>.progress-success</code>, <code>.progress-warning</code> and <code>.progress-danger</code>, plus <code>.progress-striped</code> and the animated <code>.progress.active</code>. The blue and red bars use the primary and danger buttons&rsquo; gradients, with green and amber at the same depth, so every bar keeps 3:1 against its track. Reduced motion stops the stripes.</li>
+        <li>Stats: <code>.stats</code> on a <code>&lt;dl&gt;</code> sets each <code>&lt;dd&gt;</code> as a 30px figure under a muted label, with a <code>&lt;small&gt;</code> for its unit. Add <code>.row</code> to set the figures side by side, and <code>.well</code> on each pair to put it in a panel.</li>
+        <li>A documented pattern for confirming before deleting: a plain link to a confirmation page that says what will go and holds the one red button. No CSS; see <a href="reference.html#patterns">Patterns</a> in the reference and <a href="../demo/erase.html">the demo&rsquo;s erase page</a>.</li>
+        <li><code>.visually-hidden</code>, for text only screen readers get: a field&rsquo;s label, or the words for an icon-only button.</li>
+        <li>Tokens: <code>--bv-space-7</code> (36px), <code>--bv-progress-&lt;variant&gt;-top</code> and <code>-bottom</code>, and <code>--bv-shadow-pagination</code>, <code>--bv-shadow-well</code>, <code>--bv-shadow-progress</code> and <code>--bv-shadow-progress-bar</code>.</li>
+      </ul>
+
+      <h3>Changed</h3>
+      <ul data-list>
+        <li>Headings get space around them: 9px below, and 18px above unless they start their container. A heading no longer sits on the form label or table under it. Headings in <code>.page-header</code> and <code>.hero-unit</code> keep no margin. This changes the spacing of every page with headings in its content.</li>
+        <li><code>.row</code> ends with an 18px margin, and each column, and the last block in it, drops its own, so the space after a row is always 18px. Rows whose columns ended in text or a paragraph had 0 or 9px after them and now have 18px. On a narrow screen, stacked columns that ended in a table or form sit 18px closer together.</li>
+      </ul>
+
+      <h2 id="v0.1.0">0.1.0 <small><time datetime="2026-10-11">Oct 11, 2026</time></small></h2>
+      <p>First release: enough for a page, a nav, text, a form, a table and feedback.</p>
+
+      <h3>Added</h3>
+      <ul data-list>
+        <li>Tokens for color, type, spacing, radius, shadow, emboss and motion, all prefixed <code>--bv-</code>.</li>
+        <li>Base typography: headings with subtitles, <code>.lead</code>, paragraphs capped at about 70 characters a line, links with a faint underline, <code>small</code>, <code>code</code>, <code>pre</code> and the etched <code>hr</code>. Long words break instead of widening the page, and images and video shrink to fit.</li>
+        <li>Layout: <code>.container</code>, <code>.row</code> with <code>.cols-2</code>, <code>.cols-3</code> and <code>.cols-4</code>, <code>.section</code> and <code>.page-header</code>.</li>
+        <li>Navbar: dark top bar with links, an active state marked by a bottom bar, vertical divider and brand; the brand sits left or right by its place in the markup, <code>.nav-end</code> pushes a group of links to the right, and <code>.navbar-sticky</code> keeps the bar at the top while the page scrolls. <code>.skip-link</code> lets keyboard users jump past it.</li>
+        <li>Buttons: default, primary and danger; small and large; pressed and disabled; <code>.btn-group</code> and <code>.btn-toolbar</code>.</li>
+        <li>Forms, stacked: labels, text fields (including date, time, datetime-local, month and week), select and list boxes, textarea, checkbox, radio, <code>fieldset</code> and <code>legend</code>, help text, error state and <code>.form-actions</code>.</li>
+        <li>Tables: <code>.table</code> with striped, bordered and condensed modifiers, and row hover.</li>
+        <li>Alerts: warning, error, success and info in pastel tints, plus <code>.alert-block</code>.</li>
+        <li>Labels and badges: default, success, warning, important, info and inverse, as pastel chips.</li>
+        <li>Hero unit: <code>.hero-unit</code>, an opt-in large callout to open a page, with a smaller heading and inset below 768px; <code>.hero-unit-grid</code> swaps the grey fill for the 2.0 docs&rsquo; 18px grid on white.</li>
+        <li>Utilities: <code>.muted</code>, <code>.text-right</code> and <code>.table-scroll</code>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">bevel.css 0.2.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
+  </footer>
+</body>
+</html>
