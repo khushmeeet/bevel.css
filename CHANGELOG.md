@@ -2,7 +2,7 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
-## [Unreleased]
+## [0.2.0] - 2026-10-11
 
 Everything the money demo had to work around or would have been better with, apart from the file input.
 

@@ -9,7 +9,7 @@ Open `reference.html` in a browser to see every class, variant and state. Open `
 Copy a release file into your app's static folder and link it before your own stylesheet:
 
 ```html
-<link rel="stylesheet" href="/static/bevel-0.1.0.css">
+<link rel="stylesheet" href="/static/bevel-0.2.0.css">
 <link rel="stylesheet" href="/static/app.css">
 ```
 
