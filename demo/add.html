@@ -50,7 +50,10 @@
             </div>
             <div class="control-group error">
               <label for="t-amount">Amount</label>
-              <input id="t-amount" class="input-small" name="amount" type="text" inputmode="decimal" value="12.oo" aria-invalid="true" aria-describedby="t-amount-help">
+              <div class="input-prepend">
+                <span class="add-on" id="t-amount-unit">$</span>
+                <input id="t-amount" class="input-small" name="amount" type="text" inputmode="decimal" value="12.oo" aria-invalid="true" aria-describedby="t-amount-unit t-amount-help">
+              </div>
               <p class="help-block" id="t-amount-help">Digits and a decimal point only. That&rsquo;s a letter o, not a zero.</p>
             </div>
             <fieldset class="control-group">

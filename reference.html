@@ -40,6 +40,14 @@
       margin-block-end: 0;
     }
 
+    /* A whole page shown inside this one, such as a confirmation page. */
+    [data-page] {
+      padding-inline: 1.25rem;
+      margin-block-end: var(--bv-space-5);
+      border: 1px solid var(--bv-color-border);
+      border-radius: var(--bv-radius);
+    }
+
     [data-chips] {
       row-gap: var(--bv-space-3);
       padding: 0;
@@ -96,7 +104,7 @@
       </div>
       <p class="lead">Bootstrap 2.0&rsquo;s look for every app on hearth, in one plain stylesheet built only on CSS that has worked in every major browser for at least 30 months.</p>
 
-      <div class="row cols-3" data-spaced>
+      <div class="row cols-3">
         <div>
           <h3>One file</h3>
           <p>Copy the release file into your app&rsquo;s static folder and link it before your own stylesheet. No build step, no web fonts, no images, no JavaScript.</p>
@@ -122,9 +130,14 @@
         <a class="btn btn-small" href="#buttons">Buttons</a>
         <a class="btn btn-small" href="#forms">Forms</a>
         <a class="btn btn-small" href="#tables">Tables</a>
+        <a class="btn btn-small" href="#pagination">Pagination</a>
         <a class="btn btn-small" href="#alerts">Alerts</a>
         <a class="btn btn-small" href="#labels">Labels and badges</a>
+        <a class="btn btn-small" href="#progress">Progress bars</a>
         <a class="btn btn-small" href="#hero">Hero unit</a>
+        <a class="btn btn-small" href="#stats">Stats</a>
+        <a class="btn btn-small" href="#wells">Wells</a>
+        <a class="btn btn-small" href="#patterns">Patterns</a>
         <a class="btn btn-small" href="#utilities">Utilities</a>
       </nav>
     </section>
@@ -230,8 +243,9 @@
       <div class="page-header">
         <h1>Typography <small>13px on an 18px line</small></h1>
       </div>
+      <p>A heading sits 9px above what it introduces and 18px below whatever came before it, so it always reads with the block under it. At the top of a column, alert or well it gets no space above.</p>
 
-      <div class="row cols-2" data-spaced>
+      <div class="row cols-2">
         <div>
           <h1>h1. Heading 1</h1>
           <h2>h2. Heading 2</h2>
@@ -298,8 +312,8 @@ abcdefghijklmnopqrstuvwxyz
 &lt;/main&gt;</code></pre>
 
       <h2>Rows</h2>
-      <p>With no modifier, <code>.row</code> fits as many equal columns as it can, each at least 220px wide.</p>
-      <div class="row" data-spaced>
+      <p>With no modifier, <code>.row</code> fits as many equal columns as it can, each at least 220px wide. A row ends with 18px, like a table or an alert, whatever its columns end with: the last block in each column drops its own bottom margin.</p>
+      <div class="row">
         <div data-demo>One</div>
         <div data-demo>Two</div>
         <div data-demo>Three</div>
@@ -309,16 +323,16 @@ abcdefghijklmnopqrstuvwxyz
 
       <h2>Fixed columns</h2>
       <p><code>.cols-2</code>, <code>.cols-3</code> and <code>.cols-4</code> fix the count from 768px up and stack below it.</p>
-      <div class="row cols-2" data-spaced>
+      <div class="row cols-2">
         <div data-demo>.cols-2</div>
         <div data-demo>.cols-2</div>
       </div>
-      <div class="row cols-3" data-spaced>
+      <div class="row cols-3">
         <div data-demo>.cols-3</div>
         <div data-demo>.cols-3</div>
         <div data-demo>.cols-3</div>
       </div>
-      <div class="row cols-4" data-spaced>
+      <div class="row cols-4">
         <div data-demo>.cols-4</div>
         <div data-demo>.cols-4</div>
         <div data-demo>.cols-4</div>
@@ -492,7 +506,7 @@ abcdefghijklmnopqrstuvwxyz
         </div>
         <button class="btn btn-primary" type="button">Deploy an app</button>
       </div>
-      <div class="row cols-3" data-spaced>
+      <div class="row cols-3">
         <div data-demo>
           <div class="btn-toolbar" id="toolbar-wrapped">
             <div class="btn-group" role="group" aria-label="Filter apps, narrow">
@@ -692,6 +706,65 @@ abcdefghijklmnopqrstuvwxyz
   &lt;button class="btn btn-primary"&gt;Deploy&lt;/button&gt;
   &lt;button class="btn"&gt;Cancel&lt;/button&gt;
 &lt;/div&gt;</code></pre>
+
+      <h2>Add-ons</h2>
+      <p>Wrap a field and a <code>.add-on</code> in <code>.input-prepend</code> or <code>.input-append</code> to put a unit or a fixed part of the value beside it. The add-on goes on whichever side it sits in the markup, so the two classes work the same and both can wrap a field with one on each side. The field keeps its width modifier. A screen reader doesn&rsquo;t read the add-on as part of the label, so give it an <code>id</code> and add that to the field&rsquo;s <code>aria-describedby</code>.</p>
+      <div class="row cols-2" id="addons">
+        <div>
+          <div class="control-group" id="group-addon-prefix">
+            <label for="f-budget">Monthly budget</label>
+            <div class="input-prepend">
+              <span class="add-on" id="f-budget-unit">$</span>
+              <input id="f-budget" class="input-small" type="text" inputmode="decimal" value="75.00" aria-describedby="f-budget-unit">
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="f-memory-limit">Memory limit</label>
+            <div class="input-append">
+              <input id="f-memory-limit" class="input-small" type="number" value="256" aria-describedby="f-memory-limit-unit">
+              <span class="add-on" id="f-memory-limit-unit">MB</span>
+            </div>
+          </div>
+          <div class="control-group">
+            <label for="f-subdomain">Address</label>
+            <div class="input-prepend input-append">
+              <span class="add-on" id="f-subdomain-before">https://</span>
+              <input id="f-subdomain" type="text" value="recipes" aria-describedby="f-subdomain-before f-subdomain-after">
+              <span class="add-on" id="f-subdomain-after">.hearth.local</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="control-group">
+            <label for="f-repo">Repository (<code>.input-block</code>)</label>
+            <div class="input-prepend">
+              <span class="add-on" id="f-repo-prefix">git@</span>
+              <input id="f-repo" class="input-block" type="text" value="github.com:you/recipes.git" aria-describedby="f-repo-prefix">
+            </div>
+          </div>
+          <div class="control-group error" id="group-addon-error">
+            <label for="f-quota">Disk quota</label>
+            <div class="input-append">
+              <input id="f-quota" class="input-small" type="number" value="250" aria-invalid="true" aria-describedby="f-quota-unit f-quota-help">
+              <span class="add-on" id="f-quota-unit">GB</span>
+            </div>
+            <p class="help-block" id="f-quota-help">Only 74 GB is free on hearth-01.</p>
+          </div>
+          <div class="control-group">
+            <label for="f-keep">Keep backups for</label>
+            <div class="input-append">
+              <input id="f-keep" class="input-small" type="number" value="30" disabled aria-describedby="f-keep-unit">
+              <span class="add-on" id="f-keep-unit">days</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <pre><code>&lt;label for="budget"&gt;Monthly budget&lt;/label&gt;
+&lt;div class="input-prepend"&gt;
+  &lt;span class="add-on" id="budget-unit"&gt;$&lt;/span&gt;
+  &lt;input id="budget" class="input-small" type="text" aria-describedby="budget-unit"&gt;
+&lt;/div&gt;</code></pre>
     </section>
 
     <!-- Tables ========================================================== -->
@@ -775,6 +848,85 @@ abcdefghijklmnopqrstuvwxyz
 &lt;/div&gt;</code></pre>
     </section>
 
+    <!-- Pagination ====================================================== -->
+    <section class="section" id="pagination">
+      <div class="page-header">
+        <h1>Pagination <small>For lists too long for one page</small></h1>
+      </div>
+      <p>A <code>&lt;nav class="pagination"&gt;</code> around a list of page links. Mark the current page with <code>aria-current="page"</code>; it sinks in like a pressed button. A page you can&rsquo;t go to, such as Previous on the first page, is a <code>&lt;span&gt;</code>, and so is a gap between page numbers. 2.x markup, with <code>.active</code> and <code>.disabled</code> on the <code>&lt;li&gt;</code>, works too.</p>
+
+      <nav class="pagination" id="pagination-demo" aria-label="Pages of apps">
+        <ul>
+          <li><span><span aria-hidden="true">&lsaquo;</span> Previous</span></li>
+          <li><a href="#pagination" aria-current="page">1</a></li>
+          <li><a href="#pagination">2</a></li>
+          <li><a href="#pagination">3</a></li>
+          <li><a href="#pagination">4</a></li>
+          <li><a href="#pagination">Next <span aria-hidden="true">&rsaquo;</span></a></li>
+        </ul>
+      </nav>
+
+      <nav class="pagination" aria-label="Pages of logs">
+        <ul>
+          <li><a href="#pagination"><span aria-hidden="true">&lsaquo;</span> Newer</a></li>
+          <li><a href="#pagination">1</a></li>
+          <li><span>&hellip;</span></li>
+          <li><a href="#pagination">6</a></li>
+          <li><a href="#pagination" aria-current="page">7</a></li>
+          <li><a href="#pagination">8</a></li>
+          <li><span>&hellip;</span></li>
+          <li><a href="#pagination">48</a></li>
+          <li><a href="#pagination">Older <span aria-hidden="true">&rsaquo;</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="row cols-3">
+        <div data-demo>
+          <nav class="pagination" aria-label="Pages, 2.x markup">
+            <ul>
+              <li class="disabled"><a role="link" aria-disabled="true"><span aria-hidden="true">&laquo;</span><span class="visually-hidden">Previous</span></a></li>
+              <li class="active"><a href="#pagination">1</a></li>
+              <li><a href="#pagination">2</a></li>
+              <li><a href="#pagination"><span aria-hidden="true">&raquo;</span><span class="visually-hidden">Next</span></a></li>
+            </ul>
+          </nav>
+        </div>
+        <div data-demo id="pagination-last">
+          <nav class="pagination" aria-label="Pages, last page">
+            <ul>
+              <li><a href="#pagination"><span aria-hidden="true">&lsaquo;</span> Previous</a></li>
+              <li><a href="#pagination">11</a></li>
+              <li><a href="#pagination">12</a></li>
+              <li><a href="#pagination" aria-current="page">13</a></li>
+              <li><span>Next <span aria-hidden="true">&rsaquo;</span></span></li>
+            </ul>
+          </nav>
+        </div>
+        <div data-demo>
+          <nav class="pagination" aria-label="Pages, wrapped">
+            <ul>
+              <li><a href="#pagination"><span aria-hidden="true">&lsaquo;</span> Previous</a></li>
+              <li><a href="#pagination">1</a></li>
+              <li><a href="#pagination">2</a></li>
+              <li><a href="#pagination" aria-current="page">3</a></li>
+              <li><a href="#pagination">4</a></li>
+              <li><a href="#pagination">5</a></li>
+              <li><a href="#pagination">Next <span aria-hidden="true">&rsaquo;</span></a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <pre><code>&lt;nav class="pagination" aria-label="Pages"&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;span&gt;&lt;span aria-hidden="true"&gt;&amp;lsaquo;&lt;/span&gt; Previous&lt;/span&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=1" aria-current="page"&gt;1&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=2"&gt;2&lt;/a&gt;&lt;/li&gt;
+    &lt;li&gt;&lt;a href="?page=2"&gt;Next &lt;span aria-hidden="true"&gt;&amp;rsaquo;&lt;/span&gt;&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;</code></pre>
+    </section>
+
     <!-- Alerts ========================================================== -->
     <section class="section" id="alerts">
       <div class="page-header">
@@ -836,6 +988,57 @@ abcdefghijklmnopqrstuvwxyz
 &lt;span class="badge badge-important"&gt;2&lt;/span&gt;</code></pre>
     </section>
 
+    <!-- Progress bars =================================================== -->
+    <section class="section" id="progress">
+      <div class="page-header">
+        <h1>Progress bars <small>How far along, or how full</small></h1>
+      </div>
+      <p>A <code>.progress</code> track holds a <code>.bar</code>; set the bar&rsquo;s width inline. The track is faint on white, so say the value in words too, above the bar or elsewhere in its table row. Give the track <code>role="progressbar"</code> for work under way, such as a backup, or <code>role="meter"</code> for a level, such as disk space or a budget, with <code>aria-valuenow</code>, <code>aria-valuemin</code>, <code>aria-valuemax</code> and a name.</p>
+
+      <div class="row cols-2">
+        <div>
+          <p id="progress-disk">Disk: 118 of 192 GB used</p>
+          <div class="progress" role="meter" aria-labelledby="progress-disk" aria-valuenow="118" aria-valuemin="0" aria-valuemax="192"><div class="bar" style="width: 61%"></div></div>
+          <p id="progress-groceries">Groceries: $212.47 of $450.00</p>
+          <div class="progress progress-success" role="meter" aria-labelledby="progress-groceries" aria-valuenow="212.47" aria-valuemin="0" aria-valuemax="450"><div class="bar" style="width: 47%"></div></div>
+          <p id="progress-dining">Dining out: $184.30 of $200.00</p>
+          <div class="progress progress-warning" role="meter" aria-labelledby="progress-dining" aria-valuenow="184.30" aria-valuemin="0" aria-valuemax="200"><div class="bar" style="width: 92%"></div></div>
+          <p id="progress-subscriptions">Subscriptions: $71.97 of $60.00</p>
+          <div class="progress progress-danger" role="meter" aria-labelledby="progress-subscriptions" aria-valuenow="60" aria-valuemin="0" aria-valuemax="60" aria-valuetext="$71.97, $11.97 over"><div class="bar" style="width: 100%"></div></div>
+        </div>
+        <div>
+          <p id="progress-backup">Backing up money: 1.1 of 1.4 GB (<code>.progress-striped.active</code>)</p>
+          <div class="progress progress-striped active" role="progressbar" aria-labelledby="progress-backup" aria-valuenow="79" aria-valuemin="0" aria-valuemax="100"><div class="bar" style="width: 79%"></div></div>
+          <p id="progress-import">Importing 3 statements: 1 done (<code>.progress-striped</code>)</p>
+          <div class="progress progress-success progress-striped" role="progressbar" aria-labelledby="progress-import" aria-valuenow="1" aria-valuemin="0" aria-valuemax="3"><div class="bar" style="width: 33%"></div></div>
+          <p id="progress-empty">Nothing backed up yet</p>
+          <div class="progress" role="progressbar" aria-labelledby="progress-empty" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"><div class="bar" style="width: 0%"></div></div>
+          <p>A level past its maximum fills the track: set <code>aria-valuenow</code> to the maximum and say the real value in <code>aria-valuetext</code>, as the Subscriptions bar does. The stripes move only on <code>.active</code>, and stop for anyone who asks for less motion.</p>
+        </div>
+      </div>
+
+      <h2>In a table</h2>
+      <p>In a cell, a bar drops its bottom margin and is at least 90px wide, so a column of bars keeps its size.</p>
+      <div class="table-scroll" role="region" aria-label="Budgets with bars" tabindex="0">
+      <table class="table table-condensed" id="progress-table">
+        <thead>
+          <tr><th>Category</th><th class="text-right">Spent</th><th class="text-right">Budget</th><th>Used</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Groceries</td><td class="text-right">$212.47</td><td class="text-right">$450.00</td><td><div class="progress progress-success" role="meter" aria-label="Groceries" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100" aria-valuetext="47%"><div class="bar" style="width: 47%"></div></div></td></tr>
+          <tr><td>Dining out</td><td class="text-right">$184.30</td><td class="text-right">$200.00</td><td><div class="progress progress-warning" role="meter" aria-label="Dining out" aria-valuenow="92" aria-valuemin="0" aria-valuemax="100" aria-valuetext="92%"><div class="bar" style="width: 92%"></div></div></td></tr>
+          <tr><td>Subscriptions</td><td class="text-right">$71.97</td><td class="text-right">$60.00</td><td><div class="progress progress-danger" role="meter" aria-label="Subscriptions" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" aria-valuetext="120%"><div class="bar" style="width: 100%"></div></div></td></tr>
+        </tbody>
+      </table>
+      </div>
+
+      <pre><code>&lt;p id="disk"&gt;Disk: 118 of 192 GB used&lt;/p&gt;
+&lt;div class="progress" role="meter" aria-labelledby="disk"
+     aria-valuenow="118" aria-valuemin="0" aria-valuemax="192"&gt;
+  &lt;div class="bar" style="width: 61%"&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
     <!-- Hero unit ======================================================= -->
     <section class="section" id="hero">
       <div class="page-header">
@@ -871,6 +1074,129 @@ abcdefghijklmnopqrstuvwxyz
 &lt;/div&gt;</code></pre>
     </section>
 
+    <!-- Stats =========================================================== -->
+    <section class="section" id="stats">
+      <div class="page-header">
+        <h1>Stats <small>A big figure with a small label</small></h1>
+      </div>
+      <p>Add <code>.stats</code> to a <code>&lt;dl&gt;</code> for the few numbers a home page opens with: each <code>&lt;dt&gt;</code> is a muted label and each <code>&lt;dd&gt;</code> a 30px figure. Make the list a <code>.row</code> too, with each pair in a <code>&lt;div&gt;</code>, to set the figures side by side. A <code>&lt;small&gt;</code> in a figure holds its unit or the rest of a fraction.</p>
+
+      <dl class="row cols-4 stats" id="stats-demo">
+        <div><dt>Apps running</dt><dd>4 <small>of 5</small></dd></div>
+        <div><dt>Disk used</dt><dd>118 <small>of 192 GB</small></dd></div>
+        <div><dt>Up for</dt><dd>18 <small>days</small></dd></div>
+        <div><dt>Last backup</dt><dd>6 <small>hours ago</small></dd></div>
+      </dl>
+
+      <h2>In wells</h2>
+      <p>Give each pair <code>.well</code> to set it in a panel of its own.</p>
+      <dl class="row cols-3 stats">
+        <div class="well"><dt>Requests today</dt><dd>1,292</dd></div>
+        <div class="well"><dt>Errors today</dt><dd>2</dd></div>
+        <div class="well"><dt>Slowest response</dt><dd>412 <small>ms</small></dd></div>
+      </dl>
+
+      <pre><code>&lt;dl class="row cols-4 stats"&gt;
+  &lt;div&gt;&lt;dt&gt;Apps running&lt;/dt&gt;&lt;dd&gt;4 &lt;small&gt;of 5&lt;/small&gt;&lt;/dd&gt;&lt;/div&gt;
+  &lt;div&gt;&lt;dt&gt;Disk used&lt;/dt&gt;&lt;dd&gt;118 &lt;small&gt;of 192 GB&lt;/small&gt;&lt;/dd&gt;&lt;/div&gt;
+&lt;/dl&gt;</code></pre>
+    </section>
+
+    <!-- Wells and empty states ========================================== -->
+    <section class="section" id="wells">
+      <div class="page-header">
+        <h1>Wells <small>An inset panel, and the empty list</small></h1>
+      </div>
+      <p>A <code>.well</code> sets a block into the page: something to keep beside the main content without competing with it. Its last block drops its bottom margin, so the padding alone sets the space inside.</p>
+
+      <div class="well" id="well-demo">
+        <h3>hearth-01</h3>
+        <p>Five apps, 118 of 192 GB used, up 18 days. The next backup starts at 03:30.</p>
+      </div>
+
+      <h2>Empty states</h2>
+      <p>Add <code>.well-empty</code> and put the well where a list would be when there&rsquo;s nothing in it: say what would be here, and how to add the first one. Text is centered and muted, with two rhythm lines above and below.</p>
+
+      <div class="well well-empty" id="well-empty-demo">
+        <p><strong>No apps on hearth-01 yet.</strong> Each app deploys with a git push and comes back on its own after a restart.</p>
+        <p><a class="btn btn-primary" href="#wells">Deploy an app</a></p>
+      </div>
+
+      <div class="row cols-3">
+        <div>
+          <h3>Backups</h3>
+          <div class="well well-empty">
+            <p>Nothing backed up yet. The first backup runs tonight at 03:30.</p>
+          </div>
+        </div>
+        <div>
+          <h3>Failed deploys</h3>
+          <div class="well well-empty">
+            <p>None in the last 30 days.</p>
+          </div>
+        </div>
+        <div>
+          <h3>Search</h3>
+          <div class="well well-empty">
+            <p>No apps match &ldquo;<code>receipe</code>&rdquo;.</p>
+            <p><a href="#wells">Show all apps</a></p>
+          </div>
+        </div>
+      </div>
+
+      <pre><code>&lt;div class="well well-empty"&gt;
+  &lt;p&gt;&lt;strong&gt;No apps on hearth-01 yet.&lt;/strong&gt; Each app deploys with a git push.&lt;/p&gt;
+  &lt;p&gt;&lt;a class="btn btn-primary" href="/deploy"&gt;Deploy an app&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;</code></pre>
+    </section>
+
+    <!-- Patterns ======================================================== -->
+    <section class="section" id="patterns">
+      <div class="page-header">
+        <h1>Patterns <small>Built from the parts above</small></h1>
+      </div>
+
+      <h2>Confirm before deleting</h2>
+      <p>A button can&rsquo;t ask &ldquo;are you sure?&rdquo; without JavaScript: a <code>&lt;dialog&gt;</code> needs a script to open. So the button that starts a delete is a plain <code>.btn</code> link to a confirmation page of its own, with an ellipsis because there&rsquo;s another step. That page says what will go, in numbers where it can, and holds the only red button, which posts the form. The way back says what it does rather than &ldquo;Cancel&rdquo;. Every step works with the back button, and nothing is deleted by a GET.</p>
+      <p>The button that starts it, under the thing it deletes:</p>
+      <p><a class="btn" href="#patterns">Erase all data&hellip;</a></p>
+      <p>The page it opens:</p>
+
+      <div data-page id="confirm-demo">
+      <div class="page-header">
+        <h1>Erase all data?</h1>
+      </div>
+      <p class="lead">This deletes everything in money, and money can&rsquo;t bring it back.</p>
+      <dl class="row cols-4 stats">
+        <div><dt>Accounts</dt><dd>4</dd></div>
+        <div><dt>Transactions</dt><dd>163</dd></div>
+        <div><dt>Budgets</dt><dd>7</dd></div>
+        <div><dt>Imported statements</dt><dd>23</dd></div>
+      </dl>
+      <p>Last night&rsquo;s hearth backup keeps a copy for 30 days.</p>
+      <form action="#patterns" method="get">
+        <div class="form-actions">
+          <button class="btn btn-danger" type="button">Erase all data</button>
+          <a class="btn" href="#patterns">Keep my data</a>
+        </div>
+      </form>
+      </div>
+
+      <pre><code>&lt;!-- GET /settings: --&gt;
+&lt;a class="btn" href="/settings/erase"&gt;Erase all data&amp;hellip;&lt;/a&gt;
+
+&lt;!-- GET /settings/erase: --&gt;
+&lt;div class="page-header"&gt;&lt;h1&gt;Erase all data?&lt;/h1&gt;&lt;/div&gt;
+&lt;p class="lead"&gt;This deletes everything in money, and money can&amp;rsquo;t bring it back.&lt;/p&gt;
+&lt;dl class="row cols-4 stats"&gt;&hellip;&lt;/dl&gt;
+&lt;form action="/settings/erase" method="post"&gt;
+  &lt;div class="form-actions"&gt;
+    &lt;button class="btn btn-danger" type="submit"&gt;Erase all data&lt;/button&gt;
+    &lt;a class="btn" href="/settings"&gt;Keep my data&lt;/a&gt;
+  &lt;/div&gt;
+&lt;/form&gt;</code></pre>
+    </section>
+
     <!-- Utilities ======================================================= -->
     <section class="section" id="utilities">
       <div class="page-header">
@@ -879,6 +1205,26 @@ abcdefghijklmnopqrstuvwxyz
       <p class="muted"><code>.muted</code> sets text in the muted grey, for asides and timestamps. It keeps 4.5:1 on white and on bevel&rsquo;s grey surfaces: striped and hovered table rows, the hero unit and the form actions bar.</p>
       <p class="text-right"><code>.text-right</code> aligns to the end of the line, for numbers and trailing actions. On a paragraph it also lifts the line-length cap, so the text reaches the end.</p>
       <p><code>.table-scroll</code> wraps a wide table; see <a href="#tables">Tables</a>.</p>
+      <p id="visually-hidden-demo"><code>.visually-hidden</code> keeps text for screen readers and hides it from view: a label the page already makes clear, or the words for an icon-only button. The search field and the buttons below each have one.</p>
+      <div class="btn-toolbar">
+        <form role="search" action="#utilities">
+          <label class="visually-hidden" for="f-filter">Filter apps</label>
+          <input id="f-filter" type="search" placeholder="Filter apps">
+        </form>
+        <div class="btn-group" role="group" aria-label="chess-trainer">
+          <button class="btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.5 8a5.5 5.5 0 1 1-1.6-3.9"/><path d="M13.5 2.5v3h-3"/></svg>
+            <span class="visually-hidden">Restart chess-trainer</span>
+          </button>
+          <button class="btn" type="button">
+            <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M4 4l8 8M12 4l-8 8"/></svg>
+            <span class="visually-hidden">Stop chess-trainer</span>
+          </button>
+        </div>
+      </div>
+
+      <pre><code>&lt;label class="visually-hidden" for="filter"&gt;Filter apps&lt;/label&gt;
+&lt;input id="filter" type="search" placeholder="Filter apps"&gt;</code></pre>
     </section>
   </main>
 

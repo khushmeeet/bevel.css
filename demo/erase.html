@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Erase all data? · money</title>
+  <link rel="stylesheet" href="../bevel.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">money</a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html">Overview</a>
+          <a href="transactions.html">Transactions</a>
+          <a href="budgets.html">Budgets</a>
+          <a href="accounts.html">Accounts</a>
+        </nav>
+        <nav class="nav nav-end" aria-label="Preferences">
+          <a class="active" href="settings.html">Settings</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <section class="section">
+      <div class="page-header">
+        <h1>Erase all data?</h1>
+      </div>
+
+      <!-- Reached from the button on the settings page. Nothing is deleted
+           until this form is posted. -->
+      <p class="lead">This deletes everything in money, and money can&rsquo;t bring it back.</p>
+
+      <dl class="row cols-4 stats">
+        <div>
+          <dt>Accounts</dt>
+          <dd>4</dd>
+        </div>
+        <div>
+          <dt>Transactions</dt>
+          <dd>163 <small>since May</small></dd>
+        </div>
+        <div>
+          <dt>Budgets</dt>
+          <dd>7</dd>
+        </div>
+        <div>
+          <dt>Imported statements</dt>
+          <dd>23</dd>
+        </div>
+      </dl>
+
+      <p>Last night&rsquo;s hearth backup keeps a copy for 30 days. After that, getting it back means importing every statement again.</p>
+
+      <form action="settings.html" method="post">
+        <div class="form-actions">
+          <button class="btn btn-danger" type="submit" name="erase" value="all">Erase all data</button>
+          <a class="btn" href="settings.html">Keep my data</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">money runs on hearth-01. Every figure here is made up. Styled with <a href="../reference.html">bevel.css</a> 0.1.0 and no CSS of its own.</p>
+  </footer>
+</body>
+</html>

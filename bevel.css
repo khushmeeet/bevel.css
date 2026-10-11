@@ -120,6 +120,17 @@
     --bv-alert-info-border: #C3E5FE;
     --bv-alert-info-text: #387197;
 
+    /* Progress bars: the primary and danger buttons' gradients, with green
+       and amber at the same depth, so a bar keeps 3:1 against its track. */
+    --bv-progress-default-top: var(--bv-color-primary-top);
+    --bv-progress-default-bottom: var(--bv-color-primary-bottom);
+    --bv-progress-success-top: #2B9F4A;
+    --bv-progress-success-bottom: #017F31;
+    --bv-progress-warning-top: #E18500;
+    --bv-progress-warning-bottom: #C16300;
+    --bv-progress-danger-top: var(--bv-color-danger-top);
+    --bv-progress-danger-bottom: var(--bv-color-danger-bottom);
+
     /* Form errors and code */
     --bv-color-error: #B94A48;
     --bv-color-error-border: #EE5F5B;
@@ -142,8 +153,8 @@
     --bv-space-4: 0.875rem;   /* 14px */
     --bv-space-5: 1.125rem;   /* 18px, one rhythm line */
     --bv-space-6: 1.25rem;    /* 20px, gutter */
+    --bv-space-7: 2.25rem;    /* 36px, two rhythm lines */
     --bv-space-8: 3.75rem;    /* 60px, above each page section */
-    /* --bv-space-7 (36px) arrives with the masthead in v0.2. */
 
     /* Radius */
     --bv-radius-sm: 3px;
@@ -159,6 +170,10 @@
     --bv-shadow-field-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px var(--bv-color-focus-glow);
     --bv-shadow-field-error-focus: 0 0 6px var(--bv-color-error-glow);
     --bv-shadow-navbar: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+    --bv-shadow-pagination: 0 1px 2px rgba(0, 0, 0, 0.05);
+    --bv-shadow-well: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+    --bv-shadow-progress: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+    --bv-shadow-progress-bar: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
 
     /* Text emboss */
     --bv-emboss-light: 0 1px 1px rgba(255, 255, 255, 0.75);
@@ -224,10 +239,19 @@
     outline-offset: 1px;
   }
 
+  /* A heading sits half a line above what it introduces and a full line below
+     whatever came before it, so it always reads with the block under it. At
+     the top of a column, alert or well there's nothing above it, so it gets
+     no space there and lines up with its neighbours. */
   :where(h1, h2, h3, h4, h5, h6) {
+    margin-block: 0 var(--bv-space-3);
     font-weight: 700;
     color: var(--bv-color-text);
     text-rendering: optimizeLegibility;
+  }
+
+  :where(h1, h2, h3, h4, h5, h6):where(:not(:first-child)) {
+    margin-block-start: var(--bv-space-5);
   }
 
   :where(h1) { font-size: 1.875rem; line-height: 2.25rem; }
@@ -482,11 +506,14 @@
     .container { max-width: 1210px; }
   }
 
-  /* Equal columns, as many as fit at 220px or wider. */
+  /* Equal columns, as many as fit at 220px or wider. A row ends with one
+     rhythm line, like a table or an alert; see Utilities for why that holds
+     whatever the columns end with. */
   .row {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
     gap: var(--bv-space-5) var(--bv-space-6);
+    margin-block-end: var(--bv-space-5);
   }
 
   /* Fixed counts from 768px up; one column below. At the 940px container
@@ -515,6 +542,11 @@
     padding-block-end: 1.0625rem;
     margin-block: var(--bv-space-5);
     border-block-end: 1px solid var(--bv-color-border-soft);
+  }
+
+  /* The header's padding and rule set the space around its title. */
+  .page-header :where(h1, h2, h3, h4, h5, h6) {
+    margin: 0;
   }
 
   .page-header :where(h1) {
@@ -836,6 +868,63 @@
     max-width: 5.625rem;
   }
 
+  /* A field with a fixed prefix or suffix, such as $ or MB. The add-on's
+     place in the markup picks its side, so both 2.x class names do the same
+     thing. The field keeps its own width and gives way on a narrow screen. */
+  .input-prepend,
+  .input-append {
+    display: flex;
+  }
+
+  .input-prepend > :where(input, select),
+  .input-append > :where(input, select) {
+    min-width: 0;
+  }
+
+  /* Over the add-on beside it, so its glow isn't cut off. */
+  .input-prepend > :where(input, select):focus,
+  .input-append > :where(input, select):focus {
+    z-index: 1;
+  }
+
+  /* Square at least: 2.0's 16px minimum plus padding and border. */
+  .add-on {
+    flex-shrink: 0;
+    min-width: 1.75rem;
+    padding: var(--bv-space-1) var(--bv-space-2);
+    font-size: var(--bv-font-size);
+    line-height: var(--bv-line-height);
+    color: var(--bv-color-muted);
+    text-align: center;
+    text-shadow: var(--bv-emboss-light);
+    white-space: nowrap;
+    background-color: var(--bv-color-surface-alt);
+    border: 1px solid var(--bv-color-border-strong);
+    border-radius: var(--bv-radius-sm);
+  }
+
+  /* One line between the add-on and the field: the add-on gives up its
+     side, and the joined corners are square. */
+  .add-on:first-child {
+    border-inline-end-width: 0;
+  }
+
+  .add-on:last-child {
+    border-inline-start-width: 0;
+  }
+
+  .input-prepend > :where(:not(:first-child)),
+  .input-append > :where(:not(:first-child)) {
+    border-start-start-radius: 0;
+    border-end-start-radius: 0;
+  }
+
+  .input-prepend > :where(:not(:last-child)),
+  .input-append > :where(:not(:last-child)) {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+  }
+
   .checkbox,
   .radio {
     display: flex;
@@ -872,6 +961,13 @@
   :where(input, select, textarea)[aria-invalid="true"]:focus {
     border-color: var(--bv-color-error-focus);
     box-shadow: var(--bv-shadow-field-error-focus);
+  }
+
+  /* The error alert's tint, so the text keeps 4.5:1 on it. */
+  .control-group.error :where(.add-on) {
+    color: var(--bv-alert-error-text);
+    background-color: var(--bv-alert-error-bg);
+    border-color: var(--bv-color-error-border);
   }
 
   .form-actions {
@@ -1123,6 +1219,7 @@
   }
 
   .hero-unit :where(h1) {
+    margin: 0;
     font-size: 2.25rem;
     line-height: 2.5rem;
   }
@@ -1161,6 +1258,224 @@
 
 
 /* ==========================================================================
+   Pagination
+   ========================================================================== */
+
+@layer bevel.components {
+  /* Each link a 36px box, two rhythm lines, joined into one strip that wraps
+     on a narrow screen. Like a table, it ends with one rhythm line and has
+     none above, where 2.0 had both. */
+  .pagination {
+    margin-block-end: var(--bv-space-5);
+  }
+
+  .pagination :where(ul) {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: var(--bv-space-1);
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+
+  .pagination :where(li + li) {
+    margin-inline-start: -1px;
+  }
+
+  .pagination :where(li) > :where(a, span) {
+    display: block;
+    padding: 0 0.875rem;
+    font-variant-numeric: tabular-nums;
+    line-height: 2.125rem;
+    text-decoration: none;
+    white-space: nowrap;
+    background-color: var(--bv-color-surface);
+    border: 1px solid var(--bv-color-border);
+    box-shadow: var(--bv-shadow-pagination);
+    transition: background-color var(--bv-duration-fast) var(--bv-ease);
+  }
+
+  .pagination :where(li:first-child) > :where(a, span) {
+    border-start-start-radius: var(--bv-radius-sm);
+    border-end-start-radius: var(--bv-radius-sm);
+  }
+
+  .pagination :where(li:last-child) > :where(a, span) {
+    border-start-end-radius: var(--bv-radius-sm);
+    border-end-end-radius: var(--bv-radius-sm);
+  }
+
+  @media (hover: hover) {
+    .pagination :where(li > a:hover) {
+      background-color: var(--bv-color-surface-alt);
+    }
+  }
+
+  /* Over its neighbours, so the whole ring shows. */
+  .pagination :where(li > a:focus-visible) {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* A page you can't go to, such as Previous on the first page, or a gap
+     between page numbers: a span, or a link marked disabled. */
+  .pagination :where(li > span, .disabled > a, li > a[aria-disabled="true"]) {
+    color: var(--bv-color-muted);
+    cursor: default;
+    background-color: var(--bv-color-surface);
+  }
+
+  /* The current page sinks in like a pressed button, so it doesn't rely on
+     color alone. */
+  .pagination :where(.active > a, .active > span, li > [aria-current="page"]) {
+    color: var(--bv-color-text);
+    cursor: default;
+    background-color: var(--bv-color-surface-alt);
+    box-shadow: var(--bv-shadow-button-pressed);
+  }
+}
+
+/* ==========================================================================
+   Progress bars
+   Variants only reassign the --bv-progress-* variables.
+   ========================================================================== */
+
+@layer bevel.components {
+  /* A recessed track one rhythm line tall; the bar's width, set inline,
+     is the value. At least as wide as a small field, so it keeps its size
+     in a table column with nothing else in it. */
+  .progress {
+    --bv-progress-top: var(--bv-progress-default-top);
+    --bv-progress-bottom: var(--bv-progress-default-bottom);
+
+    min-inline-size: 5.625rem;
+    height: var(--bv-line-height);
+    margin-block-end: var(--bv-space-5);
+    overflow: hidden;
+    background-image: linear-gradient(var(--bv-color-surface-alt), var(--bv-color-stripe));
+    border-radius: var(--bv-radius);
+    box-shadow: var(--bv-shadow-progress);
+  }
+
+  /* Empty until the page sets a width. 2.0 also eased the width; that moves
+     layout, and a server-rendered page never changes it anyway. */
+  .progress :where(.bar) {
+    width: 0;
+    height: 100%;
+    background-image: linear-gradient(var(--bv-progress-top), var(--bv-progress-bottom));
+    box-shadow: var(--bv-shadow-progress-bar);
+  }
+
+  /* 2.0's 40px stripes, laid over the bar's own gradient. */
+  .progress-striped :where(.bar) {
+    background-image:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.15) 25%, transparent 25% 50%, rgba(255, 255, 255, 0.15) 50% 75%, transparent 75%),
+      linear-gradient(var(--bv-progress-top), var(--bv-progress-bottom));
+    background-size: 40px 40px, auto;
+  }
+
+  /* bevel's one looping animation, for work under way. Reduced motion
+     stops it, in Utilities. */
+  @keyframes bv-progress-stripes {
+    from { background-position: 0 0; }
+    to { background-position: 40px 0; }
+  }
+
+  .progress.active :where(.bar) {
+    animation: bv-progress-stripes 2s var(--bv-ease) infinite;
+  }
+
+  .progress-success {
+    --bv-progress-top: var(--bv-progress-success-top);
+    --bv-progress-bottom: var(--bv-progress-success-bottom);
+  }
+
+  .progress-warning {
+    --bv-progress-top: var(--bv-progress-warning-top);
+    --bv-progress-bottom: var(--bv-progress-warning-bottom);
+  }
+
+  .progress-danger {
+    --bv-progress-top: var(--bv-progress-danger-top);
+    --bv-progress-bottom: var(--bv-progress-danger-bottom);
+  }
+
+  /* In a table the row sets the spacing. */
+  .table :where(.progress) {
+    margin-block-end: 0;
+  }
+}
+
+
+/* ==========================================================================
+   Stats
+   ========================================================================== */
+
+@layer bevel.components {
+  /* A big figure with a small label above it, for the numbers a home page
+     opens with: a <dl>, with each dt and dd pair in a div when the list is
+     also a .row. The figure is the h1's size at the lead's weight, two
+     rhythm lines tall. */
+  .stats {
+    margin-block-end: var(--bv-space-5);
+  }
+
+  .stats :where(dt) {
+    font-size: var(--bv-font-size);
+    line-height: var(--bv-line-height);
+    color: var(--bv-color-muted);
+  }
+
+  .stats :where(dd) {
+    font-size: 1.875rem;
+    font-weight: 300;
+    line-height: 2.25rem;
+    color: var(--bv-color-text);
+  }
+
+  /* A unit or the rest of a fraction, as in a heading's subtitle. */
+  .stats :where(dd small) {
+    font-size: 1.125rem;
+    color: var(--bv-color-muted);
+  }
+}
+
+
+/* ==========================================================================
+   Wells and empty states
+   ========================================================================== */
+
+@layer bevel.components {
+  /* 2.0's inset panel. Its last block drops its bottom margin, so the
+     padding alone sets the space inside. */
+  .well {
+    padding: 1.1875rem;
+    margin-block-end: var(--bv-space-5);
+    background-color: var(--bv-color-surface-alt);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    border-radius: var(--bv-radius);
+    box-shadow: var(--bv-shadow-well);
+  }
+
+  .well > :where(:last-child) {
+    margin-block-end: 0;
+  }
+
+  /* In place of a list with nothing in it: what would be here, and how to
+     add the first one. Two rhythm lines above and below, border included. */
+  .well-empty {
+    padding-block: calc(var(--bv-space-7) - 1px);
+    color: var(--bv-color-muted);
+    text-align: center;
+  }
+
+  .well-empty :where(p) {
+    margin-inline: auto;
+  }
+}
+
+
+/* ==========================================================================
    Utilities
    ========================================================================== */
 
@@ -1183,6 +1498,30 @@
 
   .table-scroll :where(th, td) {
     white-space: nowrap;
+  }
+
+  /* Read by screen readers, never shown: a label the page already makes
+     clear, or the words for an icon-only button. */
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* A row's own margin sets the space after it, and its gap the space
+     between columns, so a column and the last block in it drop their bottom
+     margins; otherwise a column ending in a table, or a column that is a
+     well, would add a second line. In this layer so it beats component
+     margins. */
+  .row > :where(*),
+  .row > :where(*) > :where(:last-child) {
+    margin-block-end: 0;
   }
 
   /* In the last layer so it beats every component transition. */

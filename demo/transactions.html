@@ -39,7 +39,8 @@
           <a class="btn" href="transactions.html?show=review">Needs category <span class="badge badge-warning">2</span></a>
         </nav>
         <form role="search" action="transactions.html" method="get">
-          <input type="search" name="q" placeholder="Search payees" aria-label="Search transactions">
+          <label class="visually-hidden" for="t-search">Search transactions</label>
+          <input id="t-search" type="search" name="q" placeholder="Search payees">
         </form>
         <a class="btn btn-primary" href="add.html">
           <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10"/></svg>
@@ -73,17 +74,18 @@
             <tr><td><time datetime="2026-10-04">Oct 4</time></td><td>Riverside Climbing Gym</td><td>Fun</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$22.00</td><td></td></tr>
             <tr><td><time datetime="2026-10-04">Oct 4</time></td><td>Northside Coffee</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$6.50</td><td></td></tr>
             <tr><td><time datetime="2026-10-03">Oct 3</time></td><td>Tadka House</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$42.80</td><td></td></tr>
-            <tr><td><time datetime="2026-10-03">Oct 3</time></td><td>Transit card top-up</td><td>Transport</td><td>Checking &middot;&middot;4821</td><td class="text-right">&minus;$40.00</td><td></td></tr>
-            <tr><td><time datetime="2026-10-02">Oct 2</time></td><td>Greenleaf Market</td><td>Groceries</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$87.12</td><td></td></tr>
-            <tr><td><time datetime="2026-10-02">Oct 2</time></td><td>Driftbox</td><td>Subscriptions</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$9.99</td><td></td></tr>
-            <tr><td><time datetime="2026-10-02">Oct 2</time></td><td>To savings</td><td>Transfer</td><td>Checking &middot;&middot;4821</td><td class="text-right">$500.00</td><td></td></tr>
-            <tr><td><time datetime="2026-10-01">Oct 1</time></td><td>Tonewheel</td><td>Subscriptions</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$10.99</td><td></td></tr>
-            <tr><td><time datetime="2026-10-01">Oct 1</time></td><td>Maple Court Apartments</td><td>Rent</td><td>Checking &middot;&middot;4821</td><td class="text-right">&minus;$1,450.00</td><td></td></tr>
-            <tr><td><time datetime="2026-10-01">Oct 1</time></td><td>Interest</td><td>Income</td><td>Savings &middot;&middot;1907</td><td class="text-right">+$61.72</td><td></td></tr>
-            <tr><td><time datetime="2026-10-01">Oct 1</time></td><td>Larkspur Labs payroll</td><td>Income</td><td>Checking &middot;&middot;4821</td><td class="text-right">+$3,240.00</td><td></td></tr>
           </tbody>
         </table>
       </div>
+
+      <nav class="pagination" aria-label="Pages of transactions">
+        <ul>
+          <li><span><span aria-hidden="true">&lsaquo;</span> Newer</span></li>
+          <li><a href="transactions.html" aria-current="page">1</a></li>
+          <li><a href="transactions.html?page=2">2</a></li>
+          <li><a href="transactions.html?page=2">Older <span aria-hidden="true">&rsaquo;</span></a></li>
+        </ul>
+      </nav>
 
       <p class="muted">In: $3,301.72. Out: $2,175.01, including the $39.43 that still needs a category. Transfers between your own accounts don&rsquo;t count either way.</p>
     </section>

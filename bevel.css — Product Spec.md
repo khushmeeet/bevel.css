@@ -38,7 +38,7 @@ The library succeeds if every app looks like it came from the same hand, loads i
 
 ## Scope
 
-v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedback. Candidates are added only under the promotion rule in *Distribution and versioning*.
+v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedback. v0.2 adds input add-ons, pagination, wells with empty states, progress bars, stats, a screen-reader-only utility, spacing after rows and around headings, and a documented pattern for confirming before deleting, all found missing while building the money demo. Candidates are added only under the promotion rule in *Distribution and versioning*.
 
 | Area | Release | Includes |
 | --- | --- | --- |
@@ -51,16 +51,20 @@ v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedba
 | Alerts | v0.1 | Warning (default), error, success, info; `.alert-block` |
 | Labels and badges | v0.1 | Default, success, warning, important, info, inverse |
 | Hero unit | v0.1 | `.hero-unit`, an opt-in large callout to open a page; `.hero-unit-grid` for the 18px grid on white |
-| Utilities | v0.1 | `.muted`, `.text-right`, `.table-scroll` |
+| Utilities | v0.1 | `.muted`, `.text-right`, `.table-scroll`; `.visually-hidden` from v0.2 |
+| Input add-ons | v0.2 | `.input-prepend`, `.input-append` and `.add-on`, for a unit or fixed part such as `$`, `MB` or `git@` |
+| Pagination | v0.2 | `.pagination`, numbered page links for long lists |
+| Wells and empty states | v0.2 | `.well`, an inset panel; `.well-empty`, the message in place of an empty list |
+| Progress bars | v0.2 | `.progress` and `.bar`: plain, striped and animated striped; default, success, warning and danger |
+| Stats | v0.2 | `.stats`, a big figure with a small label, for a home page's numbers |
+| Confirm before deleting | v0.2 | A documented pattern, no CSS: a confirmation page in place of a dialog |
 | Masthead and section bar | Candidate | `.subhead` with the masked 18px grid; sticky `.subnav` |
 | Tabs and pills | Candidate | CSS only, for links between pages |
 | Dropdowns and carets | Candidate | Built on `<details>`; a small `bevel.js` only if a case needs it |
-| Modal | Candidate | Built on `<dialog>` |
-| Progress bars | Candidate | Plain, striped, animated striped |
-| Wells and empty states | Candidate | Inset panel; empty-list message |
-| Breadcrumbs and pagination | Candidate | For deep pages and long lists |
+| Modal | Candidate | Built on `<dialog>`; for confirming a delete, see *Patterns* |
+| Breadcrumbs | Candidate | For deep pages |
 | Code blocks with line numbers | Candidate | Docs-style gutter and syntax colors |
-| Input add-ons and horizontal forms | Candidate | Prefix such as `git@`; label-left layout |
+| Horizontal forms | Candidate | Label-left layout |
 | More button colors | Candidate | Success, info, warning, inverse |
 | Dismissible alerts | Candidate | Close button; needs JavaScript |
 | Dark mode | Candidate | Token overrides under `prefers-color-scheme` and `[data-theme]` |
@@ -96,8 +100,8 @@ Only features that are Baseline Widely available (in every major browser for 30+
 1. `bevel.reset`: `box-sizing: border-box` everywhere; margins removed from headings, paragraphs and lists; images and video capped at their container's width.
 2. `bevel.base`: element styles (body, headings, links, `code`, `pre`, `hr`, form controls), all inside `:where()` so their specificity is zero.
 3. `bevel.layout`: `.container`, `.row`, `.page-header`.
-4. `bevel.components`: navbar, buttons, form classes, tables, alerts, labels, badges, hero unit.
-5. `bevel.utilities`: `.muted`, `.text-right`, `.table-scroll`.
+4. `bevel.components`: navbar, buttons, form classes and add-ons, tables, alerts, labels, badges, hero unit, pagination, progress bars, stats, wells.
+5. `bevel.utilities`: `.muted`, `.text-right`, `.table-scroll`, `.visually-hidden`; the rule that trims the last margin in each `.row` column, and the reduced-motion override, both here because they must beat component styles.
 
 An app's own CSS is written outside any layer, so it overrides the library without `!important` or specificity tricks.
 
@@ -188,6 +192,17 @@ Pastel tints replace 2.0's dusty ones, keeping the same four hues so the meaning
 
 Tokens follow `--bv-alert-<variant>-bg`, `-border` and `-text`.
 
+### Progress bars
+
+| Variant | Gradient, top to bottom | Contrast at the midpoint, against the track | 2.0.0 |
+| --- | --- | --- | --- |
+| Default (`.progress`) | #0088CC to #0055CC, the primary button's | 4.8:1 | #149BDF to #0480BE |
+| Success (`.progress-success`) | #2B9F4A to #017F31 | 3.9:1 | #62C462 to #57A957 |
+| Warning (`.progress-warning`) | #E18500 to #C16300 | 3.2:1 | #FBB450 to #F89406 (2.1) |
+| Danger (`.progress-danger`) | #E0524E to #BD362F, the danger button's | 4.3:1 | #EE5F5B to #C43C35 |
+
+Bars take the colored buttons' weight rather than 2.0's lighter bars: the default and danger bars use the primary and danger buttons' gradient tokens, so they stay in step with them, and green and amber are set at the same depth (OKLCH lightness about 0.62 to 0.52, and 0.70 to 0.60 for amber). Every bar keeps 3:1 against its track (WCAG 1.4.11), measured at the gradient's midpoint like the buttons. 2.0.0 had no warning bar, and its info bar is close enough to the default blue to leave out. Tokens follow `--bv-progress-<variant>-top` and `-bottom`.
+
 ### Form errors and code
 
 | Token | Value | Used for | Contrast |
@@ -239,7 +254,7 @@ The lead and hero text are weight 300. 2.0 asked for 200, which rendered as Helv
 - **Links:** `--bv-color-link` with a faint underline at 40% of the link color, so a link never relies on color alone; on hover, `--bv-color-link-hover` and a full-strength underline. Navbar links, the brand and link buttons have no underline. Color transitions over 150ms linear.
 - **Body:** line height 1.3847, a ratio that gives 18px at 13px, so text an app sets larger keeps proportional leading; `overflow-wrap: break-word`, so long paths and hashes break instead of widening the page.
 - **Images and video:** at most 100% of their container's width, with height kept in proportion.
-- **Headings:** `text-rendering: optimizeLegibility`; no margins in the reset, spacing comes from the component or page around them.
+- **Headings:** `text-rendering: optimizeLegibility`; margin 0 0 9px, plus an 18px top margin when the heading isn't the first child of its parent. A heading so sits closer to what it introduces than to what came before it, whatever that is, and a heading at the top of a column, alert or well lines up with its neighbours. The page header, the hero unit and `.alert-heading` set their own. A deliberate change: 2.0.0 headings had no margin, which left a heading touching a form label or table beneath it.
 - **`strong`, `b`:** weight 700. **`small`** outside headings keeps the surrounding size, as in 2.0.
 - **`code`:** padding 2px 4px, radius 3px, 1px border `--bv-color-code-border`, background `--bv-color-code-bg`.
 - **`pre`:** block, padding 8px, margin 0 0 9px, background #F5F5F5, 1px border rgba(0, 0, 0, 0.15), radius 4px, `white-space: pre-wrap`, `overflow-wrap: anywhere`.
@@ -259,7 +274,7 @@ Depth comes from three things only: vertical gradients lit from the top, 1px tex
 | `--bv-space-4` | 14px (0.875rem) | Alert inline padding; block alert vertical padding |
 | `--bv-space-5` | 18px (1.125rem) | One rhythm line: margins under tables, alerts, field groups, form actions |
 | `--bv-space-6` | 20px (1.25rem) | Gutter: container padding, column gap; hero unit padding below 768px |
-| `--bv-space-7` | 36px (2.25rem) | Masthead spacing (v0.2) |
+| `--bv-space-7` | 36px (2.25rem) | Two rhythm lines: empty well padding; masthead spacing later |
 | `--bv-space-8` | 60px (3.75rem) | Space above each page section; hero unit padding |
 
 ### Radius and borders
@@ -284,6 +299,10 @@ Every border is 1px solid, except the 3px bar under the current navbar link. The
 | `--bv-shadow-field-focus` | inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6) | Focused fields |
 | `--bv-shadow-field-error-focus` | 0 0 6px #F8B9B7 | Focused fields in error |
 | `--bv-shadow-navbar` | 0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1) | Navbar |
+| `--bv-shadow-pagination` | 0 1px 2px rgba(0,0,0,.05) | Pagination links; 2.0 put it on the whole strip |
+| `--bv-shadow-well` | inset 0 1px 1px rgba(0,0,0,.05) | Wells |
+| `--bv-shadow-progress` | inset 0 1px 2px rgba(0,0,0,.1) | Progress track |
+| `--bv-shadow-progress-bar` | inset 0 0 0 1px rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.15) | Progress bar: an edge like a colored button's border, darker along the bottom |
 
 ### Text emboss
 
@@ -297,20 +316,20 @@ Every border is 1px solid, except the 3px bar under the current navbar link. The
 
 - Always vertical, top to bottom, with `background-repeat: no-repeat` so a hover can slide the gradient up and reveal the flat fill beneath.
 - The default button holds white for its top quarter: `linear-gradient(#FFFFFF, #FFFFFF 25%, #E6E6E6)`.
-- In v0.1, only buttons and the navbar use gradients.
+- Buttons, the navbar and progress bars use gradients; the progress track is a recessed one, darker at the top.
 
 ### Motion
 
 | Token | Value | Used for |
 | --- | --- | --- |
-| `--bv-duration-fast` | 100ms | Button background shift, table row hover |
+| `--bv-duration-fast` | 100ms | Button background shift, table row and pagination hover |
 | `--bv-duration` | 150ms | Link and navbar link color |
 | `--bv-duration-slow` | 200ms | Field border and glow |
 | `--bv-ease` | linear | All transitions, as in 2.0 |
 
 - Only `color`, `background-color`, `background-position`, `border-color`, `box-shadow`, `text-shadow` and `opacity` may animate. Nothing that changes layout.
 - Under `prefers-reduced-motion: reduce`, every transition and animation runs in 0.01ms.
-- v0.1 has no looping animation; the striped progress bar (v0.2) will be the only one.
+- The animated striped progress bar is the only looping animation: its stripes move 40px along over 2s, linear, forever, by `background-position`. Reduced motion stops it after one 0.01ms run.
 
 ## Layout
 
@@ -342,7 +361,8 @@ Pages use a centered container whose content width steps through 2.0's responsiv
 
 ### Rows and columns
 
-- `.row` is a grid with an 18px row gap and a 20px column gap.
+- `.row` is a grid with an 18px row gap and a 20px column gap, and an 18px bottom margin, like a table or an alert.
+- Each column, and the last block in it, drops its bottom margin (a rule in `bevel.utilities`, so it beats component margins), so the space after a row is always the row's own 18px, whether its columns end in a paragraph, a table or a form, or are themselves a well.
 - With no modifier, columns are `repeat(auto-fit, minmax(min(100%, 220px), 1fr))`: as many equal columns as fit, each at least 220px.
 - `.cols-2`, `.cols-3` and `.cols-4` fix the count at 768px and up, and stack to one column below 768px.
 - At the 940px container these produce 460px, 300px and 220px columns, the same widths as 2.0's `span6`, `span4` and `span3`.
@@ -406,7 +426,8 @@ v0.1 targets WCAG 2.2 AA, with one documented exception inherited from the 2.0 l
 - **Zoom and reflow:** type is in `rem`, so browser font settings apply. Pages reflow with no horizontal scrolling at 320px width and at 200% zoom, except inside `.table-scroll`.
 - **Motion:** `prefers-reduced-motion` is honored as described under *Motion*.
 - **State hooks:** `aria-current`, `aria-pressed`, `aria-disabled` and `aria-invalid` style components directly, so the accessible markup is also the styled markup. Error help is tied to its field with `aria-describedby`.
-- **Color is never the only signal:** labels carry words, badges carry numbers, errors carry text, links carry an underline, and the current navbar link carries a bar.
+- **Color is never the only signal:** labels carry words, badges carry numbers, errors carry text, links carry an underline, the current navbar link carries a bar, and the current page in a pagination strip sinks in.
+- **Hidden text:** `.visually-hidden` gives a field a real `<label>`, or an icon-only button its words, without showing them. Prefer it to `aria-label`, so the name is translated with the page.
 
 ### Exceptions
 
@@ -414,6 +435,7 @@ v0.1 targets WCAG 2.2 AA, with one documented exception inherited from the 2.0 l
 | --- | --- | --- |
 | Field borders | #CCCCCC on white is 1.6:1, under the 3:1 target for component boundaries | Every field has a visible label and an inset shadow; accepted for the 2.0 look |
 | Field text size | Fields use 13px text, and iOS Safari zooms the page when a field under 16px takes focus | Zoom is reversible and doesn't block input; accepted to keep 2.0's field size on every screen |
+| Progress track | The #F5F5F5 to #F9F9F9 track is 1.1:1 on white, so the full length of a bar is hard to see | The bar keeps 3:1 against the track; the value is always in words beside it or in its table row, and in `aria-valuenow` or `aria-valuetext`; accepted for the 2.0 look |
 
 ## Testing and quality gates
 
@@ -554,8 +576,32 @@ v0.1 forms are stacked: label above field. Fields are styled as plain elements a
 | Field group (`.control-group`) | Label, field and help; margin-bottom 18px |
 | Control group (`fieldset`, `legend`) | `fieldset` has no border, padding or margin; `legend` is styled as a label. Use it for radios and related checkboxes; it can also take `.control-group` |
 | Help (`.help-block`) | Block; margin-top 5px; 13px / 18px; `--bv-color-muted` |
+| Add-ons (`.input-prepend`, `.input-append`, `.add-on`) | See *Input add-ons* below |
 | Error (`.control-group.error`, or a field with `aria-invalid="true"`) | Label, legend and help #B94A48; field text #B94A48 and border #EE5F5B; on focus, border #E9322D and `--bv-shadow-field-error-focus` |
 | Actions bar (`.form-actions`) | Padding 17px 20px 18px; margin 18px 0; background #F5F5F5; 1px #DDDDDD top border; buttons in a row with a 5px gap |
+
+
+### Input add-ons
+
+A unit or fixed part of the value beside a field, such as `$`, `MB` or `git@`.
+
+```html
+<label for="budget">Monthly budget</label>
+<div class="input-prepend">
+  <span class="add-on" id="budget-unit">$</span>
+  <input id="budget" class="input-small" type="text" aria-describedby="budget-unit">
+</div>
+```
+
+| Part | Spec |
+| --- | --- |
+| Group (`.input-prepend`, `.input-append`) | Flex. The add-on's place in the markup picks its side, so the two classes do the same thing and 2.x markup works as written; a field with an add-on on each side uses both, or either. The field keeps its width and its modifier (`.input-small`, `.input-block`), and shrinks with `min-width: 0` when the add-ons leave too little room, so a group never widens the page |
+| Add-on (`.add-on`) | 13px / 18px; padding 4px 5px; at least 28px wide, so it's at least square (2.0's 16px minimum plus padding and border); `--bv-color-muted` (4.7:1) on `--bv-color-surface-alt`; `--bv-emboss-light`; 1px `--bv-color-border-strong` border; radius 3px; never wraps or shrinks |
+| Join | The add-on drops its border on the side that touches the field, so one 1px line divides them; the joined corners are square |
+| Focus | The field's usual border and glow, lifted with `z-index: 1` so an add-on after it doesn't cover the glow |
+| Error (`.control-group.error`) | Add-on text `--bv-alert-error-text` on `--bv-alert-error-bg` (4.6:1), border `--bv-color-error-border`. 2.0 used #B94A48 on #F2DEDE; the pastel tint follows the alerts. With `aria-invalid` alone, only the field turns red, as with the label |
+| Disabled | The add-on is unchanged; the field shows its own disabled state |
+| Accessibility | The add-on isn't part of the field's accessible name. Give it an `id` and list it in the field's `aria-describedby` |
 
 ### Tables
 
@@ -584,6 +630,33 @@ One table style with three modifiers; wide tables scroll inside their own box on
 | `.table-scroll` | Wrapper with `overflow-x: auto`; the table keeps its natural width and scrolls inside it. Give it `role="region"`, an `aria-label` and `tabindex="0"`, so keyboard users can focus it and scroll; WebKit doesn't make a scroll box focusable on its own |
 
 Cells are vertically centered rather than 2.0's top alignment, so small buttons in an actions column line up with the text.
+
+
+### Pagination
+
+Numbered links to the pages of a long list, joined into one strip.
+
+```html
+<nav class="pagination" aria-label="Pages">
+  <ul>
+    <li><span><span aria-hidden="true">&lsaquo;</span> Previous</span></li>
+    <li><a href="?page=1" aria-current="page">1</a></li>
+    <li><a href="?page=2">2</a></li>
+    <li><a href="?page=2">Next <span aria-hidden="true">&rsaquo;</span></a></li>
+  </ul>
+</nav>
+```
+
+| Part | Spec |
+| --- | --- |
+| Strip (`.pagination`) | Margin-bottom 18px and none on top, like a table; 2.0 had 18px both. The list is flex, wraps on a narrow screen with a 4px row gap, and has no bullets or padding |
+| Item (`li > a`, `li > span`) | 13px text on a 34px line; padding 0 14px; 36px tall, two rhythm lines; white; 1px `--bv-color-border` border; `--bv-shadow-pagination`; no underline; tabular figures; never wraps. Each item overlaps the one before by 1px, so neighbours share one border. The first item keeps its start corners and the last its end corners at 3px |
+| Link | `--bv-color-link`, and `--bv-color-link-hover` on hover |
+| Hover | Background `--bv-color-surface-alt` over 100ms linear; only on pointers that hover |
+| Focus | Standard focus outline, lifted with `z-index: 1` so neighbours don't cover it |
+| Current (`aria-current="page"`, or `.active` on the `li`) | `--bv-color-text` on `--bv-color-surface-alt`, `--bv-shadow-button-pressed`, default cursor. A deliberate change: 2.0's #999999 on #F5F5F5 is 2.6:1 and differs from the links by color alone; sunk like a pressed button, the current page reads without color |
+| Disabled (a `span`, a link with `aria-disabled="true"`, or `.disabled` on the `li`) | `--bv-color-muted` on white, default cursor, no hover. Use a `span` for Previous on the first page, Next on the last, and an ellipsis between page numbers |
+| Arrows | Wrap `&lsaquo;` and `&rsaquo;` in `aria-hidden="true"`, so a screen reader reads only the word |
 
 ### Alerts
 
@@ -623,6 +696,47 @@ Labels are short status words; badges are counts.
 | Variants | `-success`, `-warning`, `-important`, `-info` and `-inverse`, applied as `.label-success`, `.badge-success` and so on; colors in *Color → Labels and badges*. Inverse keeps white text with `--bv-emboss-dark` |
 | Meaning | The word or number always carries the meaning; color only reinforces it |
 
+### Progress bars
+
+How far along some work is, or how full something is.
+
+```html
+<p id="disk">Disk: 118 of 192 GB used</p>
+<div class="progress" role="meter" aria-labelledby="disk"
+     aria-valuenow="118" aria-valuemin="0" aria-valuemax="192">
+  <div class="bar" style="width: 61%"></div>
+</div>
+```
+
+| Part | Spec |
+| --- | --- |
+| Track (`.progress`) | 18px tall, one rhythm line; at least 90px wide, so a column of bars keeps its size; margin-bottom 18px, none in a table cell; `linear-gradient(#F5F5F5, #F9F9F9)`; `--bv-shadow-progress`; radius 4px; clips the bar |
+| Bar (`.bar`) | Full height; its width, set inline by the page, is the value, and it's empty without one; the variant's gradient; `--bv-shadow-progress-bar`. No text inside, and no width transition: 2.0 eased the width over 0.6s, which moves layout, and a server-rendered bar never changes |
+| Variants | `.progress-success`, `.progress-warning`, `.progress-danger` on the track; colors in *Color → Progress bars* |
+| Striped (`.progress-striped`) | 2.0's white stripes at 15%, 45° and 40px apart, laid over the bar's gradient |
+| Animated (`.progress.active`) | The stripes move; see *Motion* |
+| Over the maximum | Set the width to 100%, `aria-valuenow` to the maximum, and the real value in `aria-valuetext` |
+| Accessibility | `role="progressbar"` for work under way, such as a backup or import; `role="meter"` for a level, such as disk space or a budget. Either needs `aria-valuenow`, `aria-valuemin`, `aria-valuemax` and a name from `aria-labelledby` or `aria-label`. Say the value in words too: the track is faint (see *Accessibility → Exceptions*) |
+
+### Stats
+
+A big figure with a small label above it, for the few numbers a home page opens with: a balance, uptime, disk used.
+
+```html
+<dl class="row cols-4 stats">
+  <div><dt>Apps running</dt><dd>4 <small>of 5</small></dd></div>
+  <div><dt>Disk used</dt><dd>118 <small>of 192 GB</small></dd></div>
+</dl>
+```
+
+| Part | Spec |
+| --- | --- |
+| List (`.stats`) | On a `<dl>`; margin-bottom 18px. Add `.row` and a column count to set the pairs side by side, each `dt` and `dd` in a `<div>` |
+| Label (`dt`) | 13px / 18px; `--bv-color-muted` |
+| Figure (`dd`) | 30px, h1's size, on a 36px line, two rhythm lines; weight 300, the lead's; `--bv-color-text` |
+| Unit (`dd small`) | 18px, `--bv-color-muted`, as in a heading's subtitle: "118 of 192 GB", "6 hours ago" |
+| In wells | Give each pair's `<div>` the `.well` class. A column in a `.row` drops its bottom margin, so the wells keep the row's spacing |
+
 ### Hero unit
 
 2.0's large callout, for the one message that opens a page such as an app's home. It is opt-in: nothing changes until a page uses the class.
@@ -644,8 +758,55 @@ Labels are short status words; badges are counts.
 | Grid (`.hero-unit-grid`) | Optional. White fill ruled with 1px `--bv-color-grid` lines every 18px both ways, every fifth vertical line darker where two layers overlap, as in the 2.0 docs' page background; a 1px `--bv-color-border-soft` inset edge, so the box keeps its size. 2.0's hero had no grid |
 | Below 768px | Padding 20px; heading 36px on a 40px line with no letter-spacing, the page header title's size, so it fits a 320px screen without horizontal scrolling. 2.0 had no small-screen hero |
 
+
+### Wells and empty states
+
+2.0's inset panel, and the message that takes an empty list's place.
+
+```html
+<div class="well well-empty">
+  <p><strong>No apps on hearth-01 yet.</strong> Each app deploys with a git push.</p>
+  <p><a class="btn btn-primary" href="/deploy">Deploy an app</a></p>
+</div>
+```
+
+| Part | Spec |
+| --- | --- |
+| Well (`.well`) | Padding 19px, 20px with the border; margin-bottom 18px, not 2.0's 20px, so it keeps the rhythm; `--bv-color-surface-alt`; 1px rgba(0,0,0,.05) border; radius 4px; `--bv-shadow-well`. Its last child drops its bottom margin, so the padding alone sets the space inside. 2.0 had no such rule, and a paragraph's margin showed below the text |
+| Empty state (`.well-empty`) | On a `.well`. Padding 35px top and bottom, 36px with the border; text centered in `--bv-color-muted` (4.7:1); paragraphs centered as blocks too, so their 56ch cap doesn't push them to one side |
+| Content | Say what would be here and how to add the first one, in a sentence or two; a lead-in in `<strong>`; a button or link for the next step in its own paragraph. Use it in place of the list, not inside an empty table |
+
+### Patterns
+
+#### Confirm before deleting
+
+A button can't ask "are you sure?" without JavaScript: a `<dialog>` needs a script to open. These apps confirm on a page of their own instead, built from existing parts; no CSS is involved.
+
+```html
+<!-- GET /settings -->
+<a class="btn" href="/settings/erase">Erase all data&hellip;</a>
+
+<!-- GET /settings/erase -->
+<div class="page-header"><h1>Erase all data?</h1></div>
+<p class="lead">This deletes everything in money, and money can't bring it back.</p>
+<dl class="row cols-4 stats">…</dl>
+<form action="/settings/erase" method="post">
+  <div class="form-actions">
+    <button class="btn btn-danger" type="submit">Erase all data</button>
+    <a class="btn" href="/settings">Keep my data</a>
+  </div>
+</form>
+```
+
+- **The way in** is a plain `.btn` link, not a red button: red is for the action that can't be undone, and this one only opens a page. Its label ends in an ellipsis, because another step follows.
+- **The confirmation page** has its own URL and title. It says what will go, in numbers where it can (a `.stats` list does this well), and what, if anything, can bring it back.
+- **The one red button** posts the form. Nothing is deleted by a GET, so a crawler, a prefetch or the back button can't delete anything.
+- **The way back** says what it does ("Keep my data"), not "Cancel", and returns to the page that started it.
+- **For something no backup covers,** the form can also ask for the thing's name, checked by the server, before it deletes.
+
 ### Utilities
 
 - `.muted`: text in `--bv-color-muted`.
 - `.text-right`: `text-align: end`, for numeric columns and right-aligned actions. On a paragraph it also lifts the line-length cap.
 - `.table-scroll`: see *Tables*.
+- `.visually-hidden`: kept for screen readers, never shown: a field's label when the page already makes it clear, the words for an icon-only button, or a unit in a label. Absolutely positioned, 1px square, clipped with `clip-path: inset(50%)`, no wrapping. Use a real element with it rather than `aria-label`, so the text is translated with the page.
