@@ -126,8 +126,8 @@
     --bv-radius-sm: 3px;
     --bv-radius: 4px;
     --bv-radius-lg: 5px;
+    --bv-radius-xl: 6px;
     --bv-radius-pill: 9px;
-    /* --bv-radius-xl (6px) arrives with menus and modals in v0.2. */
 
     /* Shadows: light comes from above */
     --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
@@ -985,6 +985,47 @@
   .label-inverse,
   .badge-inverse {
     --bv-label-bg: var(--bv-color-inverse);
+  }
+}
+
+
+/* ==========================================================================
+   Hero unit
+   Opt in: nothing is styled until a page uses the class.
+   ========================================================================== */
+
+@layer bevel.components {
+  /* Below 768px, a 20px inset and the page header's title size, so the
+     heading still fits a 320px screen. 2.0 had no small-screen hero. */
+  .hero-unit {
+    padding: var(--bv-space-6);
+    margin-block-end: 1.875rem;
+    background-color: var(--bv-color-surface-alt);
+    border-radius: var(--bv-radius-xl);
+  }
+
+  .hero-unit :where(h1) {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
+  /* Weight 300, not 2.0's 200: see the note on .lead. */
+  .hero-unit :where(p) {
+    font-size: 1.125rem;
+    font-weight: 300;
+    line-height: 1.6875rem;
+  }
+
+  @media (width >= 768px) {
+    .hero-unit {
+      padding: var(--bv-space-8);
+    }
+
+    .hero-unit :where(h1) {
+      font-size: 3.75rem;
+      line-height: 3.75rem;
+      letter-spacing: -1px;
+    }
   }
 }
 

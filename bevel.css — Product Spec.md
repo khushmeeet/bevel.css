@@ -38,7 +38,7 @@ The library succeeds if every app looks like it came from the same hand, loads i
 
 ## Scope
 
-v0.1 ships nine areas: enough for a page, a nav, text, a form, a table and feedback. Candidates are added only under the promotion rule in *Distribution and versioning*.
+v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedback. Candidates are added only under the promotion rule in *Distribution and versioning*.
 
 | Area | Release | Includes |
 | --- | --- | --- |
@@ -50,6 +50,7 @@ v0.1 ships nine areas: enough for a page, a nav, text, a form, a table and feedb
 | Tables | v0.1 | `.table` with bordered, striped and condensed modifiers; row hover |
 | Alerts | v0.1 | Warning (default), error, success, info; `.alert-block` |
 | Labels and badges | v0.1 | Default, success, warning, important, info, inverse |
+| Hero unit | v0.1 | `.hero-unit`, an opt-in large callout to open a page |
 | Utilities | v0.1 | `.muted`, `.text-right`, `.table-scroll` |
 | Masthead and section bar | Candidate | `.subhead` with the masked 18px grid; sticky `.subnav` |
 | Tabs and pills | Candidate | CSS only, for links between pages |
@@ -95,7 +96,7 @@ Only features that are Baseline Widely available (in every major browser for 30+
 1. `bevel.reset`: `box-sizing: border-box` everywhere; margins removed from headings, paragraphs and lists.
 2. `bevel.base`: element styles (body, headings, links, `code`, `pre`, `hr`, form controls), all inside `:where()` so their specificity is zero.
 3. `bevel.layout`: `.container`, `.row`, `.page-header`.
-4. `bevel.components`: navbar, buttons, form classes, tables, alerts, labels, badges.
+4. `bevel.components`: navbar, buttons, form classes, tables, alerts, labels, badges, hero unit.
 5. `bevel.utilities`: `.muted`, `.text-right`, `.table-scroll`.
 
 An app's own CSS is written outside any layer, so it overrides the library without `!important` or specificity tricks.
@@ -122,7 +123,7 @@ The palette is Bootstrap 2.0.0's, with twelve values darkened so every piece of 
 | `--bv-color-muted` | #767676 | #999999 | Help text, heading subtitles, `.muted`, placeholders | 4.5:1 on white |
 | `--bv-color-input-text` | #555555 | same | Text typed into fields | 7.5:1 on white |
 | `--bv-color-surface` | #FFFFFF | same | Page background |  |
-| `--bv-color-surface-alt` | #F5F5F5 | same | Form actions bar, disabled fields, row hover |  |
+| `--bv-color-surface-alt` | #F5F5F5 | same | Form actions bar, disabled fields, row hover, hero unit |  |
 | `--bv-color-stripe` | #F9F9F9 | same | Odd table rows |  |
 | `--bv-color-border` | #DDDDDD | same | Table borders, form actions top edge, disabled field border |  |
 | `--bv-color-border-soft` | #EEEEEE | same | Page header rule, `hr` |  |
@@ -221,8 +222,10 @@ Text is Helvetica Neue at 13px on an 18px line, exactly as in 2.0.0; nothing is 
 | Heading subtitle | `h3 small` | 14px (0.875rem) | inherited | 400 | `--bv-color-muted` |
 | Inline code | `code` | 12px (0.75rem) | 1, so a line with code stays 18px | 400 | `--bv-color-code-text` |
 | Code block | `pre` | 12px (0.75rem) | 18px (1.125rem) | 400 | `--bv-color-text` |
+| Hero title | `.hero-unit h1` | 60px (3.75rem); 36px below 768px | 60px (3.75rem); 40px below 768px | 700, -1px letter-spacing from 768px | `--bv-color-text` |
+| Hero text | `.hero-unit p` | 18px (1.125rem) | 27px (1.6875rem) | 300 | `--bv-color-text` |
 
-The lead is weight 300. 2.0 asked for 200, which rendered as Helvetica Neue Light in 2012; today 200 maps to the hairline Thin cut.
+The lead and hero text are weight 300. 2.0 asked for 200, which rendered as Helvetica Neue Light in 2012; today 200 maps to the hairline Thin cut.
 
 ### Text elements
 
@@ -247,9 +250,9 @@ Depth comes from three things only: vertical gradients lit from the top, 1px tex
 | `--bv-space-3` | 9px (0.5625rem) | Half rhythm: paragraph and code block margins |
 | `--bv-space-4` | 14px (0.875rem) | Alert inline padding; block alert vertical padding |
 | `--bv-space-5` | 18px (1.125rem) | One rhythm line: margins under tables, alerts, field groups, form actions |
-| `--bv-space-6` | 20px (1.25rem) | Gutter: container padding, column gap |
+| `--bv-space-6` | 20px (1.25rem) | Gutter: container padding, column gap; hero unit padding below 768px |
 | `--bv-space-7` | 36px (2.25rem) | Masthead spacing (v0.2) |
-| `--bv-space-8` | 60px (3.75rem) | Space above each page section |
+| `--bv-space-8` | 60px (3.75rem) | Space above each page section; hero unit padding |
 
 ### Radius and borders
 
@@ -258,7 +261,7 @@ Depth comes from three things only: vertical gradients lit from the top, 1px tex
 | `--bv-radius-sm` | 3px | Fields, labels, inline code |
 | `--bv-radius` | 4px | Buttons, button groups, alerts, tables, `pre` |
 | `--bv-radius-lg` | 5px | Large buttons |
-| `--bv-radius-xl` | 6px | Menus and modals (v0.2) |
+| `--bv-radius-xl` | 6px | Hero unit; menus and modals (v0.2) |
 | `--bv-radius-pill` | 9px | Badges |
 
 Every border is 1px solid. The navbar and full-width bars have no radius.
@@ -604,6 +607,26 @@ Labels are short status words; badges are counts.
 | Badge (`.badge`) | As a label, with padding 1px 9px 2px, 12px / 14px and radius 9px |
 | Variants | `-success` #3F7D40, `-warning` #A86200, `-important` #B94A48, `-info` #31769A, `-inverse` #333333, applied as `.label-success`, `.badge-success` and so on |
 | Meaning | The word or number always carries the meaning; color only reinforces it |
+
+### Hero unit
+
+2.0's large callout, for the one message that opens a page such as an app's home. It is opt-in: nothing changes until a page uses the class.
+
+```html
+<div class="hero-unit">
+  <h1>Welcome to hearth</h1>
+  <p>Five apps on hearth-01.</p>
+  <p><a class="btn btn-primary btn-large" href="/deploy">Deploy an app</a></p>
+</div>
+```
+
+| Part | Spec |
+| --- | --- |
+| Box (`.hero-unit`) | Padding 60px; margin-bottom 30px; background #F5F5F5; radius 6px; no border or shadow |
+| Heading (`.hero-unit h1`) | 60px on a 60px line; weight 700; letter-spacing -1px; no margin |
+| Text (`.hero-unit p`) | 18px on a 27px line at weight 300, not 2.0's 200 (see *Typography*); #333333, 11.6:1 on #F5F5F5; the usual 9px paragraph margin |
+| Actions | A button in its own paragraph; 2.0 used `.btn-primary.btn-large` |
+| Below 768px | Padding 20px; heading 36px on a 40px line with no letter-spacing, the page header title's size, so it fits a 320px screen without horizontal scrolling. 2.0 had no small-screen hero |
 
 ### Utilities
 
