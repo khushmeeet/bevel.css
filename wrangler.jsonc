@@ -1,0 +1,12 @@
+// Cloudflare Workers config for bevel.khush.sh: an assets-only Worker, no
+// server code. `make site` builds dist/site and `make deploy` publishes it.
+{
+  "name": "bevel-css",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist/site"
+  },
+  "routes": [
+    { "pattern": "bevel.khush.sh", "custom_domain": true }
+  ]
+}

@@ -1,0 +1,3 @@
+# The demo links to the home page as ../site/index.html, which works in the
+# repo. Served, the site is at the root.
+/site/* /:splat 301
