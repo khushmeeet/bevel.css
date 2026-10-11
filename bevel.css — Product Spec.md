@@ -8,7 +8,7 @@ bevel.css is one plain stylesheet that gives every app hosted on hearth the look
 
 It is for one person's own apps: server-rendered Go pages with little or no JavaScript. The visual reference is the [Bootstrap 2.0.0 documentation](https://bootstrapdocs.com/v2.0.0/docs/), especially its [Components page](https://bootstrapdocs.com/v2.0.0/docs/components.html). The approved preview is the *Bootstrap 2.0 docs (preview)* board on the [Hearth UI design canvas](https://claude.ai/artifact/AtJvchQdnzcs1GDoqpBPvC).
 
-The look is 2012; the engineering is current. Every measurement below is the 2.0.0 value unless marked as a deliberate change, and every deliberate change exists for contrast or durability.
+The look is 2012; the engineering is current. Every measurement below is the 2.0.0 value unless marked as a deliberate change, and every deliberate change exists for contrast or durability. The one exception is the pastel tints on labels, badges and alerts, chosen for the look.
 
 ## Goals, principles and non-goals
 
@@ -113,7 +113,7 @@ An app's own CSS is written outside any layer, so it overrides the library witho
 
 ## Color
 
-The palette is Bootstrap 2.0.0's, with twelve values darkened so every piece of text reaches 4.5:1 contrast; those rows show the original in the 2.0.0 column. v0.1 is light-only.
+The palette is Bootstrap 2.0.0's, with four values darkened so every piece of text reaches 4.5:1 contrast; those rows show the original in the 2.0.0 column. Labels, badges and alerts use pastel tints instead of 2.0's solid colors, keeping 2.0's hues so blue, green, amber and red mean what they did. v0.1 is light-only.
 
 ### Neutrals
 
@@ -160,25 +160,29 @@ White text on a gradient is measured at the gradient's midpoint, which is why th
 | `--bv-color-navbar-link-active` | #FFFFFF | same | Hovered and active links | 14.5:1 on #222222 |
 | `--bv-color-brand` | #FFFFFF | same | Brand | 14.0:1 on #2C2C2C |
 
-### Status (labels and badges, white text)
+### Labels and badges
 
-| Token | Value | 2.0.0 | Contrast with white |
-| --- | --- | --- | --- |
-| `--bv-color-label` | #767676 | #999999 | 4.5:1 |
-| `--bv-color-success` | #3F7D40 | #468847 | 5.0:1 |
-| `--bv-color-warning` | #A86200 | #F89406 | 4.8:1 |
-| `--bv-color-important` | #B94A48 | same | 5.1:1 |
-| `--bv-color-info` | #31769A | #3A87AD | 5.0:1 |
-| `--bv-color-inverse` | #333333 | same | 12.6:1 |
+| Variant | Background | Edge | Text | Text contrast | 2.0.0 (white text on) |
+| --- | --- | --- | --- | --- | --- |
+| Default (`.label`, `.badge`) | #E9E9E9 | #D4D4D4 | #676767 | 4.7:1 | #999999 |
+| Success | #D0F5D7 | #B3E2BC | #17793A | 4.6:1 | #468847 |
+| Warning | #F8EAB5 | #E7D48F | #955B00 | 4.6:1 | #F89406 |
+| Important | #FFE1E0 | #F9C6C4 | #AA474C | 4.6:1 | #B94A48 |
+| Info | #D5EDFF | #B2DAF7 | #346D93 | 4.6:1 | #3A87AD |
+| Inverse | #333333 | #333333 | #FFFFFF | 12.6:1 | #333333 |
+
+Chips use the alert hues a step stronger than the alert tints, so a 16px chip still reads as a tint on white. Inverse stays dark: it is the one chip meant to stand out. Tokens follow `--bv-label-<variant>-bg`, `-border` and `-text`.
 
 ### Alerts
 
-| Variant | Background | Border | Text (2.0.0 text) | Text contrast |
-| --- | --- | --- | --- | --- |
-| Warning (default `.alert`) | #FCF8E3 | #FBEED5 | #8A6D3B (#C09853) | 4.5:1 |
-| Error (`.alert-error`) | #F2DEDE | #EED3D7 | #A94442 (#B94A48) | 4.6:1 |
-| Success (`.alert-success`) | #DFF0D8 | #D6E9C6 | #3C763D (#468847) | 4.6:1 |
-| Info (`.alert-info`) | #D9EDF7 | #BCE8F1 | #31708F (#3A87AD) | 4.5:1 |
+| Variant | Background | Border | Text | Text contrast | 2.0.0 background, border, text |
+| --- | --- | --- | --- | --- | --- |
+| Warning (default `.alert`) | #FFF7D9 | #F0E2AD | #9F6204 | 4.6:1 | #FCF8E3, #FBEED5, #C09853 |
+| Error (`.alert-error`) | #FFEBEA | #FFD3D2 | #B4484E | 4.6:1 | #F2DEDE, #EED3D7, #B94A48 |
+| Success (`.alert-success`) | #DFF9E3 | #C7EBCD | #297C43 | 4.6:1 | #DFF0D8, #D6E9C6, #468847 |
+| Info (`.alert-info`) | #E2F3FF | #C3E5FE | #387197 | 4.7:1 | #D9EDF7, #BCE8F1, #3A87AD |
+
+Pastel tints replace 2.0's dusty ones, keeping the same four hues so the meanings hold. The backgrounds share one perceived lightness (OKLCH L 0.955 to 0.975) with a little more color than 2.0's. Each text color keeps its tint's hue and is the lightest that reaches 4.6:1 on its background. The warning text leans from yellow toward amber, so it reads brown rather than olive.
 
 Tokens follow `--bv-alert-<variant>-bg`, `-border` and `-text`.
 
@@ -282,8 +286,8 @@ Every border is 1px solid. The navbar and full-width bars have no radius.
 | Token | Value | Used on |
 | --- | --- | --- |
 | `--bv-emboss-light` | 0 1px 1px rgba(255,255,255,.75) | Default buttons |
-| `--bv-emboss-soft` | 0 1px 0 rgba(255,255,255,.5) | Alerts |
-| `--bv-emboss-dark` | 0 -1px 0 rgba(0,0,0,.25) | Colored buttons, labels, badges, navbar links |
+| `--bv-emboss-soft` | 0 1px 0 rgba(255,255,255,.5) | Alerts, labels, badges |
+| `--bv-emboss-dark` | 0 -1px 0 rgba(0,0,0,.25) | Colored buttons, navbar links, inverse labels and badges |
 
 ### Gradients
 
@@ -603,9 +607,9 @@ Labels are short status words; badges are counts.
 
 | Part | Spec |
 | --- | --- |
-| Label (`.label`) | Inline-block; padding 1px 4px 2px; 11px / 13px bold; #FFFFFF; `--bv-emboss-dark`; radius 3px; `vertical-align: middle`; never wraps; background #767676 |
+| Label (`.label`) | Inline-block; padding 1px 4px 2px; 11px / 13px bold; radius 3px; `vertical-align: middle`; never wraps; #676767 on #E9E9E9 with a 1px #D4D4D4 inset edge (`box-shadow`, so the chip keeps 2.0's size); `--bv-emboss-soft` |
 | Badge (`.badge`) | As a label, with padding 1px 9px 2px, 12px / 14px and radius 9px |
-| Variants | `-success` #3F7D40, `-warning` #A86200, `-important` #B94A48, `-info` #31769A, `-inverse` #333333, applied as `.label-success`, `.badge-success` and so on |
+| Variants | `-success`, `-warning`, `-important`, `-info` and `-inverse`, applied as `.label-success`, `.badge-success` and so on; colors in *Color → Labels and badges*. Inverse keeps white text with `--bv-emboss-dark` |
 | Meaning | The word or number always carries the meaning; color only reinforces it |
 
 ### Hero unit

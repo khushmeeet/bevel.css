@@ -15,7 +15,7 @@ First release: enough for a page, a nav, text, a form, a table and feedback.
 - Buttons: default, primary and danger; small and large; pressed and disabled; `.btn-group` and `.btn-toolbar`.
 - Forms, stacked: labels, text fields, select, textarea, checkbox, radio, help text, error state and `.form-actions`.
 - Tables: `.table` with striped, bordered and condensed modifiers, and row hover.
-- Alerts: warning, error, success and info, plus `.alert-block`.
-- Labels and badges: default, success, warning, important, info and inverse.
+- Alerts: warning, error, success and info in pastel tints, plus `.alert-block`.
+- Labels and badges: default, success, warning, important, info and inverse, as pastel chips.
 - Hero unit: `.hero-unit`, an opt-in large callout to open a page, with a smaller heading and inset below 768px.
 - Utilities: `.muted`, `.text-right` and `.table-scroll`.
