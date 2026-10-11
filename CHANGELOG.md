@@ -2,7 +2,7 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
-## [0.1.0] - Unreleased
+## [0.1.0] - 2026-10-11
 
 First release: enough for a page, a nav, text, a form, a table and feedback.
 
