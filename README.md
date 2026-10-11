@@ -2,7 +2,7 @@
 
 Bootstrap 2.0's look for every app on hearth, in one plain stylesheet built only on CSS that has worked in every major browser for at least 30 months. No build step, no web fonts, no images, no JavaScript.
 
-Open `reference.html` in a browser to see every class, variant and state.
+Open `reference.html` in a browser to see every class, variant and state. Open `demo/index.html` to see them in a small made-up app, with no CSS of its own.
 
 ## Using it
 

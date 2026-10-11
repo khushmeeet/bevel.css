@@ -1,0 +1,97 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Transactions · money</title>
+  <link rel="stylesheet" href="../bevel.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">money</a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html">Overview</a>
+          <a href="transactions.html" aria-current="page">Transactions</a>
+          <a href="budgets.html">Budgets</a>
+          <a href="accounts.html">Accounts</a>
+        </nav>
+        <nav class="nav nav-end" aria-label="Preferences">
+          <a href="settings.html">Settings</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <section class="section">
+      <div class="page-header">
+        <h1>Transactions <small>28 in October</small></h1>
+      </div>
+
+      <div class="btn-toolbar">
+        <nav class="btn-group" aria-label="Show">
+          <a class="btn active" href="transactions.html" aria-current="page">All</a>
+          <a class="btn" href="transactions.html?show=out">Money out</a>
+          <a class="btn" href="transactions.html?show=in">Money in</a>
+          <a class="btn" href="transactions.html?show=review">Needs category <span class="badge badge-warning">2</span></a>
+        </nav>
+        <form role="search" action="transactions.html" method="get">
+          <input type="search" name="q" placeholder="Search payees" aria-label="Search transactions">
+        </form>
+        <a class="btn btn-primary" href="add.html">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" aria-hidden="true" focusable="false"><path d="M8 3v10M3 8h10"/></svg>
+          Add a transaction
+        </a>
+      </div>
+
+      <div class="table-scroll" role="region" aria-label="October transactions" tabindex="0">
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr><th>Date</th><th>Payee</th><th>Category</th><th>Account</th><th class="text-right">Amount</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><time datetime="2026-10-11">Oct 11</time></td><td>Dog-eared Books</td><td>Fun</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$16.00</td><td><span class="label label-info">Pending</span></td></tr>
+            <tr><td><time datetime="2026-10-11">Oct 11</time></td><td>Northside Coffee</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$6.50</td><td><span class="label label-info">Pending</span></td></tr>
+            <tr><td><time datetime="2026-10-11">Oct 11</time></td><td>SQ *HILLTOP</td><td><a href="add.html">Pick one</a></td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$12.00</td><td><span class="label label-warning">Needs category</span></td></tr>
+            <tr><td><time datetime="2026-10-10">Oct 10</time></td><td>Lucia&rsquo;s Pizzeria</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$58.30</td><td></td></tr>
+            <tr><td><time datetime="2026-10-10">Oct 10</time></td><td>AMZN MKTP US*2K4L1</td><td><a href="add.html">Pick one</a></td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$27.43</td><td><span class="label label-warning">Needs category</span></td></tr>
+            <tr><td><time datetime="2026-10-10">Oct 10</time></td><td>Offsite backup storage</td><td>Subscriptions</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$13.00</td><td></td></tr>
+            <tr><td><time datetime="2026-10-10">Oct 10</time></td><td>Visa payment</td><td>Transfer</td><td>Checking &middot;&middot;4821</td><td class="text-right">$1,180.44</td><td></td></tr>
+            <tr><td><time datetime="2026-10-09">Oct 9</time></td><td>Greenleaf Market</td><td>Groceries</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$101.35</td><td></td></tr>
+            <tr><td><time datetime="2026-10-09">Oct 9</time></td><td>City Bikeshare</td><td>Transport</td><td>Checking &middot;&middot;4821</td><td class="text-right">&minus;$6.00</td><td></td></tr>
+            <tr><td><time datetime="2026-10-08">Oct 8</time></td><td>Northside Coffee</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$6.50</td><td></td></tr>
+            <tr><td><time datetime="2026-10-08">Oct 8</time></td><td>The Daily Ledger</td><td>Subscriptions</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$15.00</td><td></td></tr>
+            <tr><td><time datetime="2026-10-07">Oct 7</time></td><td>Pho Saigon Noodle</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$31.20</td><td></td></tr>
+            <tr><td><time datetime="2026-10-06">Oct 6</time></td><td>Fiberlink Internet</td><td>Utilities</td><td>Checking &middot;&middot;4821</td><td class="text-right">&minus;$64.42</td><td></td></tr>
+            <tr><td><time datetime="2026-10-06">Oct 6</time></td><td>Farmers market</td><td>Groceries</td><td>Checking &middot;&middot;4821</td><td class="text-right">&minus;$24.00</td><td></td></tr>
+            <tr><td><time datetime="2026-10-05">Oct 5</time></td><td>City Power &amp; Light</td><td>Utilities</td><td>Checking &middot;&middot;4821</td><td class="text-right">&minus;$68.42</td><td></td></tr>
+            <tr><td><time datetime="2026-10-05">Oct 5</time></td><td>Taqueria El Sol</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$32.50</td><td></td></tr>
+            <tr><td><time datetime="2026-10-04">Oct 4</time></td><td>Reelhouse</td><td>Subscriptions</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$22.99</td><td></td></tr>
+            <tr><td><time datetime="2026-10-04">Oct 4</time></td><td>Riverside Climbing Gym</td><td>Fun</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$22.00</td><td></td></tr>
+            <tr><td><time datetime="2026-10-04">Oct 4</time></td><td>Northside Coffee</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$6.50</td><td></td></tr>
+            <tr><td><time datetime="2026-10-03">Oct 3</time></td><td>Tadka House</td><td>Dining out</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$42.80</td><td></td></tr>
+            <tr><td><time datetime="2026-10-03">Oct 3</time></td><td>Transit card top-up</td><td>Transport</td><td>Checking &middot;&middot;4821</td><td class="text-right">&minus;$40.00</td><td></td></tr>
+            <tr><td><time datetime="2026-10-02">Oct 2</time></td><td>Greenleaf Market</td><td>Groceries</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$87.12</td><td></td></tr>
+            <tr><td><time datetime="2026-10-02">Oct 2</time></td><td>Driftbox</td><td>Subscriptions</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$9.99</td><td></td></tr>
+            <tr><td><time datetime="2026-10-02">Oct 2</time></td><td>To savings</td><td>Transfer</td><td>Checking &middot;&middot;4821</td><td class="text-right">$500.00</td><td></td></tr>
+            <tr><td><time datetime="2026-10-01">Oct 1</time></td><td>Tonewheel</td><td>Subscriptions</td><td>Visa &middot;&middot;6630</td><td class="text-right">&minus;$10.99</td><td></td></tr>
+            <tr><td><time datetime="2026-10-01">Oct 1</time></td><td>Maple Court Apartments</td><td>Rent</td><td>Checking &middot;&middot;4821</td><td class="text-right">&minus;$1,450.00</td><td></td></tr>
+            <tr><td><time datetime="2026-10-01">Oct 1</time></td><td>Interest</td><td>Income</td><td>Savings &middot;&middot;1907</td><td class="text-right">+$61.72</td><td></td></tr>
+            <tr><td><time datetime="2026-10-01">Oct 1</time></td><td>Larkspur Labs payroll</td><td>Income</td><td>Checking &middot;&middot;4821</td><td class="text-right">+$3,240.00</td><td></td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p class="muted">In: $3,301.72. Out: $2,175.01, including the $39.43 that still needs a category. Transfers between your own accounts don&rsquo;t count either way.</p>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">money runs on hearth-01. Every figure here is made up. Styled with <a href="../reference.html">bevel.css</a> 0.1.0 and no CSS of its own.</p>
+  </footer>
+</body>
+</html>
