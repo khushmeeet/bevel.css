@@ -58,6 +58,10 @@
       overflow-wrap: anywhere;
     }
 
+    [data-samples] td:last-child code {
+      white-space: nowrap;
+    }
+
     [data-swatch] {
       flex: none;
       width: 1.75rem;
@@ -253,6 +257,25 @@ source = "git@github.com:you/recipes.git"
 port = 8086
 start_on_boot = true</code></pre>
       <pre>2026-10-08T14:02:11Z eink-sync exited with status 1: open /var/lib/eink-sync/state/cache/2026-10/display-frame-buffer.bin: no such file or directory (retrying in 30s)</pre>
+
+      <h2>Monospace</h2>
+      <p><code>code</code> and <code>pre</code> use <code>--bv-font-mono</code>: the first of Menlo, Monaco, Consolas and Courier New that this machine has, or else its own monospace font. The block below is set in whichever one that is.</p>
+      <pre>ABCDEFGHIJKLMNOPQRSTUVWXYZ
+abcdefghijklmnopqrstuvwxyz
+0123456789 0O 1lI| ({[&lt;&gt;]}) =&gt; != :: ; , . ' " ` ~ ! @ # $ % ^ &amp; * _ + - = / \</pre>
+      <p>Each font in the stack on its own. A sample in a serif face means this machine doesn&rsquo;t have that font.</p>
+      <table class="table" id="mono-stack" data-samples>
+        <thead>
+          <tr><th>Font</th><th>Ships with</th><th>Sample</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Menlo</td><td>macOS 10.6 and later, iOS</td><td><code style="font-family: Menlo, serif">0O 1lI {} =&gt;</code></td></tr>
+          <tr><td>Monaco</td><td>macOS</td><td><code style="font-family: Monaco, serif">0O 1lI {} =&gt;</code></td></tr>
+          <tr><td>Consolas</td><td>Windows Vista and later</td><td><code style="font-family: Consolas, serif">0O 1lI {} =&gt;</code></td></tr>
+          <tr><td>Courier New</td><td>Windows, macOS</td><td><code style="font-family: &quot;Courier New&quot;, serif">0O 1lI {} =&gt;</code></td></tr>
+          <tr><td><code>monospace</code></td><td>Every system, as its default monospace font</td><td><code style="font-family: monospace">0O 1lI {} =&gt;</code></td></tr>
+        </tbody>
+      </table>
 
       <h2>Rule</h2>
       <p>An <code>&lt;hr&gt;</code> is 2.0&rsquo;s etched line.</p>
