@@ -562,16 +562,32 @@
     .divider-vertical { display: block; }
   }
 
+  /* Source order picks the side: first in the bar, the brand sits on the
+     left; after the links, it is pushed to the right. */
   .brand {
     display: block;
-    margin-inline-start: auto;
-    padding: 0.5rem 0 0.625rem 1.25rem;
+    padding-block: 0.5rem 0.625rem;
+    padding-inline: 0 1.25rem;
     font-size: 1.25rem;
     font-weight: 200;
     line-height: 1.375rem;
     color: var(--bv-color-brand);
     text-decoration: none;
     text-shadow: var(--bv-emboss-dark);
+  }
+
+  .nav ~ .brand {
+    margin-inline-start: auto;
+    padding-inline: 1.25rem 0;
+  }
+
+  /* Takes the free space and sets its links at the far end, which pushes the
+     group, and everything after it, to the right. Growing rather than an
+     auto margin leaves a brand after it flush against the links, and still
+     pushed right when it wraps onto a row of its own. */
+  .nav-end {
+    flex-grow: 1;
+    justify-content: flex-end;
   }
 }
 

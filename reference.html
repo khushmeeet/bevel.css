@@ -340,6 +340,41 @@ start_on_boot = true</code></pre>
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/header&gt;</code></pre>
+
+      <h2>Brand on the left</h2>
+      <p>Put <code>.brand</code> before the links and it sits on the left, with the links right after it. Add <code>.nav-end</code> to a group of links to push it, and anything after it, to the right. Below 768px the brand starts the first row.</p>
+
+      <div class="navbar" id="navbar-start-demo" data-spaced>
+        <div class="navbar-inner">
+          <div class="container">
+            <a class="brand" href="#navbar">hearth</a>
+            <nav class="nav" aria-label="Example app, brand on the left">
+              <a class="active" href="#navbar">Apps</a>
+              <a href="#navbar">Deploy</a>
+              <a href="#navbar">Logs</a>
+            </nav>
+            <nav class="nav nav-end" aria-label="Example account">
+              <a href="#navbar">Settings</a>
+              <a href="#navbar">Help</a>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <pre><code>&lt;header class="navbar"&gt;
+  &lt;div class="navbar-inner"&gt;
+    &lt;div class="container"&gt;
+      &lt;a class="brand" href="/"&gt;hearth&lt;/a&gt;
+      &lt;nav class="nav" aria-label="Main"&gt;
+        &lt;a href="/apps" aria-current="page"&gt;Apps&lt;/a&gt;
+        &lt;a href="/logs"&gt;Logs&lt;/a&gt;
+      &lt;/nav&gt;
+      &lt;nav class="nav nav-end" aria-label="Account"&gt;
+        &lt;a href="/settings"&gt;Settings&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/header&gt;</code></pre>
     </section>
 
     <!-- Buttons ========================================================= -->

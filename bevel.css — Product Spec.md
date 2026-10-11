@@ -44,7 +44,7 @@ v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedba
 | --- | --- | --- |
 | Tokens and base typography | v0.1 | Color, type, spacing, radius, shadow and motion tokens; headings, paragraphs, links, `small`, `code`, `pre`, `hr` |
 | Layout | v0.1 | `.container`, `.row` with `.cols-2`, `.cols-3`, `.cols-4`; `.page-header` |
-| Navbar | v0.1 | Dark top bar, links, active state, vertical divider, brand, optional sticky bar |
+| Navbar | v0.1 | Dark top bar, links, active state, vertical divider, brand on either side, `.nav-end` for links on the right, optional sticky bar |
 | Buttons | v0.1 | Default, primary, danger; small and large; disabled; `.btn-group`, `.btn-toolbar` |
 | Forms | v0.1 | Stacked only: label, text inputs, select, textarea, checkbox, radio, help text, error state, `.form-actions` |
 | Tables | v0.1 | `.table` with bordered, striped and condensed modifiers; row hover |
@@ -356,7 +356,7 @@ Each v0.1 component is specified by its markup, its exact measurements and every
 
 ### Navbar
 
-The 2.0 docs top bar: dark, 40px tall, links on the left, a white brand on the right. Add `.navbar-sticky` to keep it at the top while the page scrolls.
+The 2.0 docs top bar: dark, 40px tall, links on the left, a white brand on the right. Put the brand before the links to move it to the left, and add `.nav-end` to push a group of links to the right. Add `.navbar-sticky` to keep it at the top while the page scrolls.
 
 ```html
 <header class="navbar">
@@ -383,8 +383,9 @@ The 2.0 docs top bar: dark, 40px tall, links on the left, a white brand on the r
 | Link, active (`.active` or `aria-current="page"`) | #FFFFFF on #222222, full bar height |
 | Link, focus | Standard focus outline with `outline-offset: -2px`, so it stays inside the bar |
 | Divider (`.divider-vertical`) | 1px wide, full bar height, margin 0 9px, #222222 with a 1px #333333 right border; hidden below 768px |
-| Brand (`.brand`) | Pushed right with `margin-inline-start: auto`; 20px at weight 200 on a 22px line; padding 8px 0 10px 20px; #FFFFFF; `--bv-emboss-dark`; no underline |
-| Below 768px | Links wrap onto more rows; no hamburger; the brand ends the last row |
+| Brand (`.brand`) | 20px at weight 200 on a 22px line; #FFFFFF; `--bv-emboss-dark`; no underline. Source order picks the side: after a `.nav`, pushed right with `margin-inline-start: auto` and padding 8px 0 10px 20px; first in the row, on the left with padding 8px 20px 10px 0. After a `.nav-end`, it sits flush against those links, and still ends the last row if it wraps |
+| End links (`.nav-end`) | Optional, on a `.nav`. `flex-grow: 1` with `justify-content: flex-end`: the group takes the free space and sets its links at the far end, pushing it and everything after it to the right |
+| Below 768px | Links wrap onto more rows; no hamburger; the brand ends the last row, or starts the first when it comes before the links |
 | Sticky (`.navbar-sticky`) | From 768px: `position: sticky` at the top, z-index 1030 (2.0's fixed-navbar layer), same `--bv-shadow-navbar` as the static bar. The page gets a 58px `scroll-padding-top` (bar plus 18px), so anchor jumps and keyboard focus land below the bar (WCAG 2.4.11). Below 768px the bar scrolls away with the page, as in 2.0 |
 
 ## Accessibility
