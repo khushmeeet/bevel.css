@@ -31,6 +31,13 @@
   :where(h1, h2, h3, h4, h5, h6, p, ul, ol, dl, dd) {
     margin: 0;
   }
+
+  /* An image or video wider than the screen shrinks to fit instead of
+     scrolling the page sideways (WCAG 1.4.10). */
+  :where(img, video) {
+    max-inline-size: 100%;
+    block-size: auto;
+  }
 }
 
 
@@ -43,7 +50,7 @@
   :where(:root) {
     /* Neutrals */
     --bv-color-text: #333333;
-    --bv-color-muted: #767676;
+    --bv-color-muted: #6E6E6E;
     --bv-color-input-text: #555555;
     --bv-color-surface: #FFFFFF;
     --bv-color-surface-alt: #F5F5F5;
@@ -55,7 +62,7 @@
     --bv-color-grid: rgba(0, 0, 0, 0.027);
 
     /* Action and focus */
-    --bv-color-link: #0077B3;
+    --bv-color-link: #006DA3;
     --bv-color-link-hover: #005580;
     --bv-color-primary-top: #0088CC;
     --bv-color-primary-bottom: #0055CC;
@@ -65,7 +72,7 @@
     --bv-color-danger-bottom: #BD362F;
     --bv-color-danger: #CF443E;
     --bv-color-danger-active: #942A25;
-    --bv-color-focus: rgba(82, 168, 236, 0.8);
+    --bv-color-focus: #0088CC;
     --bv-color-focus-glow: rgba(82, 168, 236, 0.6);
 
     /* Navbar */
@@ -74,6 +81,7 @@
     --bv-color-navbar: #2C2C2C;
     --bv-color-navbar-link: #999999;
     --bv-color-navbar-link-active: #FFFFFF;
+    --bv-color-navbar-current: #0088CC;
     --bv-color-brand: #FFFFFF;
 
     /* Labels and badges: pastel chips in the alert hues, a step stronger so
@@ -171,36 +179,42 @@
    ========================================================================== */
 
 @layer bevel.base {
+  /* 18px lines at 13px, as a ratio rather than a length, so text an app sets
+     larger keeps proportional leading instead of inheriting a fixed 18px.
+     Long words, paths and hashes break before they widen the page. */
   :where(body) {
     margin: 0;
     font-family: var(--bv-font-sans);
     font-size: var(--bv-font-size);
-    line-height: var(--bv-line-height);
+    line-height: 1.3847;
     color: var(--bv-color-text);
+    overflow-wrap: break-word;
     background-color: var(--bv-color-surface);
   }
 
+  /* About 70 characters a line at any text size. */
   :where(p) {
+    max-inline-size: 56ch;
     margin-block: 0 var(--bv-space-3);
   }
 
+  /* Every link keeps a faint underline, so it doesn't rely on color alone:
+     the link blue is under 3:1 against body text (WCAG 1.4.1). Navbar links,
+     the brand and link buttons turn it off. */
   :where(a) {
     color: var(--bv-color-link);
-    text-decoration: none;
+    text-decoration-line: underline;
     text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
     transition: color var(--bv-duration) var(--bv-ease);
   }
 
-  :where(a:hover) {
-    color: var(--bv-color-link-hover);
-    text-decoration-line: underline;
-    text-decoration-color: currentColor;
-  }
-
-  /* Links inside running text keep a faint underline, so they don't rely on
-     color alone: the link blue is under 3:1 against body text (WCAG 1.4.1). */
-  :where(p, li, dd) :where(a) {
-    text-decoration-line: underline;
+  /* Hover styles only where there's a pointer that hovers: on touch, :hover
+     sticks after a tap until the next tap elsewhere. */
+  @media (hover: hover) {
+    :where(a:hover) {
+      color: var(--bv-color-link-hover);
+      text-decoration-color: currentColor;
+    }
   }
 
   /* One focus ring for everything that can take focus. Components that need
@@ -321,6 +335,23 @@
     color: var(--bv-color-text);
   }
 
+  /* A fieldset groups controls, such as a set of radios, without drawing a
+     box; its legend reads like a label. */
+  :where(fieldset) {
+    min-inline-size: 0;
+    padding: 0;
+    margin: 0;
+    border: 0;
+  }
+
+  :where(legend) {
+    padding: 0;
+    margin-block-end: var(--bv-space-2);
+    font-size: var(--bv-font-size);
+    line-height: var(--bv-line-height);
+    color: var(--bv-color-text);
+  }
+
   :where(
     input:not([type]),
     input[type="text"],
@@ -331,6 +362,9 @@
     input[type="url"],
     input[type="tel"],
     input[type="date"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
     input[type="time"],
     select,
     textarea
@@ -357,6 +391,11 @@
   /* The native arrow stays. */
   :where(select) {
     padding-block: 0.1875rem;
+  }
+
+  /* A list box shows its rows, not one 28px line of them. */
+  :where(select[multiple], select[size]) {
+    height: auto;
   }
 
   :where(textarea) {
@@ -398,6 +437,9 @@
     input[type="url"],
     input[type="tel"],
     input[type="date"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
     input[type="time"],
     select,
     textarea
@@ -487,6 +529,25 @@
    ========================================================================== */
 
 @layer bevel.components {
+  /* The first thing in the page: off-screen until it takes keyboard focus,
+     then over the top-left of the bar, so keyboard users can jump past the
+     navbar to the page's main content. */
+  .skip-link {
+    position: absolute;
+    inset-block-start: 0.375rem;
+    inset-inline-start: -999rem;
+    z-index: 1031;
+    padding: var(--bv-space-1) 0.625rem;
+    color: var(--bv-color-link);
+    background-color: var(--bv-color-surface);
+    border-radius: var(--bv-radius);
+    box-shadow: var(--bv-shadow-navbar);
+  }
+
+  .skip-link:focus {
+    inset-inline-start: var(--bv-space-6);
+  }
+
   .navbar-inner {
     min-height: 2.5rem;
     background-color: var(--bv-color-navbar);
@@ -534,17 +595,25 @@
     transition: color var(--bv-duration) var(--bv-ease);
   }
 
-  .nav > :where(a):hover {
-    color: var(--bv-color-navbar-link-active);
+  @media (hover: hover) {
+    .nav > :where(a):hover {
+      color: var(--bv-color-navbar-link-active);
+    }
   }
 
+  /* White on the dark tab, plus a 3px bar along the bottom, so the current
+     page doesn't rely on brightness alone; a hovered link turns white too.
+     The bar takes its height from the bottom padding: the link stays 40px. */
   .nav > :where(a):is(.active, [aria-current="page"]) {
+    padding-block-end: calc(0.6875rem - 3px);
     color: var(--bv-color-navbar-link-active);
     background-color: var(--bv-color-navbar-bottom);
+    border-block-end: 3px solid var(--bv-color-navbar-current);
   }
 
   /* Keep the ring inside the bar. */
-  .nav > :where(a):focus-visible {
+  .nav > :where(a):focus-visible,
+  .brand:focus-visible {
     outline-offset: -2px;
   }
 
@@ -563,11 +632,14 @@
   }
 
   /* Source order picks the side: first in the bar, the brand sits on the
-     left; after the links, it is pushed to the right. */
+     left; after the links, it is pushed to the right. As in 2.0, padding on
+     both sides and a negative margin on the outer one keep the text on the
+     content edge while leaving room for the focus ring inside the box. */
   .brand {
     display: block;
     padding-block: 0.5rem 0.625rem;
-    padding-inline: 0 1.25rem;
+    padding-inline: 1.25rem;
+    margin-inline-start: -1.25rem;
     font-size: 1.25rem;
     font-weight: 200;
     line-height: 1.375rem;
@@ -577,8 +649,7 @@
   }
 
   .nav ~ .brand {
-    margin-inline-start: auto;
-    padding-inline: 1.25rem 0;
+    margin-inline: auto -1.25rem;
   }
 
   /* Takes the free space and sets its links at the far end, which pushes the
@@ -646,11 +717,13 @@
 
   /* Slide the gradient up to show the hover fill along the bottom. The fill
      changes at once: it matches the gradient's last stop, so the slide is
-     seamless. */
-  .btn:hover {
-    background-color: var(--bv-btn-bg-hover);
-    background-position: 0 -15px;
-    transition: background-position var(--bv-duration-fast) var(--bv-ease);
+     seamless. Pointers that hover only: on touch it would stick after a tap. */
+  @media (hover: hover) {
+    .btn:hover {
+      background-color: var(--bv-btn-bg-hover);
+      background-position: 0 -15px;
+      transition: background-position var(--bv-duration-fast) var(--bv-ease);
+    }
   }
 
   .btn:is(:active, .active, [aria-pressed="true"]) {
@@ -785,7 +858,7 @@
     margin: calc((var(--bv-line-height) - 13px) / 2) 0 0;
   }
 
-  .control-group.error :where(label, .help-block) {
+  .control-group.error :where(label, legend, .help-block) {
     color: var(--bv-color-error);
   }
 
@@ -859,9 +932,12 @@
     background-color: var(--bv-color-stripe);
   }
 
-  /* Higher than the stripe, so hover always wins. */
-  .table :where(tbody > tr):hover > :where(th, td) {
-    background-color: var(--bv-color-surface-alt);
+  /* Higher than the stripe, so hover always wins. Pointers that hover only:
+     on touch, a tapped row would stay grey. */
+  @media (hover: hover) {
+    .table :where(tbody > tr):hover > :where(th, td) {
+      background-color: var(--bv-color-surface-alt);
+    }
   }
 
   .table-bordered {
@@ -953,12 +1029,6 @@
   .alert-heading {
     margin-block-end: var(--bv-space-1);
     color: inherit;
-  }
-
-  /* Running text, as in base: see the note on links there. Comes after
-     .btn, so it skips link buttons. */
-  .alert :where(a:not(.btn)) {
-    text-decoration-line: underline;
   }
 }
 
@@ -1099,7 +1169,10 @@
     color: var(--bv-color-muted);
   }
 
+  /* A right-aligned paragraph drops the line-length cap, so its text still
+     reaches the end of the line. */
   .text-right {
+    max-inline-size: none;
     text-align: end;
   }
 

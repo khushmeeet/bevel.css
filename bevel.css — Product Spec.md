@@ -75,7 +75,7 @@ Only features that are Baseline Widely available (in every major browser for 30+
 | Custom properties | Use | All tokens and component variables |
 | Cascade layers (`@layer`) | Use | Library order below; app CSS stays unlayered and always wins |
 | Flexbox, grid, `gap` | Use | All layout |
-| Media queries with range syntax; `prefers-reduced-motion` | Use | Breakpoints; turning motion off |
+| Media queries with range syntax; `prefers-reduced-motion`; `hover` | Use | Breakpoints; turning motion off; hover styles only where a pointer hovers |
 | `:focus-visible`, `:is()`, `:where()` | Use | Focus rings; zero-specificity base styles |
 | Logical properties (`padding-inline`, `margin-block`) | Use | All spacing |
 | `rem`, `min()`, `clamp()` | Use | Type sizes and widths |
@@ -93,7 +93,7 @@ Only features that are Baseline Widely available (in every major browser for 30+
 @layer bevel.reset, bevel.base, bevel.layout, bevel.components, bevel.utilities;
 ```
 
-1. `bevel.reset`: `box-sizing: border-box` everywhere; margins removed from headings, paragraphs and lists.
+1. `bevel.reset`: `box-sizing: border-box` everywhere; margins removed from headings, paragraphs and lists; images and video capped at their container's width.
 2. `bevel.base`: element styles (body, headings, links, `code`, `pre`, `hr`, form controls), all inside `:where()` so their specificity is zero.
 3. `bevel.layout`: `.container`, `.row`, `.page-header`.
 4. `bevel.components`: navbar, buttons, form classes, tables, alerts, labels, badges, hero unit.
@@ -113,14 +113,14 @@ An app's own CSS is written outside any layer, so it overrides the library witho
 
 ## Color
 
-The palette is Bootstrap 2.0.0's, with four values darkened so every piece of text reaches 4.5:1 contrast; those rows show the original in the 2.0.0 column. Labels, badges and alerts use pastel tints instead of 2.0's solid colors, keeping 2.0's hues so blue, green, amber and red mean what they did. v0.1 is light-only.
+The palette is Bootstrap 2.0.0's, with four values darkened so every piece of text reaches 4.5:1 contrast on every surface it sits on, and the focus color made opaque so every focus ring reaches 3:1; those rows show the original in the 2.0.0 column. Labels, badges and alerts use pastel tints instead of 2.0's solid colors, keeping 2.0's hues so blue, green, amber and red mean what they did. v0.1 is light-only.
 
 ### Neutrals
 
 | Token | Value | 2.0.0 | Used for | Contrast |
 | --- | --- | --- | --- | --- |
 | `--bv-color-text` | #333333 | same | Body text, headings | 12.6:1 on white |
-| `--bv-color-muted` | #767676 | #999999 | Help text, heading subtitles, `.muted`, placeholders | 4.5:1 on white |
+| `--bv-color-muted` | #6E6E6E | #999999 | Help text, heading subtitles, `.muted`, placeholders | 5.1:1 on white; 4.7:1 on #F5F5F5 |
 | `--bv-color-input-text` | #555555 | same | Text typed into fields | 7.5:1 on white |
 | `--bv-color-surface` | #FFFFFF | same | Page background, grid hero unit |  |
 | `--bv-color-surface-alt` | #F5F5F5 | same | Form actions bar, disabled fields, row hover, hero unit |  |
@@ -135,7 +135,7 @@ The palette is Bootstrap 2.0.0's, with four values darkened so every piece of te
 
 | Token | Value | 2.0.0 | Used for | Contrast |
 | --- | --- | --- | --- | --- |
-| `--bv-color-link` | #0077B3 | #0088CC | Links | 4.9:1 on white |
+| `--bv-color-link` | #006DA3 | #0088CC | Links, checkbox and radio tint | 5.7:1 on white; 4.9:1 or more on every alert tint and on #F5F5F5 |
 | `--bv-color-link-hover` | #005580 | same | Hovered links | 8.0:1 on white |
 | `--bv-color-primary-top` | #0088CC | same | Primary button gradient start |  |
 | `--bv-color-primary-bottom` | #0055CC | same | Primary button gradient end, hover fill |  |
@@ -145,7 +145,7 @@ The palette is Bootstrap 2.0.0's, with four values darkened so every piece of te
 | `--bv-color-danger-bottom` | #BD362F | same | Danger button gradient end, hover fill |  |
 | `--bv-color-danger` | #CF443E | #DA4F49 | Danger button flat fallback | 4.7:1 for white text |
 | `--bv-color-danger-active` | #942A25 | same | Pressed danger button |  |
-| `--bv-color-focus` | rgba(82, 168, 236, 0.8) | same | Focused field border, focus outline |  |
+| `--bv-color-focus` | #0088CC | rgba(82, 168, 236, 0.8) | Focus outline, focused field border | 3.9:1 on white, 3.6:1 on #F5F5F5, 3.3:1 or more on the navbar |
 | `--bv-color-focus-glow` | rgba(82, 168, 236, 0.6) | same | Focused field glow |  |
 
 White text on a gradient is measured at the gradient's midpoint, which is why the danger gradient starts darker than 2.0's.
@@ -159,6 +159,7 @@ White text on a gradient is measured at the gradient's midpoint, which is why th
 | `--bv-color-navbar` | #2C2C2C | same | Flat fallback |  |
 | `--bv-color-navbar-link` | #999999 | same | Links | 5.0:1 on #2C2C2C |
 | `--bv-color-navbar-link-active` | #FFFFFF | same | Hovered and active links | 14.5:1 on #222222 |
+| `--bv-color-navbar-current` | #0088CC | new | Bar under the current link | 4.1:1 on #222222 |
 | `--bv-color-brand` | #FFFFFF | same | Brand | 14.0:1 on #2C2C2C |
 
 ### Labels and badges
@@ -234,8 +235,10 @@ The lead and hero text are weight 300. 2.0 asked for 200, which rendered as Helv
 
 ### Text elements
 
-- **Paragraphs:** margin 0 0 9px.
-- **Links:** `--bv-color-link`, no underline; `--bv-color-link-hover` with underline on hover. Color transitions over 150ms linear.
+- **Paragraphs:** margin 0 0 9px; at most 56ch wide, about 70 characters a line at any size. `.text-right` lifts the cap.
+- **Links:** `--bv-color-link` with a faint underline at 40% of the link color, so a link never relies on color alone; on hover, `--bv-color-link-hover` and a full-strength underline. Navbar links, the brand and link buttons have no underline. Color transitions over 150ms linear.
+- **Body:** line height 1.3847, a ratio that gives 18px at 13px, so text an app sets larger keeps proportional leading; `overflow-wrap: break-word`, so long paths and hashes break instead of widening the page.
+- **Images and video:** at most 100% of their container's width, with height kept in proportion.
 - **Headings:** `text-rendering: optimizeLegibility`; no margins in the reset, spacing comes from the component or page around them.
 - **`strong`, `b`:** weight 700. **`small`** outside headings keeps the surrounding size, as in 2.0.
 - **`code`:** padding 2px 4px, radius 3px, 1px border `--bv-color-code-border`, background `--bv-color-code-bg`.
@@ -269,7 +272,7 @@ Depth comes from three things only: vertical gradients lit from the top, 1px tex
 | `--bv-radius-xl` | 6px | Hero unit; menus and modals (v0.2) |
 | `--bv-radius-pill` | 9px | Badges |
 
-Every border is 1px solid. The navbar and full-width bars have no radius.
+Every border is 1px solid, except the 3px bar under the current navbar link. The navbar and full-width bars have no radius.
 
 ### Shadows
 
@@ -315,8 +318,9 @@ Pages use a centered container whose content width steps through 2.0's responsiv
 
 ```html
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="navbar">…</header>
-  <main class="container">
+  <main class="container" id="main">
     <section class="section">
       <div class="page-header"><h1>Apps <small>Five apps on hearth-01</small></h1></div>
       <div class="row cols-3">…</div>
@@ -359,6 +363,7 @@ Each v0.1 component is specified by its markup, its exact measurements and every
 The 2.0 docs top bar: dark, 40px tall, links on the left, a white brand on the right. Put the brand before the links to move it to the left, and add `.nav-end` to push a group of links to the right. Add `.navbar-sticky` to keep it at the top while the page scrolls.
 
 ```html
+<a class="skip-link" href="#main">Skip to content</a>
 <header class="navbar">
   <div class="navbar-inner">
     <div class="container">
@@ -379,13 +384,14 @@ The 2.0 docs top bar: dark, 40px tall, links on the left, a white brand on the r
 | Bar (`.navbar-inner`) | Min-height 40px; `linear-gradient(#333333, #222222)` over #2C2C2C; `--bv-shadow-navbar`; no radius; full viewport width |
 | Row (`.navbar .container`) | Flex, wraps, items stretch to full bar height |
 | Link (`.nav > a`) | 13px on a 19px line; padding 10px 10px 11px; #999999; `--bv-emboss-dark`; no underline |
-| Link, hover | #FFFFFF over 150ms linear; background unchanged |
-| Link, active (`.active` or `aria-current="page"`) | #FFFFFF on #222222, full bar height |
-| Link, focus | Standard focus outline with `outline-offset: -2px`, so it stays inside the bar |
+| Link, hover | #FFFFFF over 150ms linear; background unchanged; only on pointers that hover |
+| Link, active (`.active` or `aria-current="page"`) | #FFFFFF on #222222, full bar height, with a 3px `--bv-color-navbar-current` bottom border taken out of the bottom padding, so the link stays 40px and the current page doesn't rely on brightness alone |
+| Link and brand, focus | Standard focus outline with `outline-offset: -2px`, so it stays inside the bar |
 | Divider (`.divider-vertical`) | 1px wide, full bar height, margin 0 9px, #222222 with a 1px #333333 right border; hidden below 768px |
-| Brand (`.brand`) | 20px at weight 200 on a 22px line; #FFFFFF; `--bv-emboss-dark`; no underline. Source order picks the side: after a `.nav`, pushed right with `margin-inline-start: auto` and padding 8px 0 10px 20px; first in the row, on the left with padding 8px 20px 10px 0. After a `.nav-end`, it sits flush against those links, and still ends the last row if it wraps |
+| Brand (`.brand`) | 20px at weight 200 on a 22px line; #FFFFFF; `--bv-emboss-dark`; no underline; padding 8px 20px 10px. Source order picks the side: first in the row, on the left with a -20px start margin; after a `.nav`, pushed right with `margin-inline-start: auto` and a -20px end margin. Either way the text sits on the content edge, as in 2.0, with room inside the box for the focus ring. After a `.nav-end`, it sits flush against those links, and still ends the last row if it wraps |
 | End links (`.nav-end`) | Optional, on a `.nav`. `flex-grow: 1` with `justify-content: flex-end`: the group takes the free space and sets its links at the far end, pushing it and everything after it to the right |
 | Below 768px | Links wrap onto more rows; no hamburger; the brand ends the last row, or starts the first when it comes before the links |
+| Skip link (`.skip-link`) | First element in the page, pointing at `<main id="main">`. Off-screen until it takes keyboard focus, then a white box with the link color over the top-left of the bar (z-index 1031, above the sticky bar), padding 4px 10px, radius 4px, `--bv-shadow-navbar` |
 | Sticky (`.navbar-sticky`) | From 768px: `position: sticky` at the top, z-index 1030 (2.0's fixed-navbar layer), same `--bv-shadow-navbar` as the static bar. The page gets a 58px `scroll-padding-top` (bar plus 18px), so anchor jumps and keyboard focus land below the bar (WCAG 2.4.11). Below 768px the bar scrolls away with the page, as in 2.0 |
 
 ## Accessibility
@@ -393,19 +399,21 @@ The 2.0 docs top bar: dark, 40px tall, links on the left, a white brand on the r
 v0.1 targets WCAG 2.2 AA, with one documented exception inherited from the 2.0 look.
 
 - **Text contrast:** at least 4.5:1, or 3:1 for text 24px and up or 18.66px bold. Every text color in *Color* lists its measured ratio.
-- **Focus:** every interactive element shows a visible indicator through `:focus-visible`. `outline: none` is never used without a replacement.
+- **Focus:** every interactive element shows a visible indicator through `:focus-visible`, in `--bv-color-focus` at 3:1 or more against everything it crosses. `outline: none` is never used without a replacement.
+- **Bypass:** a `.skip-link` first in the page lets keyboard users jump past the navbar.
 - **Keyboard:** v0.1 uses only native elements and no JavaScript, so keyboard behavior is the browser's own.
 - **Target size:** the smallest control is 28px tall (buttons, fields), above WCAG 2.2's 24×24px minimum. Navbar links are 40px tall.
 - **Zoom and reflow:** type is in `rem`, so browser font settings apply. Pages reflow with no horizontal scrolling at 320px width and at 200% zoom, except inside `.table-scroll`.
 - **Motion:** `prefers-reduced-motion` is honored as described under *Motion*.
 - **State hooks:** `aria-current`, `aria-pressed`, `aria-disabled` and `aria-invalid` style components directly, so the accessible markup is also the styled markup. Error help is tied to its field with `aria-describedby`.
-- **Color is never the only signal:** labels carry words, badges carry numbers, errors carry text.
+- **Color is never the only signal:** labels carry words, badges carry numbers, errors carry text, links carry an underline, and the current navbar link carries a bar.
 
 ### Exceptions
 
 | Item | Issue | Mitigation |
 | --- | --- | --- |
 | Field borders | #CCCCCC on white is 1.6:1, under the 3:1 target for component boundaries | Every field has a visible label and an inset shadow; accepted for the 2.0 look |
+| Field text size | Fields use 13px text, and iOS Safari zooms the page when a field under 16px takes focus | Zoom is reversible and doesn't block input; accepted to keep 2.0's field size on every screen |
 
 ## Testing and quality gates
 
@@ -492,7 +500,7 @@ A component is styled locally inside an app first. When a second app needs it, i
 | Danger (`.btn-danger`) | #E0524E to #BD362F | #CF443E / #BD362F | #942A25 | #FFFFFF, `--bv-emboss-dark` | Same as primary |
 
 - **Rest:** `--bv-shadow-button`; `display: inline-flex`, content centered, 5px gap between an icon and text; links lose their underline.
-- **Hover:** the gradient slides up 15px (`background-position: 0 -15px`) over 100ms linear, revealing the hover fill along the bottom. Text is unchanged. Leaving slides it back down the same way; the hover fill stays beneath until the gradient covers it, so no strip of the rest fill shows.
+- **Hover** (pointers that hover only, so it never sticks after a tap): the gradient slides up 15px (`background-position: 0 -15px`) over 100ms linear, revealing the hover fill along the bottom. Text is unchanged. Leaving slides it back down the same way; the hover fill stays beneath until the gradient covers it, so no strip of the rest fill shows.
 - **Pressed** (`:active`, `.active` or `aria-pressed="true"`): gradient removed, pressed fill, `--bv-shadow-button-pressed`.
 - **Focus** (`:focus-visible`): 2px solid `--bv-color-focus` outline, 1px offset.
 - **Disabled** (`:disabled`, `.disabled` or `aria-disabled="true"`): opacity .65, gradient and shadows removed, `cursor: not-allowed`, no hover or press change.
@@ -535,17 +543,18 @@ v0.1 forms are stacked: label above field. Fields are styled as plain elements a
 | Part | Spec |
 | --- | --- |
 | Label | Block; 13px / 18px; #333333; weight 400; margin-bottom 5px |
-| Text fields: `input` (text, email, password, search, number, url, tel, date, time), `select` | Height 28px; padding 4px 6px; 13px / 18px; #555555 on #FFFFFF; 1px #CCCCCC border; radius 3px; `--bv-shadow-field`; width 100% up to 280px |
+| Text fields: `input` (text, email, password, search, number, url, tel, date, datetime-local, month, week, time), `select` | Height 28px; padding 4px 6px; 13px / 18px; #555555 on #FFFFFF; 1px #CCCCCC border; radius 3px; `--bv-shadow-field`; width 100% up to 280px |
 | `textarea` | Same box; min-height 82px (four lines); `resize: vertical` |
-| `select` | Same box with padding 3px 6px; native arrow kept |
+| `select` | Same box with padding 3px 6px; native arrow kept. With `multiple` or `size`, height grows to show its rows |
 | Width modifiers | `.input-block` removes the 280px cap; `.input-small` caps at 90px |
 | Placeholder | `--bv-color-muted` |
 | Focus | Border `--bv-color-focus`; `--bv-shadow-field-focus`; no outline; border and shadow transition over 200ms linear |
 | Disabled and read-only | Background #F5F5F5; border #DDDDDD; `cursor: not-allowed` when disabled |
 | Checkbox and radio (`label.checkbox`, `label.radio`) | Inline-flex, 6px gap, control aligned to the first text line; `accent-color` = `--bv-color-link`; 5px between stacked options |
 | Field group (`.control-group`) | Label, field and help; margin-bottom 18px |
+| Control group (`fieldset`, `legend`) | `fieldset` has no border, padding or margin; `legend` is styled as a label. Use it for radios and related checkboxes; it can also take `.control-group` |
 | Help (`.help-block`) | Block; margin-top 5px; 13px / 18px; `--bv-color-muted` |
-| Error (`.control-group.error`, or a field with `aria-invalid="true"`) | Label and help #B94A48; field text #B94A48 and border #EE5F5B; on focus, border #E9322D and `--bv-shadow-field-error-focus` |
+| Error (`.control-group.error`, or a field with `aria-invalid="true"`) | Label, legend and help #B94A48; field text #B94A48 and border #EE5F5B; on focus, border #E9322D and `--bv-shadow-field-error-focus` |
 | Actions bar (`.form-actions`) | Padding 17px 20px 18px; margin 18px 0; background #F5F5F5; 1px #DDDDDD top border; buttons in a row with a 5px gap |
 
 ### Tables
@@ -553,7 +562,7 @@ v0.1 forms are stacked: label above field. Fields are styled as plain elements a
 One table style with three modifiers; wide tables scroll inside their own box on small screens.
 
 ```html
-<div class="table-scroll">
+<div class="table-scroll" role="region" aria-label="Apps on hearth-01" tabindex="0">
   <table class="table table-bordered table-striped">
     <thead><tr><th>App</th><th>Status</th><th class="text-right">Port</th></tr></thead>
     <tbody>
@@ -568,11 +577,11 @@ One table style with three modifiers; wide tables scroll inside their own box on
 | Table (`.table`) | Width 100%; margin-bottom 18px; `border-collapse: separate`; `border-spacing: 0` |
 | Cells (`th`, `td`) | Padding 8px; 13px / 18px; left-aligned; `vertical-align: middle`; 1px #DDDDDD top border; `font-variant-numeric: tabular-nums` |
 | Header cells | Weight 700; `vertical-align: bottom`; no top border on the first row |
-| Row hover | Body cells turn #F5F5F5 over 100ms linear |
+| Row hover | Body cells turn #F5F5F5 over 100ms linear; only on pointers that hover |
 | `.table-striped` | Odd body rows #F9F9F9; hover still wins |
 | `.table-bordered` | 1px #DDDDDD outer border and a 1px left border on every cell after the first column; outer corners 4px |
 | `.table-condensed` | Cell padding 4px 5px |
-| `.table-scroll` | Wrapper with `overflow-x: auto`; the table keeps its natural width and scrolls inside it |
+| `.table-scroll` | Wrapper with `overflow-x: auto`; the table keeps its natural width and scrolls inside it. Give it `role="region"`, an `aria-label` and `tabindex="0"`, so keyboard users can focus it and scroll; WebKit doesn't make a scroll box focusable on its own |
 
 Cells are vertically centered rather than 2.0's top alignment, so small buttons in an actions column line up with the text.
 
@@ -638,5 +647,5 @@ Labels are short status words; badges are counts.
 ### Utilities
 
 - `.muted`: text in `--bv-color-muted`.
-- `.text-right`: `text-align: end`, for numeric columns and right-aligned actions.
+- `.text-right`: `text-align: end`, for numeric columns and right-aligned actions. On a paragraph it also lifts the line-length cap.
 - `.table-scroll`: see *Tables*.

@@ -72,6 +72,7 @@
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to content</a>
   <header class="navbar navbar-sticky">
     <div class="navbar-inner">
       <div class="container">
@@ -86,7 +87,7 @@
     </div>
   </header>
 
-  <main class="container">
+  <main class="container" id="main">
 
     <!-- Overview ======================================================== -->
     <section class="section" id="overview">
@@ -173,6 +174,7 @@
         <li><span data-swatch style="background-color: var(--bv-color-navbar)"></span><code>--bv-color-navbar</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-navbar-link)"></span><code>--bv-color-navbar-link</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-navbar-link-active)"></span><code>--bv-color-navbar-link-active</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-navbar-current)"></span><code>--bv-color-navbar-current</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-brand)"></span><code>--bv-color-brand</code></li>
       </ul>
       <h2>Labels and badges</h2>
@@ -248,7 +250,7 @@
       <h2>Body text</h2>
       <p class="lead">The lead paragraph: 20px on a 27px line, for the one sentence that sets up a page.</p>
       <p id="link-demo">Body text is 13px on an 18px line. It carries <a href="#typography">links</a>, <strong>strong words</strong>, <small>small text that keeps the surrounding size</small> and inline code such as <code>hearth deploy recipes</code>.</p>
-      <p>A longer paragraph wraps the way you&rsquo;d expect. Each app keeps a small manifest next to its code, and hearth reads it to decide how to pull, build and run the app, which port it listens on, and whether it should come back after the machine restarts. Everything else has a sensible default, so most manifests are four or five lines long.</p>
+      <p>A longer paragraph wraps at about 70 characters a line, however wide the page. Each app keeps a small manifest next to its code, and hearth reads it to decide how to pull, build and run the app, which port it listens on, and whether it should come back after the machine restarts. Everything else has a sensible default, so most manifests are four or five lines long.</p>
 
       <h2>Code blocks</h2>
       <pre><code># hearth.toml
@@ -329,8 +331,9 @@ abcdefghijklmnopqrstuvwxyz
       <div class="page-header">
         <h1>Navbar <small>The dark top bar</small></h1>
       </div>
-      <p>Links on the left, the brand on the right. Mark the current page with <code>aria-current="page"</code> (as in the bar at the top of this page) or <code>.active</code> (below). Below 768px the links wrap onto more rows and the divider hides.</p>
+      <p>Links on the left, the brand on the right. Mark the current page with <code>aria-current="page"</code> (as in the bar at the top of this page) or <code>.active</code> (below); it turns white on a darker tab with a blue bar along the bottom. Below 768px the links wrap onto more rows and the divider hides.</p>
       <p>Add <code>.navbar-sticky</code> to keep the bar at the top while the page scrolls under it, as the bar on this page does. Below 768px it scrolls away with the page.</p>
+      <p>Put a <code>.skip-link</code> first in the page, pointing at <code>&lt;main id="main"&gt;</code>. It stays off-screen until it takes keyboard focus, so keyboard users can jump past the navbar: press Tab at the top of this page to see it.</p>
 
       <div class="navbar" id="navbar-demo" data-spaced>
         <div class="navbar-inner">
@@ -350,7 +353,8 @@ abcdefghijklmnopqrstuvwxyz
         </div>
       </div>
 
-      <pre><code>&lt;header class="navbar navbar-sticky"&gt;
+      <pre><code>&lt;a class="skip-link" href="#main"&gt;Skip to content&lt;/a&gt;
+&lt;header class="navbar navbar-sticky"&gt;
   &lt;div class="navbar-inner"&gt;
     &lt;div class="container"&gt;
       &lt;nav class="nav" aria-label="Main"&gt;
@@ -362,7 +366,8 @@ abcdefghijklmnopqrstuvwxyz
       &lt;a class="brand" href="/"&gt;hearth&lt;/a&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-&lt;/header&gt;</code></pre>
+&lt;/header&gt;
+&lt;main class="container" id="main"&gt;&hellip;&lt;/main&gt;</code></pre>
 
       <h2>Brand on the left</h2>
       <p>Put <code>.brand</code> before the links and it sits on the left, with the links right after it. Add <code>.nav-end</code> to a group of links to push it, and anything after it, to the right. Below 768px the brand starts the first row.</p>
@@ -539,7 +544,7 @@ abcdefghijklmnopqrstuvwxyz
       <div class="page-header">
         <h1>Forms <small>Stacked: label above field</small></h1>
       </div>
-      <p>A bare field already looks right. <code>.control-group</code> spaces a label, field and help text; <code>.error</code> or <code>aria-invalid="true"</code> marks a problem.</p>
+      <p>A bare field already looks right. <code>.control-group</code> spaces a label, field and help text; <code>.error</code> or <code>aria-invalid="true"</code> marks a problem. Group radios and related checkboxes in a <code>&lt;fieldset&gt;</code> with a <code>&lt;legend&gt;</code>: it draws no box, and the legend reads like a label.</p>
 
       <form action="#forms" method="get">
         <div class="row cols-2">
@@ -583,11 +588,33 @@ abcdefghijklmnopqrstuvwxyz
               <input id="f-time" type="time" value="03:30">
             </div>
             <div class="control-group">
+              <label for="f-next">Next backup</label>
+              <input id="f-next" type="datetime-local" value="2026-10-09T03:30">
+            </div>
+            <div class="control-group">
+              <label for="f-month">Billing month</label>
+              <input id="f-month" type="month" value="2026-10">
+            </div>
+            <div class="control-group">
+              <label for="f-week">Rotation week</label>
+              <input id="f-week" type="week" value="2026-W41">
+            </div>
+            <div class="control-group">
               <label for="f-runtime">Runtime</label>
               <select id="f-runtime">
                 <option>Go binary</option>
                 <option>Static site</option>
                 <option>Python</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="f-apps">Apps to back up (<code>multiple</code>)</label>
+              <select id="f-apps" multiple size="4">
+                <option selected>chess-trainer</option>
+                <option selected>money</option>
+                <option>notebook</option>
+                <option>feeds</option>
+                <option>eink-sync</option>
               </select>
             </div>
             <div class="control-group">
@@ -640,12 +667,12 @@ abcdefghijklmnopqrstuvwxyz
               <label class="checkbox"><input type="checkbox"> Restart automatically after a crash, waiting a little longer between each attempt so a broken app can&rsquo;t spin the fans up all night</label>
               <label class="checkbox"><input type="checkbox" disabled> Back up hourly (needs more disk)</label>
             </div>
-            <div class="control-group" role="radiogroup" aria-labelledby="f-logs-caption">
-              <p id="f-logs-caption">Keep logs for</p>
+            <fieldset class="control-group">
+              <legend>Keep logs for</legend>
               <label class="radio"><input type="radio" name="logs" value="7" checked> 7 days</label>
               <label class="radio"><input type="radio" name="logs" value="30"> 30 days</label>
               <label class="radio"><input type="radio" name="logs" value="0" disabled> Forever</label>
-            </div>
+            </fieldset>
           </div>
         </div>
 
@@ -686,7 +713,7 @@ abcdefghijklmnopqrstuvwxyz
       </table>
 
       <h2>Striped and bordered</h2>
-      <p>Wrap a table in <code>.table-scroll</code> and it scrolls inside its own box on small screens instead of widening the page.</p>
+      <p>Wrap a table in <code>.table-scroll</code> and it scrolls inside its own box on small screens instead of widening the page. Give the wrapper <code>role="region"</code>, an <code>aria-label</code> and <code>tabindex="0"</code>, so keyboard users can focus it and scroll with the arrow keys.</p>
       <div class="table-scroll" id="table-striped-scroll" role="region" aria-label="Apps on hearth-01" tabindex="0">
         <table class="table table-bordered table-striped" id="table-striped">
           <thead>
@@ -738,7 +765,7 @@ abcdefghijklmnopqrstuvwxyz
         </table>
       </div>
 
-      <pre><code>&lt;div class="table-scroll"&gt;
+      <pre><code>&lt;div class="table-scroll" role="region" aria-label="Apps on hearth-01" tabindex="0"&gt;
   &lt;table class="table table-bordered table-striped"&gt;
     &lt;thead&gt;&lt;tr&gt;&lt;th&gt;App&lt;/th&gt;&lt;th&gt;Status&lt;/th&gt;&lt;th class="text-right"&gt;Port&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
     &lt;tbody&gt;
@@ -849,8 +876,8 @@ abcdefghijklmnopqrstuvwxyz
       <div class="page-header">
         <h1>Utilities <small>A handful, no more</small></h1>
       </div>
-      <p class="muted"><code>.muted</code> sets text in the muted grey, for asides and timestamps. Use it on white only.</p>
-      <p class="text-right"><code>.text-right</code> aligns to the end of the line, for numbers and trailing actions.</p>
+      <p class="muted"><code>.muted</code> sets text in the muted grey, for asides and timestamps. It keeps 4.5:1 on white and on bevel&rsquo;s grey surfaces: striped and hovered table rows, the hero unit and the form actions bar.</p>
+      <p class="text-right"><code>.text-right</code> aligns to the end of the line, for numbers and trailing actions. On a paragraph it also lifts the line-length cap, so the text reaches the end.</p>
       <p><code>.table-scroll</code> wraps a wide table; see <a href="#tables">Tables</a>.</p>
     </section>
   </main>
