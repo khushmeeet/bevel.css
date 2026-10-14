@@ -6,29 +6,34 @@
  *
  * One idea, applied everywhere: depth says what a thing does.
  *
- *   Raised    You can press it. Buttons get a lit top edge and a shadow on
- *             the page below, so they stand up off it.
+ *   Raised    You can press it. Buttons and page links are convex keys:
+ *             a gloss, a lit top edge, a darker bottom edge and a shadow
+ *             on the page below.
  *   Pressed   Pressing pushes it in, and a choice once made stays in, like
  *             the buttons on an old car radio: the current page in the
  *             navbar, in a button group and in pagination.
- *   Sunken    It holds something. A field holds what you type, a meter's
- *             track holds a level, a well holds a message.
+ *   Sunken    It holds something. A field holds what you type, so its top
+ *             wall is darker and casts a shade into it; a meter's track
+ *             holds a level, like a glass tube; a well holds a message.
  *   Flat      Everything you read: text, tables, labels, figures. Depth is
  *             kept for things that act or hold, so it keeps its meaning.
+ *             Table headers stay flat because they don't sort: a raised
+ *             header would promise a click that does nothing.
  *
  * One light, from above, for all of it. No textures and nothing that is
- * only decoration: no linen, leather or stitching. A disabled button was
- * already flat, which now reads as "nothing to press".
+ * only decoration: no linen, leather or stitching. Every text color keeps
+ * 4.5:1 and every bar keeps 3:1 against its track, measured at the
+ * midpoint as bevel.css does; the navbar links get lighter to keep 4.5:1
+ * on the gloss.
  *
  * It loads after bevel.css and adds to bevel's own layers, so it cascades
  * as if bevel.css had been edited and an app's unlayered CSS still wins.
  * It keeps the house rules: --bv- tokens, at most 0,2,0, Widely available
- * CSS only. Most of it retunes shadow tokens; two rules do what tokens
- * can't, and one token is new: --bv-shadow-navbar-current.
+ * CSS only.
  *
- * If it stays: move the values into bevel.css, add the two rules to their
- * sections, update the spec's Shadows table and the reference baselines,
- * and bump the minor version.
+ * If it stays: move the tokens and rules into their sections of
+ * bevel.css, update the spec's Color and Shadows tables and the reference
+ * baselines, and bump the minor version.
  */
 
 
@@ -38,39 +43,109 @@
 
 @layer bevel.base {
   :where(:root) {
-    /* Raised: a brighter top edge, and a shadow on the page below. */
-    --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
+    /* The navbar is a glossy bar. Its links are a step lighter, so they
+       keep 4.5:1 where the gloss lightens the top half. A pressed link
+       drops into a darker slot. */
+    --bv-color-navbar-link: #ADADAD;
+    --bv-color-navbar-pressed: #171717;
+    --bv-gloss-navbar: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04) 50%, transparent 50%);
+    --bv-shadow-navbar: inset 0 1px 0 rgba(255, 255, 255, 0.14), inset 0 -1px 0 rgba(0, 0, 0, 0.35), 0 1px 3px rgba(0, 0, 0, 0.35);
+    --bv-shadow-navbar-current: inset 0 2px 6px rgba(0, 0, 0, 0.7), inset 1px 0 0 rgba(0, 0, 0, 0.5), inset -1px 0 0 rgba(0, 0, 0, 0.5), 1px 0 0 rgba(255, 255, 255, 0.07), -1px 0 0 rgba(255, 255, 255, 0.07);
 
-    /* Pressed: the shadow below goes, the top edge sinks into shade, and the
+    /* Keys: the default button and page links. A gloss breaks across the
+       middle; the edge darkens toward the bottom, away from the light. */
+    --bv-key-gradient: linear-gradient(#FFFFFF, #F6F6F6 50%, #E8E8E8 50%, #DCDCDC);
+    --bv-key-hover: #DCDCDC;
+    --bv-key-pressed: #D3D3D3;
+    --bv-key-border: #BBBBBB;
+    --bv-key-border-bottom: #9C9C9C;
+
+    /* Raised: a lit top edge, a band of gloss above the text, and a
+       shadow on the page below. The band is a shadow, not a gradient, so
+       it ends before the letters start and leaves the white text on blue
+       and red at bevel's contrast; it goes when the button is pressed or
+       disabled, like light off a key that's down. */
+    --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.45), inset 0 7px 0 rgba(255, 255, 255, 0.12), 0 1px 2px rgba(0, 0, 0, 0.22);
+
+    /* Pressed: the shadow below goes, the top sinks into shade, and the
        lip of the hole catches the light under it. */
-    --bv-shadow-button-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.22), inset 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.7);
+    --bv-shadow-button-pressed: inset 0 2px 5px rgba(0, 0, 0, 0.3), inset 0 1px 2px rgba(0, 0, 0, 0.18), 0 1px 0 rgba(255, 255, 255, 0.75);
 
-    /* Sunken: the field's top wall casts a shade into it. The error focus
-       keeps it too, where 2.0 dropped it. */
-    --bv-shadow-field: inset 0 1px 0 rgba(0, 0, 0, 0.06), inset 0 2px 3px rgba(0, 0, 0, 0.08);
-    --bv-shadow-field-focus: inset 0 1px 0 rgba(0, 0, 0, 0.06), inset 0 2px 3px rgba(0, 0, 0, 0.08), 0 0 8px var(--bv-color-focus-glow);
-    --bv-shadow-field-error-focus: inset 0 1px 0 rgba(0, 0, 0, 0.06), inset 0 2px 3px rgba(0, 0, 0, 0.08), 0 0 6px var(--bv-color-error-glow);
+    /* Sunken: the field's top wall is darker than its floor and casts a
+       shade into it. The error focus keeps the shade too. */
+    --bv-color-field-edge-top: #9E9E9E;
+    --bv-color-field-edge: #BDBDBD;
+    --bv-color-field-edge-bottom: #D0D0D0;
+    --bv-shadow-field: inset 0 2px 3px rgba(0, 0, 0, 0.16);
+    --bv-shadow-field-focus: inset 0 2px 3px rgba(0, 0, 0, 0.16), 0 0 8px var(--bv-color-focus-glow);
+    --bv-shadow-field-error-focus: inset 0 2px 3px rgba(0, 0, 0, 0.16), 0 0 6px var(--bv-color-error-glow);
 
-    /* The bar is a raised panel: a lit top edge as well as the shade along
-       the bottom. Its current link sinks in, a key held down. */
-    --bv-shadow-navbar: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.25);
-    --bv-shadow-navbar-current: inset 0 3px 8px rgba(0, 0, 0, 0.45), inset 1px 0 0 rgba(0, 0, 0, 0.25), inset -1px 0 0 rgba(0, 0, 0, 0.25);
+    /* A meter is a glass tube: a channel cut into the page, with a gloss
+       on the level inside. The gloss stays above the midpoint, so every
+       bar keeps 3:1 against the track where bevel.css measures it. */
+    --bv-shadow-progress: inset 0 1px 3px rgba(0, 0, 0, 0.28), inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+    --bv-shadow-progress-bar: inset 0 1px 2px rgba(0, 0, 0, 0.3), inset 0 0 0 1px rgba(0, 0, 0, 0.12), inset 0 7px 0 rgba(255, 255, 255, 0.2);
 
-    /* A meter's track is a channel cut into the page: shade along its top
-       wall and a faint rim, so its full length shows where the bar
-       doesn't fill it. The bar sits down in the channel under the same
-       shade, where before it had a raised button's edge. The fills are
-       unchanged, so every bar keeps 3:1 against the track; a darker
-       track, or a gloss on the bar, took the amber bar under 3:1. */
-    --bv-shadow-progress: inset 0 1px 2px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
-    --bv-shadow-progress-bar: inset 0 1px 2px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+    /* Wells hold a message, deeper than before. */
+    --bv-shadow-well: inset 0 1px 4px rgba(0, 0, 0, 0.12);
 
-    /* Wells hold a message, a little deeper than before. */
-    --bv-shadow-well: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+    /* Page links stand on the page like buttons. */
+    --bv-shadow-pagination: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(0, 0, 0, 0.2);
+  }
+}
 
-    /* Page links lift off the page like the buttons do; see below for the
-       ones you can't follow. */
-    --bv-shadow-pagination: 0 1px 2px rgba(0, 0, 0, 0.12);
+
+/* ==========================================================================
+   Fields
+   ========================================================================== */
+
+@layer bevel.base {
+  :where(
+    input:not([type]),
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="search"],
+    input[type="number"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
+    input[type="time"],
+    select,
+    textarea
+  ) {
+    border-color: var(--bv-color-field-edge);
+    border-block-start-color: var(--bv-color-field-edge-top);
+    border-block-end-color: var(--bv-color-field-edge-bottom);
+  }
+
+  /* bevel's own disabled and focus borders, restated so they still win
+     over the edges above. */
+  :where(input, select, textarea):where(:disabled, [readonly]) {
+    border-color: var(--bv-color-border);
+  }
+
+  :where(
+    input:not([type]),
+    input[type="text"],
+    input[type="email"],
+    input[type="password"],
+    input[type="search"],
+    input[type="number"],
+    input[type="url"],
+    input[type="tel"],
+    input[type="date"],
+    input[type="datetime-local"],
+    input[type="month"],
+    input[type="week"],
+    input[type="time"],
+    select,
+    textarea
+  ):where(:focus) {
+    border-color: var(--bv-color-focus);
   }
 }
 
@@ -80,16 +155,66 @@
    ========================================================================== */
 
 @layer bevel.components {
-  /* The current link sinks into the bar, as the current page does in a
-     button group and in pagination. The blue bar under it stays, so the
-     current page still doesn't rely on depth or brightness alone. */
+  /* The gloss lies over the bar's own gradient. */
+  .navbar-inner {
+    background-image: var(--bv-gloss-navbar), linear-gradient(var(--bv-color-navbar-top), var(--bv-color-navbar-bottom));
+  }
+
+  /* The current link drops into a dark slot in the bar, as the current
+     page does in a button group and in pagination. The blue bar under it
+     stays, so the current page doesn't rely on depth alone. */
   .nav > :where(a):is(.active, [aria-current="page"]) {
+    background-color: var(--bv-color-navbar-pressed);
     box-shadow: var(--bv-shadow-navbar-current);
   }
 
+  /* The default button becomes a key. Primary and danger keep their own
+     gradients, which carry their white text at 4.5:1. */
+  .btn:where(:not(.btn-primary, .btn-danger)) {
+    --bv-btn-gradient: var(--bv-key-gradient);
+    --bv-btn-bg-hover: var(--bv-key-hover);
+    --bv-btn-bg-active: var(--bv-key-pressed);
+    --bv-btn-border: var(--bv-key-border);
+    --bv-btn-border-bottom: var(--bv-key-border-bottom);
+  }
+
+  .btn-primary,
+  .btn-danger {
+    --bv-btn-border-bottom: rgba(0, 0, 0, 0.4);
+  }
+
+  /* The add-on is part of the field's frame: same edges, same shade. */
+  .add-on {
+    border-color: var(--bv-color-field-edge);
+    border-block-start-color: var(--bv-color-field-edge-top);
+    border-block-end-color: var(--bv-color-field-edge-bottom);
+    box-shadow: var(--bv-shadow-field);
+  }
+
+  /* Page links are keys too. */
+  .pagination :where(li) > :where(a, span) {
+    background-image: var(--bv-key-gradient);
+    border-color: var(--bv-key-border);
+    border-block-end-color: var(--bv-key-border-bottom);
+  }
+
+  @media (hover: hover) {
+    .pagination :where(li > a:hover) {
+      background-color: var(--bv-key-hover);
+      background-image: none;
+    }
+  }
+
+  .pagination :where(.active > a, .active > span, li > [aria-current="page"]) {
+    background-color: var(--bv-key-pressed);
+    background-image: none;
+  }
+
   /* A page you can't go to lies flat, as a disabled button does: nothing
-     to press. The current page, also a span at times, stays pressed in. */
+     to press. */
   .pagination :where(li:not(.active) > span:not([aria-current="page"]), .disabled > a, li > a[aria-disabled="true"]) {
+    background-color: var(--bv-color-surface);
+    background-image: none;
     box-shadow: none;
   }
 }
