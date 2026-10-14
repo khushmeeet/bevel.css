@@ -1,0 +1,95 @@
+/*
+ * tactile.css
+ *
+ * A trial, not part of bevel.css: a touch of skeuomorphism for the money
+ * demo, to see how it feels before any of it goes into the library.
+ *
+ * One idea, applied everywhere: depth says what a thing does.
+ *
+ *   Raised    You can press it. Buttons get a lit top edge and a shadow on
+ *             the page below, so they stand up off it.
+ *   Pressed   Pressing pushes it in, and a choice once made stays in, like
+ *             the buttons on an old car radio: the current page in the
+ *             navbar, in a button group and in pagination.
+ *   Sunken    It holds something. A field holds what you type, a meter's
+ *             track holds a level, a well holds a message.
+ *   Flat      Everything you read: text, tables, labels, figures. Depth is
+ *             kept for things that act or hold, so it keeps its meaning.
+ *
+ * One light, from above, for all of it. No textures and nothing that is
+ * only decoration: no linen, leather or stitching. A disabled button was
+ * already flat, which now reads as "nothing to press".
+ *
+ * It loads after bevel.css and adds to bevel's own layers, so it cascades
+ * as if bevel.css had been edited and an app's unlayered CSS still wins.
+ * It keeps the house rules: --bv- tokens, at most 0,2,0, Widely available
+ * CSS only. Most of it retunes shadow tokens; two rules do what tokens
+ * can't, and one token is new: --bv-shadow-navbar-current.
+ *
+ * If it stays: move the values into bevel.css, add the two rules to their
+ * sections, update the spec's Shadows table and the reference baselines,
+ * and bump the minor version.
+ */
+
+
+/* ==========================================================================
+   Tokens
+   ========================================================================== */
+
+@layer bevel.base {
+  :where(:root) {
+    /* Raised: a brighter top edge, and a shadow on the page below. */
+    --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(0, 0, 0, 0.15);
+
+    /* Pressed: the shadow below goes, the top edge sinks into shade, and the
+       lip of the hole catches the light under it. */
+    --bv-shadow-button-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.22), inset 0 1px 1px rgba(0, 0, 0, 0.12), 0 1px 0 rgba(255, 255, 255, 0.7);
+
+    /* Sunken: the field's top wall casts a shade into it. The error focus
+       keeps it too, where 2.0 dropped it. */
+    --bv-shadow-field: inset 0 1px 0 rgba(0, 0, 0, 0.06), inset 0 2px 3px rgba(0, 0, 0, 0.08);
+    --bv-shadow-field-focus: inset 0 1px 0 rgba(0, 0, 0, 0.06), inset 0 2px 3px rgba(0, 0, 0, 0.08), 0 0 8px var(--bv-color-focus-glow);
+    --bv-shadow-field-error-focus: inset 0 1px 0 rgba(0, 0, 0, 0.06), inset 0 2px 3px rgba(0, 0, 0, 0.08), 0 0 6px var(--bv-color-error-glow);
+
+    /* The bar is a raised panel: a lit top edge as well as the shade along
+       the bottom. Its current link sinks in, a key held down. */
+    --bv-shadow-navbar: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.25);
+    --bv-shadow-navbar-current: inset 0 3px 8px rgba(0, 0, 0, 0.45), inset 1px 0 0 rgba(0, 0, 0, 0.25), inset -1px 0 0 rgba(0, 0, 0, 0.25);
+
+    /* A meter's track is a channel cut into the page: shade along its top
+       wall and a faint rim, so its full length shows where the bar
+       doesn't fill it. The bar sits down in the channel under the same
+       shade, where before it had a raised button's edge. The fills are
+       unchanged, so every bar keeps 3:1 against the track; a darker
+       track, or a gloss on the bar, took the amber bar under 3:1. */
+    --bv-shadow-progress: inset 0 1px 2px rgba(0, 0, 0, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+    --bv-shadow-progress-bar: inset 0 1px 2px rgba(0, 0, 0, 0.25), inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+
+    /* Wells hold a message, a little deeper than before. */
+    --bv-shadow-well: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+
+    /* Page links lift off the page like the buttons do; see below for the
+       ones you can't follow. */
+    --bv-shadow-pagination: 0 1px 2px rgba(0, 0, 0, 0.12);
+  }
+}
+
+
+/* ==========================================================================
+   Components
+   ========================================================================== */
+
+@layer bevel.components {
+  /* The current link sinks into the bar, as the current page does in a
+     button group and in pagination. The blue bar under it stays, so the
+     current page still doesn't rely on depth or brightness alone. */
+  .nav > :where(a):is(.active, [aria-current="page"]) {
+    box-shadow: var(--bv-shadow-navbar-current);
+  }
+
+  /* A page you can't go to lies flat, as a disabled button does: nothing
+     to press. The current page, also a span at times, stays pressed in. */
+  .pagination :where(li:not(.active) > span:not([aria-current="page"]), .disabled > a, li > a[aria-disabled="true"]) {
+    box-shadow: none;
+  }
+}
