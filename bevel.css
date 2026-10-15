@@ -1,8 +1,9 @@
 /*
  * bevel.css
  *
- * Bootstrap 2.0's look, built only on CSS that has been in every major
- * browser for at least 30 months. One file, no build step, no JavaScript.
+ * Bootstrap 2.0's shapes in a modern palette, built only on CSS that has
+ * been in every major browser for at least 30 months. One file, no build
+ * step, no JavaScript.
  *
  * Everything sits in the five bevel.* layers below. Write your app's own CSS
  * outside any layer and it overrides the library without !important or
@@ -48,97 +49,97 @@
 
 @layer bevel.base {
   :where(:root) {
-    /* Neutrals */
-    --bv-color-text: #333333;
-    --bv-color-muted: #6E6E6E;
-    --bv-color-input-text: #555555;
+    /* Neutrals: cool slate greys, a touch of blue in every one. */
+    --bv-color-text: #1E293B;
+    --bv-color-muted: #5B6779;
+    --bv-color-input-text: #334155;
     --bv-color-surface: #FFFFFF;
-    --bv-color-surface-alt: #F5F5F5;
-    --bv-color-stripe: #F9F9F9;
-    --bv-color-border: #DDDDDD;
-    --bv-color-border-soft: #EEEEEE;
-    --bv-color-border-strong: #CCCCCC;
-    --bv-color-border-bottom: #BBBBBB;
-    --bv-color-grid: rgba(0, 0, 0, 0.027);
+    --bv-color-surface-alt: #F1F5F9;
+    --bv-color-stripe: #F8FAFC;
+    --bv-color-border: #E2E8F0;
+    --bv-color-border-soft: #EDF1F6;
+    --bv-color-border-strong: #CBD5E1;
+    --bv-color-border-bottom: #AAB6C6;
+    --bv-color-grid: rgba(15, 23, 42, 0.03);
 
     /* Action and focus */
-    --bv-color-link: #006DA3;
-    --bv-color-link-hover: #005580;
-    --bv-color-primary-top: #0088CC;
-    --bv-color-primary-bottom: #0055CC;
-    --bv-color-primary: #0074CC;
-    --bv-color-primary-active: #004099;
-    --bv-color-danger-top: #E0524E;
-    --bv-color-danger-bottom: #BD362F;
-    --bv-color-danger: #CF443E;
-    --bv-color-danger-active: #942A25;
-    --bv-color-focus: #0088CC;
-    --bv-color-focus-glow: rgba(82, 168, 236, 0.6);
+    --bv-color-link: #2563EB;
+    --bv-color-link-hover: #1D4ED8;
+    --bv-color-primary-top: #3B82F6;
+    --bv-color-primary-bottom: #1D4ED8;
+    --bv-color-primary: #2563EB;
+    --bv-color-primary-active: #1E40AF;
+    --bv-color-danger-top: #F43F5E;
+    --bv-color-danger-bottom: #BE123C;
+    --bv-color-danger: #E11D48;
+    --bv-color-danger-active: #9F1239;
+    --bv-color-focus: #3B82F6;
+    --bv-color-focus-glow: rgba(59, 130, 246, 0.5);
 
-    /* Navbar */
-    --bv-color-navbar-top: #333333;
-    --bv-color-navbar-bottom: #222222;
-    --bv-color-navbar: #2C2C2C;
-    --bv-color-navbar-link: #999999;
+    /* Navbar: deep slate rather than charcoal. */
+    --bv-color-navbar-top: #1E293B;
+    --bv-color-navbar-bottom: #0F172A;
+    --bv-color-navbar: #172033;
+    --bv-color-navbar-link: #94A3B8;
     --bv-color-navbar-link-active: #FFFFFF;
-    --bv-color-navbar-current: #0088CC;
+    --bv-color-navbar-current: #3B82F6;
     --bv-color-brand: #FFFFFF;
 
     /* Labels and badges: pastel chips in the alert hues, a step stronger so
        a small chip still reads as a tint. Inverse stays dark. */
-    --bv-label-default-bg: #E9E9E9;
-    --bv-label-default-border: #D4D4D4;
-    --bv-label-default-text: #676767;
-    --bv-label-success-bg: #D0F5D7;
-    --bv-label-success-border: #B3E2BC;
-    --bv-label-success-text: #17793A;
-    --bv-label-warning-bg: #F8EAB5;
-    --bv-label-warning-border: #E7D48F;
-    --bv-label-warning-text: #955B00;
-    --bv-label-important-bg: #FFE1E0;
-    --bv-label-important-border: #F9C6C4;
-    --bv-label-important-text: #AA474C;
-    --bv-label-info-bg: #D5EDFF;
-    --bv-label-info-border: #B2DAF7;
-    --bv-label-info-text: #346D93;
-    --bv-label-inverse-bg: #333333;
-    --bv-label-inverse-border: #333333;
+    --bv-label-default-bg: #E8EDF3;
+    --bv-label-default-border: #D3DCE6;
+    --bv-label-default-text: #475467;
+    --bv-label-success-bg: #D1FAE5;
+    --bv-label-success-border: #A7F3D0;
+    --bv-label-success-text: #047857;
+    --bv-label-warning-bg: #FEF3C7;
+    --bv-label-warning-border: #FCD97A;
+    --bv-label-warning-text: #A14B06;
+    --bv-label-important-bg: #FFE4E6;
+    --bv-label-important-border: #FECDD3;
+    --bv-label-important-text: #BE123C;
+    --bv-label-info-bg: #E0F2FE;
+    --bv-label-info-border: #BAE6FD;
+    --bv-label-info-text: #0369A1;
+    --bv-label-inverse-bg: #1E293B;
+    --bv-label-inverse-border: #1E293B;
     --bv-label-inverse-text: #FFFFFF;
 
-    /* Alerts: pastel tints, not 2.0's. Backgrounds share one lightness;
-       each text color keeps its tint's hue at 4.6:1 on it. */
-    --bv-alert-warning-bg: #FFF7D9;
-    --bv-alert-warning-border: #F0E2AD;
-    --bv-alert-warning-text: #9F6204;
-    --bv-alert-error-bg: #FFEBEA;
-    --bv-alert-error-border: #FFD3D2;
-    --bv-alert-error-text: #B4484E;
-    --bv-alert-success-bg: #DFF9E3;
-    --bv-alert-success-border: #C7EBCD;
-    --bv-alert-success-text: #297C43;
-    --bv-alert-info-bg: #E2F3FF;
-    --bv-alert-info-border: #C3E5FE;
-    --bv-alert-info-text: #387197;
+    /* Alerts: the palest tints of emerald, amber, rose and sky; each text
+       color keeps its tint's hue at 4.5:1 or more on it. */
+    --bv-alert-warning-bg: #FFFBEB;
+    --bv-alert-warning-border: #FDE7A9;
+    --bv-alert-warning-text: #A14B06;
+    --bv-alert-error-bg: #FFF1F2;
+    --bv-alert-error-border: #FECDD3;
+    --bv-alert-error-text: #BE123C;
+    --bv-alert-success-bg: #ECFDF5;
+    --bv-alert-success-border: #A7F3D0;
+    --bv-alert-success-text: #047857;
+    --bv-alert-info-bg: #F0F9FF;
+    --bv-alert-info-border: #BAE6FD;
+    --bv-alert-info-text: #0369A1;
 
     /* Progress bars: the primary and danger buttons' gradients, with green
        and amber at the same depth, so a bar keeps 3:1 against its track. */
     --bv-progress-default-top: var(--bv-color-primary-top);
     --bv-progress-default-bottom: var(--bv-color-primary-bottom);
-    --bv-progress-success-top: #2B9F4A;
-    --bv-progress-success-bottom: #017F31;
-    --bv-progress-warning-top: #E18500;
-    --bv-progress-warning-bottom: #C16300;
+    --bv-progress-success-top: #10A36F;
+    --bv-progress-success-bottom: #047857;
+    --bv-progress-warning-top: #EA8A0B;
+    --bv-progress-warning-bottom: #C2610A;
     --bv-progress-danger-top: var(--bv-color-danger-top);
     --bv-progress-danger-bottom: var(--bv-color-danger-bottom);
 
     /* Form errors and code */
-    --bv-color-error: #B94A48;
-    --bv-color-error-border: #EE5F5B;
-    --bv-color-error-focus: #E9322D;
-    --bv-color-error-glow: #F8B9B7;
-    --bv-color-code-text: #DD1144;
-    --bv-color-code-bg: #F7F7F9;
-    --bv-color-code-border: #E1E1E8;
+    --bv-color-error: #BE123C;
+    --bv-color-error-border: #F43F5E;
+    --bv-color-error-focus: #E11D48;
+    --bv-color-error-glow: #FECDD3;
+    --bv-color-code-text: #BE185D;
+    --bv-color-code-bg: #F1F5F9;
+    --bv-color-code-border: #E2E8F0;
 
     /* Type: 13px on an 18px line */
     --bv-font-sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -163,22 +164,23 @@
     --bv-radius-xl: 6px;
     --bv-radius-pill: 9px;
 
-    /* Shadows: light comes from above */
-    --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
-    --bv-shadow-button-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
-    --bv-shadow-field: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    --bv-shadow-field-focus: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px var(--bv-color-focus-glow);
+    /* Shadows: light comes from above. Tinted with the darkest slate
+       rather than black, so they read as depth, not dirt. */
+    --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(15, 23, 42, 0.06);
+    --bv-shadow-button-pressed: inset 0 2px 4px rgba(15, 23, 42, 0.14), 0 1px 2px rgba(15, 23, 42, 0.04);
+    --bv-shadow-field: inset 0 1px 2px rgba(15, 23, 42, 0.06);
+    --bv-shadow-field-focus: inset 0 1px 2px rgba(15, 23, 42, 0.06), 0 0 8px var(--bv-color-focus-glow);
     --bv-shadow-field-error-focus: 0 0 6px var(--bv-color-error-glow);
-    --bv-shadow-navbar: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-    --bv-shadow-pagination: 0 1px 2px rgba(0, 0, 0, 0.05);
-    --bv-shadow-well: inset 0 1px 1px rgba(0, 0, 0, 0.05);
-    --bv-shadow-progress: inset 0 1px 2px rgba(0, 0, 0, 0.1);
-    --bv-shadow-progress-bar: inset 0 0 0 1px rgba(0, 0, 0, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.15);
+    --bv-shadow-navbar: 0 1px 3px rgba(15, 23, 42, 0.2), inset 0 -1px 0 rgba(15, 23, 42, 0.1);
+    --bv-shadow-pagination: 0 1px 2px rgba(15, 23, 42, 0.05);
+    --bv-shadow-well: inset 0 1px 1px rgba(15, 23, 42, 0.04);
+    --bv-shadow-progress: inset 0 1px 2px rgba(15, 23, 42, 0.08);
+    --bv-shadow-progress-bar: inset 0 0 0 1px rgba(15, 23, 42, 0.08), inset 0 -1px 0 rgba(15, 23, 42, 0.12);
 
     /* Text emboss */
     --bv-emboss-light: 0 1px 1px rgba(255, 255, 255, 0.75);
     --bv-emboss-soft: 0 1px 0 rgba(255, 255, 255, 0.5);
-    --bv-emboss-dark: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    --bv-emboss-dark: 0 -1px 0 rgba(15, 23, 42, 0.25);
 
     /* Motion: color, background and shadow only */
     --bv-duration-fast: 100ms;
@@ -321,7 +323,7 @@
     white-space: pre-wrap;
     overflow-wrap: anywhere;
     background-color: var(--bv-color-surface-alt);
-    border: 1px solid rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(15, 23, 42, 0.15);
     border-radius: var(--bv-radius);
   }
 
@@ -704,10 +706,10 @@
   .btn {
     --bv-btn-color: var(--bv-color-text);
     --bv-btn-emboss: var(--bv-emboss-light);
-    --bv-btn-gradient: linear-gradient(#FFFFFF, #FFFFFF 25%, #E6E6E6);
-    --bv-btn-bg: #FAFAFA;
-    --bv-btn-bg-hover: #E6E6E6;
-    --bv-btn-bg-active: #E6E6E6;
+    --bv-btn-gradient: linear-gradient(#FFFFFF, #FFFFFF 25%, #E9EEF4);
+    --bv-btn-bg: #F8FAFC;
+    --bv-btn-bg-hover: #E9EEF4;
+    --bv-btn-bg-active: #E9EEF4;
     --bv-btn-border: var(--bv-color-border-strong);
     --bv-btn-border-bottom: var(--bv-color-border-bottom);
     --bv-btn-padding: 0.25rem 0.625rem;
@@ -777,8 +779,8 @@
   .btn-danger {
     --bv-btn-color: #FFFFFF;
     --bv-btn-emboss: var(--bv-emboss-dark);
-    --bv-btn-border: rgba(0, 0, 0, 0.1);
-    --bv-btn-border-bottom: rgba(0, 0, 0, 0.25);
+    --bv-btn-border: rgba(15, 23, 42, 0.1);
+    --bv-btn-border-bottom: rgba(15, 23, 42, 0.25);
   }
 
   .btn-primary {
@@ -1452,7 +1454,7 @@
     padding: 1.1875rem;
     margin-block-end: var(--bv-space-5);
     background-color: var(--bv-color-surface-alt);
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(15, 23, 42, 0.05);
     border-radius: var(--bv-radius);
     box-shadow: var(--bv-shadow-well);
   }

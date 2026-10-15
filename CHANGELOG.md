@@ -2,6 +2,12 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
+## [Unreleased]
+
+### Changed
+
+- A modern palette on the same 2.0 shapes. Neutrals are cool slate greys instead of flat greys; links and primary buttons use a brighter blue; success, warning, error and info use emerald, amber, rose and sky; the navbar is deep slate instead of charcoal. Shadows and the dark emboss are tinted slate instead of black and a little lighter. Gradients, bevels, sunken fields and embossed text are unchanged, and every text color still reaches 4.5:1 on what it sits on. Only token values and the default button's colors change, so an app that overrides tokens keeps its overrides. Every page looks different, so check your app; the spec's Color section lists each old and new value.
+
 ## [0.2.0] - 2026-10-11
 
 Everything the money demo had to work around or would have been better with, apart from the file input.

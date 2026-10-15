@@ -8,7 +8,7 @@ bevel.css is one plain stylesheet that gives every app hosted on hearth the look
 
 It is for one person's own apps: server-rendered Go pages with little or no JavaScript. The visual reference is the [Bootstrap 2.0.0 documentation](https://bootstrapdocs.com/v2.0.0/docs/), especially its [Components page](https://bootstrapdocs.com/v2.0.0/docs/components.html). The approved preview is the *Bootstrap 2.0 docs (preview)* board on the [Hearth UI design canvas](https://claude.ai/artifact/AtJvchQdnzcs1GDoqpBPvC).
 
-The look is 2012; the engineering is current. Every measurement below is the 2.0.0 value unless marked as a deliberate change, and every deliberate change exists for contrast or durability. The one exception is the pastel tints on labels, badges and alerts, chosen for the look.
+The shapes are 2012; the colors and the engineering are current. Every measurement below is the 2.0.0 value unless marked as a deliberate change, and every deliberate change exists for contrast or durability. The exception is color: the palette is modern, chosen for the look (see *Color*).
 
 ## Goals, principles and non-goals
 
@@ -117,103 +117,103 @@ An app's own CSS is written outside any layer, so it overrides the library witho
 
 ## Color
 
-The palette is Bootstrap 2.0.0's, with four values darkened so every piece of text reaches 4.5:1 contrast on every surface it sits on, and the focus color made opaque so every focus ring reaches 3:1; those rows show the original in the 2.0.0 column. Labels, badges and alerts use pastel tints instead of 2.0's solid colors, keeping 2.0's hues so blue, green, amber and red mean what they did. v0.1 is light-only.
+The shapes are Bootstrap 2.0.0's; the colors are modern. From v0.3 the neutrals are cool slate greys with a touch of blue, actions use a brighter blue, status colors are emerald, amber, rose and sky, and the navbar is deep slate rather than charcoal. Most values come from Tailwind CSS's slate, blue, emerald, amber, rose and sky scales. The meanings stay 2.0's: blue is action, green, amber and red are status. Every piece of text reaches 4.5:1 contrast on every surface it sits on, every focus ring and progress bar 3:1. The 0.2.0 column shows what each value replaced. Light only, for now.
 
 ### Neutrals
 
-| Token | Value | 2.0.0 | Used for | Contrast |
+| Token | Value | 0.2.0 | Used for | Contrast |
 | --- | --- | --- | --- | --- |
-| `--bv-color-text` | #333333 | same | Body text, headings | 12.6:1 on white |
-| `--bv-color-muted` | #6E6E6E | #999999 | Help text, heading subtitles, `.muted`, placeholders | 5.1:1 on white; 4.7:1 on #F5F5F5 |
-| `--bv-color-input-text` | #555555 | same | Text typed into fields | 7.5:1 on white |
+| `--bv-color-text` | #1E293B | #333333 | Body text, headings | 14.6:1 on white; 13.4:1 on #F1F5F9 |
+| `--bv-color-muted` | #5B6779 | #6E6E6E | Help text, heading subtitles, `.muted`, placeholders | 5.7:1 on white; 5.2:1 on #F1F5F9 |
+| `--bv-color-input-text` | #334155 | #555555 | Text typed into fields | 10.4:1 on white |
 | `--bv-color-surface` | #FFFFFF | same | Page background, grid hero unit |  |
-| `--bv-color-surface-alt` | #F5F5F5 | same | Form actions bar, disabled fields, row hover, hero unit |  |
-| `--bv-color-stripe` | #F9F9F9 | same | Odd table rows |  |
-| `--bv-color-border` | #DDDDDD | same | Table borders, form actions top edge, disabled field border |  |
-| `--bv-color-border-soft` | #EEEEEE | same | Page header rule, `hr`, grid hero unit edge |  |
-| `--bv-color-border-strong` | #CCCCCC | same | Field borders, default button border |  |
-| `--bv-color-border-bottom` | #BBBBBB | same | Default button bottom edge |  |
-| `--bv-color-grid` | rgba(0, 0, 0, 0.027) | docs only | Grid hero unit lines; the 2.0 docs drew this grid as a page background image |  |
+| `--bv-color-surface-alt` | #F1F5F9 | #F5F5F5 | Form actions bar, disabled fields, row hover, hero unit, wells |  |
+| `--bv-color-stripe` | #F8FAFC | #F9F9F9 | Odd table rows |  |
+| `--bv-color-border` | #E2E8F0 | #DDDDDD | Table borders, form actions top edge, disabled field border |  |
+| `--bv-color-border-soft` | #EDF1F6 | #EEEEEE | Page header rule, `hr`, grid hero unit edge |  |
+| `--bv-color-border-strong` | #CBD5E1 | #CCCCCC | Field borders, default button border |  |
+| `--bv-color-border-bottom` | #AAB6C6 | #BBBBBB | Default button bottom edge |  |
+| `--bv-color-grid` | rgba(15, 23, 42, 0.03) | rgba(0, 0, 0, 0.027) | Grid hero unit lines; the 2.0 docs drew this grid as a page background image |  |
 
 ### Action and focus
 
-| Token | Value | 2.0.0 | Used for | Contrast |
+| Token | Value | 0.2.0 | Used for | Contrast |
 | --- | --- | --- | --- | --- |
-| `--bv-color-link` | #006DA3 | #0088CC | Links, checkbox and radio tint | 5.7:1 on white; 4.9:1 or more on every alert tint and on #F5F5F5 |
-| `--bv-color-link-hover` | #005580 | same | Hovered links | 8.0:1 on white |
-| `--bv-color-primary-top` | #0088CC | same | Primary button gradient start |  |
-| `--bv-color-primary-bottom` | #0055CC | same | Primary button gradient end, hover fill |  |
-| `--bv-color-primary` | #0074CC | same | Primary button flat fallback | 5.1:1 for white text |
-| `--bv-color-primary-active` | #004099 | same | Pressed primary button |  |
-| `--bv-color-danger-top` | #E0524E | #EE5F5B | Danger button gradient start |  |
-| `--bv-color-danger-bottom` | #BD362F | same | Danger button gradient end, hover fill |  |
-| `--bv-color-danger` | #CF443E | #DA4F49 | Danger button flat fallback | 4.7:1 for white text |
-| `--bv-color-danger-active` | #942A25 | same | Pressed danger button |  |
-| `--bv-color-focus` | #0088CC | rgba(82, 168, 236, 0.8) | Focus outline, focused field border | 3.9:1 on white, 3.6:1 on #F5F5F5, 3.3:1 or more on the navbar |
-| `--bv-color-focus-glow` | rgba(82, 168, 236, 0.6) | same | Focused field glow |  |
+| `--bv-color-link` | #2563EB | #006DA3 | Links, checkbox and radio tint | 5.2:1 on white; 4.7:1 or more on every alert tint and on #F1F5F9 |
+| `--bv-color-link-hover` | #1D4ED8 | #005580 | Hovered links | 6.7:1 on white |
+| `--bv-color-primary-top` | #3B82F6 | #0088CC | Primary button gradient start |  |
+| `--bv-color-primary-bottom` | #1D4ED8 | #0055CC | Primary button gradient end, hover fill |  |
+| `--bv-color-primary` | #2563EB | #0074CC | Primary button flat fallback | 5.2:1 for white text; 5.0:1 at the gradient's midpoint |
+| `--bv-color-primary-active` | #1E40AF | #004099 | Pressed primary button |  |
+| `--bv-color-danger-top` | #F43F5E | #E0524E | Danger button gradient start |  |
+| `--bv-color-danger-bottom` | #BE123C | #BD362F | Danger button gradient end, hover fill |  |
+| `--bv-color-danger` | #E11D48 | #CF443E | Danger button flat fallback | 4.7:1 for white text; 4.8:1 at the gradient's midpoint |
+| `--bv-color-danger-active` | #9F1239 | #942A25 | Pressed danger button |  |
+| `--bv-color-focus` | #3B82F6 | #0088CC | Focus outline, focused field border | 3.7:1 on white, 3.4:1 on #F1F5F9, 4.0:1 or more on the navbar |
+| `--bv-color-focus-glow` | rgba(59, 130, 246, 0.5) | rgba(82, 168, 236, 0.6) | Focused field glow |  |
 
-White text on a gradient is measured at the gradient's midpoint, which is why the danger gradient starts darker than 2.0's.
+White text on a gradient is measured at the gradient's midpoint.
 
 ### Navbar
 
-| Token | Value | 2.0.0 | Used for | Contrast |
+| Token | Value | 0.2.0 | Used for | Contrast |
 | --- | --- | --- | --- | --- |
-| `--bv-color-navbar-top` | #333333 | same | Bar gradient start |  |
-| `--bv-color-navbar-bottom` | #222222 | same | Bar gradient end; active link background |  |
-| `--bv-color-navbar` | #2C2C2C | same | Flat fallback |  |
-| `--bv-color-navbar-link` | #999999 | same | Links | 5.0:1 on #2C2C2C |
-| `--bv-color-navbar-link-active` | #FFFFFF | same | Hovered and active links | 14.5:1 on #222222 |
-| `--bv-color-navbar-current` | #0088CC | new | Bar under the current link | 4.1:1 on #222222 |
-| `--bv-color-brand` | #FFFFFF | same | Brand | 14.0:1 on #2C2C2C |
+| `--bv-color-navbar-top` | #1E293B | #333333 | Bar gradient start |  |
+| `--bv-color-navbar-bottom` | #0F172A | #222222 | Bar gradient end; active link background |  |
+| `--bv-color-navbar` | #172033 | #2C2C2C | Flat fallback |  |
+| `--bv-color-navbar-link` | #94A3B8 | #999999 | Links | 6.3:1 on #172033 |
+| `--bv-color-navbar-link-active` | #FFFFFF | same | Hovered and active links | 17.9:1 on #0F172A |
+| `--bv-color-navbar-current` | #3B82F6 | #0088CC | Bar under the current link | 4.9:1 on #0F172A |
+| `--bv-color-brand` | #FFFFFF | same | Brand | 16.3:1 on #172033 |
 
 ### Labels and badges
 
-| Variant | Background | Edge | Text | Text contrast | 2.0.0 (white text on) |
+| Variant | Background | Edge | Text | Text contrast | 0.2.0 background, edge, text |
 | --- | --- | --- | --- | --- | --- |
-| Default (`.label`, `.badge`) | #E9E9E9 | #D4D4D4 | #676767 | 4.7:1 | #999999 |
-| Success | #D0F5D7 | #B3E2BC | #17793A | 4.6:1 | #468847 |
-| Warning | #F8EAB5 | #E7D48F | #955B00 | 4.6:1 | #F89406 |
-| Important | #FFE1E0 | #F9C6C4 | #AA474C | 4.6:1 | #B94A48 |
-| Info | #D5EDFF | #B2DAF7 | #346D93 | 4.6:1 | #3A87AD |
-| Inverse | #333333 | #333333 | #FFFFFF | 12.6:1 | #333333 |
+| Default (`.label`, `.badge`) | #E8EDF3 | #D3DCE6 | #475467 | 6.5:1 | #E9E9E9, #D4D4D4, #676767 |
+| Success | #D1FAE5 | #A7F3D0 | #047857 | 4.8:1 | #D0F5D7, #B3E2BC, #17793A |
+| Warning | #FEF3C7 | #FCD97A | #A14B06 | 5.4:1 | #F8EAB5, #E7D48F, #955B00 |
+| Important | #FFE4E6 | #FECDD3 | #BE123C | 5.2:1 | #FFE1E0, #F9C6C4, #AA474C |
+| Info | #E0F2FE | #BAE6FD | #0369A1 | 5.2:1 | #D5EDFF, #B2DAF7, #346D93 |
+| Inverse | #1E293B | #1E293B | #FFFFFF | 14.6:1 | #333333, #333333, #FFFFFF |
 
-Chips use the alert hues a step stronger than the alert tints, so a 16px chip still reads as a tint on white. Inverse stays dark: it is the one chip meant to stand out. Tokens follow `--bv-label-<variant>-bg`, `-border` and `-text`.
+Chips use the alert hues a step stronger than the alert tints (the 100 step where alerts use the 50), so a 16px chip still reads as a tint on white. Inverse stays dark: it is the one chip meant to stand out. Tokens follow `--bv-label-<variant>-bg`, `-border` and `-text`.
 
 ### Alerts
 
-| Variant | Background | Border | Text | Text contrast | 2.0.0 background, border, text |
+| Variant | Background | Border | Text | Text contrast | 0.2.0 background, border, text |
 | --- | --- | --- | --- | --- | --- |
-| Warning (default `.alert`) | #FFF7D9 | #F0E2AD | #9F6204 | 4.6:1 | #FCF8E3, #FBEED5, #C09853 |
-| Error (`.alert-error`) | #FFEBEA | #FFD3D2 | #B4484E | 4.6:1 | #F2DEDE, #EED3D7, #B94A48 |
-| Success (`.alert-success`) | #DFF9E3 | #C7EBCD | #297C43 | 4.6:1 | #DFF0D8, #D6E9C6, #468847 |
-| Info (`.alert-info`) | #E2F3FF | #C3E5FE | #387197 | 4.7:1 | #D9EDF7, #BCE8F1, #3A87AD |
+| Warning (default `.alert`) | #FFFBEB | #FDE7A9 | #A14B06 | 5.8:1 | #FFF7D9, #F0E2AD, #9F6204 |
+| Error (`.alert-error`) | #FFF1F2 | #FECDD3 | #BE123C | 5.7:1 | #FFEBEA, #FFD3D2, #B4484E |
+| Success (`.alert-success`) | #ECFDF5 | #A7F3D0 | #047857 | 5.2:1 | #DFF9E3, #C7EBCD, #297C43 |
+| Info (`.alert-info`) | #F0F9FF | #BAE6FD | #0369A1 | 5.6:1 | #E2F3FF, #C3E5FE, #387197 |
 
-Pastel tints replace 2.0's dusty ones, keeping the same four hues so the meanings hold. The backgrounds share one perceived lightness (OKLCH L 0.955 to 0.975) with a little more color than 2.0's. Each text color keeps its tint's hue and is the lightest that reaches 4.6:1 on its background. The warning text leans from yellow toward amber, so it reads brown rather than olive.
+The palest tint of each hue, with a border two steps stronger and text that keeps the hue at 5.2:1 or more. The warning text leans from amber toward orange, so it reads brown rather than olive. Links inside every alert keep 4.7:1 or more.
 
 Tokens follow `--bv-alert-<variant>-bg`, `-border` and `-text`.
 
 ### Progress bars
 
-| Variant | Gradient, top to bottom | Contrast at the midpoint, against the track | 2.0.0 |
+| Variant | Gradient, top to bottom | Contrast at the midpoint, against the track | 0.2.0 |
 | --- | --- | --- | --- |
-| Default (`.progress`) | #0088CC to #0055CC, the primary button's | 4.8:1 | #149BDF to #0480BE |
-| Success (`.progress-success`) | #2B9F4A to #017F31 | 3.9:1 | #62C462 to #57A957 |
-| Warning (`.progress-warning`) | #E18500 to #C16300 | 3.2:1 | #FBB450 to #F89406 (2.1) |
-| Danger (`.progress-danger`) | #E0524E to #BD362F, the danger button's | 4.3:1 | #EE5F5B to #C43C35 |
+| Default (`.progress`) | #3B82F6 to #1D4ED8, the primary button's | 4.6:1 | #0088CC to #0055CC |
+| Success (`.progress-success`) | #10A36F to #047857 | 3.9:1 | #2B9F4A to #017F31 |
+| Warning (`.progress-warning`) | #EA8A0B to #C2610A | 3.1:1 | #E18500 to #C16300 |
+| Danger (`.progress-danger`) | #F43F5E to #BE123C, the danger button's | 4.5:1 | #E0524E to #BD362F |
 
-Bars take the colored buttons' weight rather than 2.0's lighter bars: the default and danger bars use the primary and danger buttons' gradient tokens, so they stay in step with them, and green and amber are set at the same depth (OKLCH lightness about 0.62 to 0.52, and 0.70 to 0.60 for amber). Every bar keeps 3:1 against its track (WCAG 1.4.11), measured at the gradient's midpoint like the buttons. 2.0.0 had no warning bar, and its info bar is close enough to the default blue to leave out. Tokens follow `--bv-progress-<variant>-top` and `-bottom`.
+Bars take the colored buttons' weight: the default and danger bars use the primary and danger buttons' gradient tokens, so they stay in step with them, and green and amber are set at the same depth. Every bar keeps 3:1 against its track (WCAG 1.4.11), measured at the gradient's midpoint like the buttons. 2.0.0 had no warning bar, and its info bar is close enough to the default blue to leave out. Tokens follow `--bv-progress-<variant>-top` and `-bottom`.
 
 ### Form errors and code
 
-| Token | Value | Used for | Contrast |
-| --- | --- | --- | --- |
-| `--bv-color-error` | #B94A48 | Error label, help text and typed text | 5.1:1 on white |
-| `--bv-color-error-border` | #EE5F5B | Field border in error |  |
-| `--bv-color-error-focus` | #E9322D | Focused field border in error |  |
-| `--bv-color-error-glow` | #F8B9B7 | Focused field glow in error |  |
-| `--bv-color-code-text` | #DD1144 | Inline `code` | 4.6:1 on #F7F7F9 |
-| `--bv-color-code-bg` | #F7F7F9 | Inline `code` background |  |
-| `--bv-color-code-border` | #E1E1E8 | Inline `code` border |  |
+| Token | Value | 0.2.0 | Used for | Contrast |
+| --- | --- | --- | --- | --- |
+| `--bv-color-error` | #BE123C | #B94A48 | Error label, help text and typed text | 6.3:1 on white |
+| `--bv-color-error-border` | #F43F5E | #EE5F5B | Field border in error |  |
+| `--bv-color-error-focus` | #E11D48 | #E9322D | Focused field border in error |  |
+| `--bv-color-error-glow` | #FECDD3 | #F8B9B7 | Focused field glow in error |  |
+| `--bv-color-code-text` | #BE185D | #DD1144 | Inline `code` | 5.5:1 on #F1F5F9 |
+| `--bv-color-code-bg` | #F1F5F9 | #F7F7F9 | Inline `code` background |  |
+| `--bv-color-code-border` | #E2E8F0 | #E1E1E8 | Inline `code` border |  |
 
 ## Typography
 
@@ -257,7 +257,7 @@ The lead and hero text are weight 300. 2.0 asked for 200, which rendered as Helv
 - **Headings:** `text-rendering: optimizeLegibility`; margin 0 0 9px, plus an 18px top margin when the heading isn't the first child of its parent. A heading so sits closer to what it introduces than to what came before it, whatever that is, and a heading at the top of a column, alert or well lines up with its neighbours. The page header, the hero unit and `.alert-heading` set their own. A deliberate change: 2.0.0 headings had no margin, which left a heading touching a form label or table beneath it.
 - **`strong`, `b`:** weight 700. **`small`** outside headings keeps the surrounding size, as in 2.0.
 - **`code`:** padding 2px 4px, radius 3px, 1px border `--bv-color-code-border`, background `--bv-color-code-bg`.
-- **`pre`:** block, padding 8px, margin 0 0 9px, background #F5F5F5, 1px border rgba(0, 0, 0, 0.15), radius 4px, `white-space: pre-wrap`, `overflow-wrap: anywhere`.
+- **`pre`:** block, padding 8px, margin 0 0 9px, background #F1F5F9, 1px border rgba(15, 23, 42, 0.15), radius 4px, `white-space: pre-wrap`, `overflow-wrap: anywhere`.
 - **`hr`:** margin 18px 0, no border except 1px top `--bv-color-border-soft` and 1px bottom #FFFFFF, giving 2.0's etched line.
 
 ## Spacing, radius, depth and motion
@@ -293,16 +293,16 @@ Every border is 1px solid, except the 3px bar under the current navbar link. The
 
 | Token | Value | Used on |
 | --- | --- | --- |
-| `--bv-shadow-button` | inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(0,0,0,.05) | Buttons at rest |
-| `--bv-shadow-button-pressed` | inset 0 2px 4px rgba(0,0,0,.15), 0 1px 2px rgba(0,0,0,.05) | Pressed and `.active` buttons |
-| `--bv-shadow-field` | inset 0 1px 1px rgba(0,0,0,.075) | Text fields, selects, textareas |
-| `--bv-shadow-field-focus` | inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6) | Focused fields |
-| `--bv-shadow-field-error-focus` | 0 0 6px #F8B9B7 | Focused fields in error |
-| `--bv-shadow-navbar` | 0 1px 3px rgba(0,0,0,.25), inset 0 -1px 0 rgba(0,0,0,.1) | Navbar |
-| `--bv-shadow-pagination` | 0 1px 2px rgba(0,0,0,.05) | Pagination links; 2.0 put it on the whole strip |
-| `--bv-shadow-well` | inset 0 1px 1px rgba(0,0,0,.05) | Wells |
-| `--bv-shadow-progress` | inset 0 1px 2px rgba(0,0,0,.1) | Progress track |
-| `--bv-shadow-progress-bar` | inset 0 0 0 1px rgba(0,0,0,.1), inset 0 -1px 0 rgba(0,0,0,.15) | Progress bar: an edge like a colored button's border, darker along the bottom |
+| `--bv-shadow-button` | inset 0 1px 0 rgba(255,255,255,.2), 0 1px 2px rgba(15,23,42,.06) | Buttons at rest |
+| `--bv-shadow-button-pressed` | inset 0 2px 4px rgba(15,23,42,.14), 0 1px 2px rgba(15,23,42,.04) | Pressed and `.active` buttons |
+| `--bv-shadow-field` | inset 0 1px 2px rgba(15,23,42,.06) | Text fields, selects, textareas |
+| `--bv-shadow-field-focus` | inset 0 1px 2px rgba(15,23,42,.06), 0 0 8px rgba(59,130,246,.5) | Focused fields |
+| `--bv-shadow-field-error-focus` | 0 0 6px #FECDD3 | Focused fields in error |
+| `--bv-shadow-navbar` | 0 1px 3px rgba(15,23,42,.2), inset 0 -1px 0 rgba(15,23,42,.1) | Navbar |
+| `--bv-shadow-pagination` | 0 1px 2px rgba(15,23,42,.05) | Pagination links; 2.0 put it on the whole strip |
+| `--bv-shadow-well` | inset 0 1px 1px rgba(15,23,42,.04) | Wells |
+| `--bv-shadow-progress` | inset 0 1px 2px rgba(15,23,42,.08) | Progress track |
+| `--bv-shadow-progress-bar` | inset 0 0 0 1px rgba(15,23,42,.08), inset 0 -1px 0 rgba(15,23,42,.12) | Progress bar: an edge like a colored button's border, darker along the bottom |
 
 ### Text emboss
 
@@ -310,12 +310,12 @@ Every border is 1px solid, except the 3px bar under the current navbar link. The
 | --- | --- | --- |
 | `--bv-emboss-light` | 0 1px 1px rgba(255,255,255,.75) | Default buttons |
 | `--bv-emboss-soft` | 0 1px 0 rgba(255,255,255,.5) | Alerts, labels, badges |
-| `--bv-emboss-dark` | 0 -1px 0 rgba(0,0,0,.25) | Colored buttons, navbar links, inverse labels and badges |
+| `--bv-emboss-dark` | 0 -1px 0 rgba(15,23,42,.25) | Colored buttons, navbar links, inverse labels and badges |
 
 ### Gradients
 
 - Always vertical, top to bottom, with `background-repeat: no-repeat` so a hover can slide the gradient up and reveal the flat fill beneath.
-- The default button holds white for its top quarter: `linear-gradient(#FFFFFF, #FFFFFF 25%, #E6E6E6)`.
+- The default button holds white for its top quarter: `linear-gradient(#FFFFFF, #FFFFFF 25%, #E9EEF4)`.
 - Buttons, the navbar and progress bars use gradients; the progress track is a recessed one, darker at the top.
 
 ### Motion
@@ -401,13 +401,13 @@ The 2.0 docs top bar: dark, 40px tall, links on the left, a white brand on the r
 
 | Part | Spec |
 | --- | --- |
-| Bar (`.navbar-inner`) | Min-height 40px; `linear-gradient(#333333, #222222)` over #2C2C2C; `--bv-shadow-navbar`; no radius; full viewport width |
+| Bar (`.navbar-inner`) | Min-height 40px; `linear-gradient(#1E293B, #0F172A)` over #172033; `--bv-shadow-navbar`; no radius; full viewport width |
 | Row (`.navbar .container`) | Flex, wraps, items stretch to full bar height |
-| Link (`.nav > a`) | 13px on a 19px line; padding 10px 10px 11px; #999999; `--bv-emboss-dark`; no underline |
+| Link (`.nav > a`) | 13px on a 19px line; padding 10px 10px 11px; #94A3B8; `--bv-emboss-dark`; no underline |
 | Link, hover | #FFFFFF over 150ms linear; background unchanged; only on pointers that hover |
-| Link, active (`.active` or `aria-current="page"`) | #FFFFFF on #222222, full bar height, with a 3px `--bv-color-navbar-current` bottom border taken out of the bottom padding, so the link stays 40px and the current page doesn't rely on brightness alone |
+| Link, active (`.active` or `aria-current="page"`) | #FFFFFF on #0F172A, full bar height, with a 3px `--bv-color-navbar-current` bottom border taken out of the bottom padding, so the link stays 40px and the current page doesn't rely on brightness alone |
 | Link and brand, focus | Standard focus outline with `outline-offset: -2px`, so it stays inside the bar |
-| Divider (`.divider-vertical`) | 1px wide, full bar height, margin 0 9px, #222222 with a 1px #333333 right border; hidden below 768px |
+| Divider (`.divider-vertical`) | 1px wide, full bar height, margin 0 9px, #0F172A with a 1px #1E293B right border; hidden below 768px |
 | Brand (`.brand`) | 20px at weight 200 on a 22px line; #FFFFFF; `--bv-emboss-dark`; no underline; padding 8px 20px 10px. Source order picks the side: first in the row, on the left with a -20px start margin; after a `.nav`, pushed right with `margin-inline-start: auto` and a -20px end margin. Either way the text sits on the content edge, as in 2.0, with room inside the box for the focus ring. After a `.nav-end`, it sits flush against those links, and still ends the last row if it wraps |
 | End links (`.nav-end`) | Optional, on a `.nav`. `flex-grow: 1` with `justify-content: flex-end`: the group takes the free space and sets its links at the far end, pushing it and everything after it to the right |
 | Below 768px | Links wrap onto more rows; no hamburger; the brand ends the last row, or starts the first when it comes before the links |
@@ -433,9 +433,9 @@ v0.1 targets WCAG 2.2 AA, with one documented exception inherited from the 2.0 l
 
 | Item | Issue | Mitigation |
 | --- | --- | --- |
-| Field borders | #CCCCCC on white is 1.6:1, under the 3:1 target for component boundaries | Every field has a visible label and an inset shadow; accepted for the 2.0 look |
+| Field borders | #CBD5E1 on white is 1.5:1, under the 3:1 target for component boundaries | Every field has a visible label and an inset shadow; accepted for the 2.0 look |
 | Field text size | Fields use 13px text, and iOS Safari zooms the page when a field under 16px takes focus | Zoom is reversible and doesn't block input; accepted to keep 2.0's field size on every screen |
-| Progress track | The #F5F5F5 to #F9F9F9 track is 1.1:1 on white, so the full length of a bar is hard to see | The bar keeps 3:1 against the track; the value is always in words beside it or in its table row, and in `aria-valuenow` or `aria-valuetext`; accepted for the 2.0 look |
+| Progress track | The #F1F5F9 to #F8FAFC track is 1.1:1 on white, so the full length of a bar is hard to see | The bar keeps 3:1 against the track; the value is always in words beside it or in its table row, and in `aria-valuenow` or `aria-valuetext`; accepted for the 2.0 look |
 
 ## Testing and quality gates
 
@@ -493,7 +493,7 @@ A component is styled locally inside an app first. When a second app needs it, i
 
 - [x] **Brand:** decided: 2.0's standard white brand at weight 200, legible on the dark bar.
 - [x] **Base size:** decided: 13px, as in 2.0.0.
-- [x] **Field borders:** decided: keep #CCCCCC for the 2.0 look; recorded under Accessibility exceptions.
+- [x] **Field borders:** decided: keep a light border (#CBD5E1 since v0.3) for the 2.0 look; recorded under Accessibility exceptions.
 - [ ] **Size budget:** is 20 KB gzipped the right ceiling?
 - [x] **Naming:** decided: no import path or shared URL; each app ships its own copy as `bevel-<version>.css`.
 - [ ] **Dark mode:** schedule it for v0.2, or wait until an app needs it?
@@ -517,9 +517,9 @@ A component is styled locally inside an app first. When a second app needs it, i
 
 | Variant | Gradient, top to bottom | Flat fill / hover fill | Pressed fill | Text | Border |
 | --- | --- | --- | --- | --- | --- |
-| Default (`.btn`) | #FFFFFF, #FFFFFF at 25%, #E6E6E6 | #FAFAFA / #E6E6E6 | #E6E6E6 | #333333, `--bv-emboss-light` | #CCCCCC, bottom #BBBBBB |
-| Primary (`.btn-primary`) | #0088CC to #0055CC | #0074CC / #0055CC | #004099 | #FFFFFF, `--bv-emboss-dark` | rgba(0,0,0,.1), bottom rgba(0,0,0,.25) |
-| Danger (`.btn-danger`) | #E0524E to #BD362F | #CF443E / #BD362F | #942A25 | #FFFFFF, `--bv-emboss-dark` | Same as primary |
+| Default (`.btn`) | #FFFFFF, #FFFFFF at 25%, #E9EEF4 | #F8FAFC / #E9EEF4 | #E9EEF4 | #1E293B, `--bv-emboss-light` | #CBD5E1, bottom #AAB6C6 |
+| Primary (`.btn-primary`) | #3B82F6 to #1D4ED8 | #2563EB / #1D4ED8 | #1E40AF | #FFFFFF, `--bv-emboss-dark` | rgba(15,23,42,.1), bottom rgba(15,23,42,.25) |
+| Danger (`.btn-danger`) | #F43F5E to #BE123C | #E11D48 / #BE123C | #9F1239 | #FFFFFF, `--bv-emboss-dark` | Same as primary |
 
 - **Rest:** `--bv-shadow-button`; `display: inline-flex`, content centered, 5px gap between an icon and text; links lose their underline.
 - **Hover** (pointers that hover only, so it never sticks after a tap): the gradient slides up 15px (`background-position: 0 -15px`) over 100ms linear, revealing the hover fill along the bottom. Text is unchanged. Leaving slides it back down the same way; the hover fill stays beneath until the gradient covers it, so no strip of the rest fill shows.
@@ -564,21 +564,21 @@ v0.1 forms are stacked: label above field. Fields are styled as plain elements a
 
 | Part | Spec |
 | --- | --- |
-| Label | Block; 13px / 18px; #333333; weight 400; margin-bottom 5px |
-| Text fields: `input` (text, email, password, search, number, url, tel, date, datetime-local, month, week, time), `select` | Height 28px; padding 4px 6px; 13px / 18px; #555555 on #FFFFFF; 1px #CCCCCC border; radius 3px; `--bv-shadow-field`; width 100% up to 280px |
+| Label | Block; 13px / 18px; #1E293B; weight 400; margin-bottom 5px |
+| Text fields: `input` (text, email, password, search, number, url, tel, date, datetime-local, month, week, time), `select` | Height 28px; padding 4px 6px; 13px / 18px; #334155 on #FFFFFF; 1px #CBD5E1 border; radius 3px; `--bv-shadow-field`; width 100% up to 280px |
 | `textarea` | Same box; min-height 82px (four lines); `resize: vertical` |
 | `select` | Same box with padding 3px 6px; native arrow kept. With `multiple` or `size`, height grows to show its rows |
 | Width modifiers | `.input-block` removes the 280px cap; `.input-small` caps at 90px |
 | Placeholder | `--bv-color-muted` |
 | Focus | Border `--bv-color-focus`; `--bv-shadow-field-focus`; no outline; border and shadow transition over 200ms linear |
-| Disabled and read-only | Background #F5F5F5; border #DDDDDD; `cursor: not-allowed` when disabled |
+| Disabled and read-only | Background #F1F5F9; border #E2E8F0; `cursor: not-allowed` when disabled |
 | Checkbox and radio (`label.checkbox`, `label.radio`) | Inline-flex, 6px gap, control aligned to the first text line; `accent-color` = `--bv-color-link`; 5px between stacked options |
 | Field group (`.control-group`) | Label, field and help; margin-bottom 18px |
 | Control group (`fieldset`, `legend`) | `fieldset` has no border, padding or margin; `legend` is styled as a label. Use it for radios and related checkboxes; it can also take `.control-group` |
 | Help (`.help-block`) | Block; margin-top 5px; 13px / 18px; `--bv-color-muted` |
 | Add-ons (`.input-prepend`, `.input-append`, `.add-on`) | See *Input add-ons* below |
-| Error (`.control-group.error`, or a field with `aria-invalid="true"`) | Label, legend and help #B94A48; field text #B94A48 and border #EE5F5B; on focus, border #E9322D and `--bv-shadow-field-error-focus` |
-| Actions bar (`.form-actions`) | Padding 17px 20px 18px; margin 18px 0; background #F5F5F5; 1px #DDDDDD top border; buttons in a row with a 5px gap |
+| Error (`.control-group.error`, or a field with `aria-invalid="true"`) | Label, legend and help #BE123C; field text #BE123C and border #F43F5E; on focus, border #E11D48 and `--bv-shadow-field-error-focus` |
+| Actions bar (`.form-actions`) | Padding 17px 20px 18px; margin 18px 0; background #F1F5F9; 1px #E2E8F0 top border; buttons in a row with a 5px gap |
 
 
 ### Input add-ons
@@ -599,7 +599,7 @@ A unit or fixed part of the value beside a field, such as `$`, `MB` or `git@`.
 | Add-on (`.add-on`) | 13px / 18px; padding 4px 5px; at least 28px wide, so it's at least square (2.0's 16px minimum plus padding and border); `--bv-color-muted` (4.7:1) on `--bv-color-surface-alt`; `--bv-emboss-light`; 1px `--bv-color-border-strong` border; radius 3px; never wraps or shrinks |
 | Join | The add-on drops its border on the side that touches the field, so one 1px line divides them; the joined corners are square |
 | Focus | The field's usual border and glow, lifted with `z-index: 1` so an add-on after it doesn't cover the glow |
-| Error (`.control-group.error`) | Add-on text `--bv-alert-error-text` on `--bv-alert-error-bg` (4.6:1), border `--bv-color-error-border`. 2.0 used #B94A48 on #F2DEDE; the pastel tint follows the alerts. With `aria-invalid` alone, only the field turns red, as with the label |
+| Error (`.control-group.error`) | Add-on text `--bv-alert-error-text` on `--bv-alert-error-bg` (5.7:1), border `--bv-color-error-border`. 2.0 used #B94A48 on #F2DEDE; the pastel tint follows the alerts. With `aria-invalid` alone, only the field turns red, as with the label |
 | Disabled | The add-on is unchanged; the field shows its own disabled state |
 | Accessibility | The add-on isn't part of the field's accessible name. Give it an `id` and list it in the field's `aria-describedby` |
 
@@ -621,11 +621,11 @@ One table style with three modifiers; wide tables scroll inside their own box on
 | Part | Spec |
 | --- | --- |
 | Table (`.table`) | Width 100%; margin-bottom 18px; `border-collapse: separate`; `border-spacing: 0` |
-| Cells (`th`, `td`) | Padding 8px; 13px / 18px; left-aligned; `vertical-align: middle`; 1px #DDDDDD top border; `font-variant-numeric: tabular-nums` |
+| Cells (`th`, `td`) | Padding 8px; 13px / 18px; left-aligned; `vertical-align: middle`; 1px #E2E8F0 top border; `font-variant-numeric: tabular-nums` |
 | Header cells | Weight 700; `vertical-align: bottom`; no top border on the first row |
-| Row hover | Body cells turn #F5F5F5 over 100ms linear; only on pointers that hover |
-| `.table-striped` | Odd body rows #F9F9F9; hover still wins |
-| `.table-bordered` | 1px #DDDDDD outer border and a 1px left border on every cell after the first column; outer corners 4px |
+| Row hover | Body cells turn #F1F5F9 over 100ms linear; only on pointers that hover |
+| `.table-striped` | Odd body rows #F8FAFC; hover still wins |
+| `.table-bordered` | 1px #E2E8F0 outer border and a 1px left border on every cell after the first column; outer corners 4px |
 | `.table-condensed` | Cell padding 4px 5px |
 | `.table-scroll` | Wrapper with `overflow-x: auto`; the table keeps its natural width and scrolls inside it. Give it `role="region"`, an `aria-label` and `tabindex="0"`, so keyboard users can focus it and scroll; WebKit doesn't make a scroll box focusable on its own |
 
@@ -691,7 +691,7 @@ Labels are short status words; badges are counts.
 
 | Part | Spec |
 | --- | --- |
-| Label (`.label`) | Inline-block; padding 1px 4px 2px; 11px / 13px bold; radius 3px; `vertical-align: middle`; never wraps; #676767 on #E9E9E9 with a 1px #D4D4D4 inset edge (`box-shadow`, so the chip keeps 2.0's size); `--bv-emboss-soft` |
+| Label (`.label`) | Inline-block; padding 1px 4px 2px; 11px / 13px bold; radius 3px; `vertical-align: middle`; never wraps; #475467 on #E8EDF3 with a 1px #D3DCE6 inset edge (`box-shadow`, so the chip keeps 2.0's size); `--bv-emboss-soft` |
 | Badge (`.badge`) | As a label, with padding 1px 9px 2px, 12px / 14px and radius 9px |
 | Variants | `-success`, `-warning`, `-important`, `-info` and `-inverse`, applied as `.label-success`, `.badge-success` and so on; colors in *Color → Labels and badges*. Inverse keeps white text with `--bv-emboss-dark` |
 | Meaning | The word or number always carries the meaning; color only reinforces it |
@@ -710,7 +710,7 @@ How far along some work is, or how full something is.
 
 | Part | Spec |
 | --- | --- |
-| Track (`.progress`) | 18px tall, one rhythm line; at least 90px wide, so a column of bars keeps its size; margin-bottom 18px, none in a table cell; `linear-gradient(#F5F5F5, #F9F9F9)`; `--bv-shadow-progress`; radius 4px; clips the bar |
+| Track (`.progress`) | 18px tall, one rhythm line; at least 90px wide, so a column of bars keeps its size; margin-bottom 18px, none in a table cell; `linear-gradient(#F1F5F9, #F8FAFC)`; `--bv-shadow-progress`; radius 4px; clips the bar |
 | Bar (`.bar`) | Full height; its width, set inline by the page, is the value, and it's empty without one; the variant's gradient; `--bv-shadow-progress-bar`. No text inside, and no width transition: 2.0 eased the width over 0.6s, which moves layout, and a server-rendered bar never changes |
 | Variants | `.progress-success`, `.progress-warning`, `.progress-danger` on the track; colors in *Color → Progress bars* |
 | Striped (`.progress-striped`) | 2.0's white stripes at 15%, 45° and 40px apart, laid over the bar's gradient |
@@ -751,9 +751,9 @@ A big figure with a small label above it, for the few numbers a home page opens 
 
 | Part | Spec |
 | --- | --- |
-| Box (`.hero-unit`) | Padding 60px; margin-bottom 30px; background #F5F5F5; radius 6px; no border or shadow |
+| Box (`.hero-unit`) | Padding 60px; margin-bottom 30px; background #F1F5F9; radius 6px; no border or shadow |
 | Heading (`.hero-unit h1`) | 60px on a 60px line; weight 700; letter-spacing -1px; no margin |
-| Text (`.hero-unit p`) | 18px on a 27px line at weight 300, not 2.0's 200 (see *Typography*); #333333, 11.6:1 on #F5F5F5; the usual 9px paragraph margin |
+| Text (`.hero-unit p`) | 18px on a 27px line at weight 300, not 2.0's 200 (see *Typography*); #1E293B, 13.4:1 on #F1F5F9; the usual 9px paragraph margin |
 | Actions | A button in its own paragraph; 2.0 used `.btn-primary.btn-large` |
 | Grid (`.hero-unit-grid`) | Optional. White fill ruled with 1px `--bv-color-grid` lines every 18px both ways, every fifth vertical line darker where two layers overlap, as in the 2.0 docs' page background; a 1px `--bv-color-border-soft` inset edge, so the box keeps its size. 2.0's hero had no grid |
 | Below 768px | Padding 20px; heading 36px on a 40px line with no letter-spacing, the page header title's size, so it fits a 320px screen without horizontal scrolling. 2.0 had no small-screen hero |
@@ -772,7 +772,7 @@ A big figure with a small label above it, for the few numbers a home page opens 
 
 | Part | Spec |
 | --- | --- |
-| Well (`.well`) | Padding 19px, 20px with the border; margin-bottom 18px, not 2.0's 20px, so it keeps the rhythm; `--bv-color-surface-alt`; 1px rgba(0,0,0,.05) border; radius 4px; `--bv-shadow-well`. Its last child drops its bottom margin, so the padding alone sets the space inside. 2.0 had no such rule, and a paragraph's margin showed below the text |
+| Well (`.well`) | Padding 19px, 20px with the border; margin-bottom 18px, not 2.0's 20px, so it keeps the rhythm; `--bv-color-surface-alt`; 1px rgba(15,23,42,.05) border; radius 4px; `--bv-shadow-well`. Its last child drops its bottom margin, so the padding alone sets the space inside. 2.0 had no such rule, and a paragraph's margin showed below the text |
 | Empty state (`.well-empty`) | On a `.well`. Padding 35px top and bottom, 36px with the border; text centered in `--bv-color-muted` (4.7:1); paragraphs centered as blocks too, so their 56ch cap doesn't push them to one side |
 | Content | Say what would be here and how to add the first one, in a sentence or two; a lead-in in `<strong>`; a button or link for the next step in its own paragraph. Use it in place of the list, not inside an empty table |
 
