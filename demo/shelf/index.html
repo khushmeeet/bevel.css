@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Home · shelf</title>
+  <!-- A made-up bookmarking app, after Anybox, to test bevel.css on a second
+       kind of app. shelf.css holds only what bevel.css doesn't have yet;
+       every class on these pages comes from bevel.css. -->
+  <link rel="stylesheet" href="../../bevel.css">
+  <link rel="stylesheet" href="shelf.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">shelf</a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html" aria-current="page">Home</a>
+          <a href="library.html">Library</a>
+          <a href="collections.html">Collections</a>
+        </nav>
+        <nav class="nav nav-end" aria-label="Save">
+          <a href="add.html">Save a link</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <section class="section">
+      <h1 class="visually-hidden">Home</h1>
+
+      <div class="well">
+        <div class="row cols-2">
+          <form role="search" action="library.html" method="get">
+            <label for="h-search">Search 248 links</label>
+            <div class="input-append">
+              <input id="h-search" type="search" name="q" placeholder="Title, address, tag or note">
+              <button class="btn" type="submit">Search</button>
+            </div>
+          </form>
+          <form action="add.html" method="get">
+            <label for="h-save">Save a link</label>
+            <div class="input-prepend">
+              <span class="add-on">https://</span>
+              <input id="h-save" type="text" name="url" inputmode="url" autocomplete="off" placeholder="ciechanow.ski/gps/">
+              <button class="btn btn-primary" type="submit">Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="alert" role="status">
+        <strong>3 links stopped loading</strong> when shelf checked them last night. <a href="library.html?smart=broken">See which ones</a>
+      </div>
+
+      <dl class="row cols-4 stats">
+        <div>
+          <dt>Links</dt>
+          <dd>248</dd>
+        </div>
+        <div>
+          <dt>To read</dt>
+          <dd>31</dd>
+        </div>
+        <div>
+          <dt>Saved this week</dt>
+          <dd>14</dd>
+        </div>
+        <div>
+          <dt>Collections</dt>
+          <dd>6 <small>and 3 smart</small></dd>
+        </div>
+      </dl>
+
+      <h2>Pinned</h2>
+      <div class="row cols-4">
+        <div data-card>
+          <div data-media>
+            <span data-site="large" style="--site: #00758D" aria-hidden="true">G</span>
+            <div>
+              <a href="link.html">The Go Programming Language Specification</a><br>
+              <span class="muted">go.dev</span>
+            </div>
+          </div>
+        </div>
+        <div data-card>
+          <div data-media>
+            <span data-site="large" style="--site: #1F1F1F" aria-hidden="true">M</span>
+            <div>
+              <a href="link.html">MDN: @layer</a><br>
+              <span class="muted">developer.mozilla.org</span>
+            </div>
+          </div>
+        </div>
+        <div data-card>
+          <div data-media>
+            <span data-site="large" style="--site: #6B3F1F" aria-hidden="true">C</span>
+            <div>
+              <a href="link.html">Can I use</a><br>
+              <span class="muted">caniuse.com</span>
+            </div>
+          </div>
+        </div>
+        <div data-card>
+          <div data-media>
+            <span data-site="large" style="--site: #333333" aria-hidden="true">B</span>
+            <div>
+              <a href="link.html">Bootstrap 2.0.0: Components</a><br>
+              <span class="muted">bootstrapdocs.com</span>
+            </div>
+          </div>
+        </div>
+        <div data-card>
+          <div data-media>
+            <span data-site="large" style="--site: #2E6F57" aria-hidden="true">L</span>
+            <div>
+              <a href="link.html">Litestream: Getting started</a><br>
+              <span class="muted">litestream.io</span>
+            </div>
+          </div>
+        </div>
+        <div data-card>
+          <div data-media>
+            <span data-site="large" style="--site: #1F7A4D" aria-hidden="true">C</span>
+            <div>
+              <a href="link.html">Caddyfile concepts</a><br>
+              <span class="muted">caddyserver.com</span>
+            </div>
+          </div>
+        </div>
+        <div data-card>
+          <div data-media>
+            <span data-site="large" style="--site: #D9560B" aria-hidden="true">Y</span>
+            <div>
+              <a href="link.html">Hacker News</a><br>
+              <span class="muted">news.ycombinator.com</span>
+            </div>
+          </div>
+        </div>
+        <div data-card>
+          <div data-media>
+            <span data-site="large" style="--site: #9E1B32" aria-hidden="true">S</span>
+            <div>
+              <a href="link.html">Train travel in Japan</a><br>
+              <span class="muted">seat61.com</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row cols-2">
+        <div>
+          <h2>Recently saved</h2>
+          <table class="table table-condensed">
+            <thead>
+              <tr><th>Link</th><th>Collection</th><th class="text-right">Saved</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div data-media><span data-site style="--site: #3D5A80" aria-hidden="true">C</span><div><a href="link.html">Mechanical Watch</a><br><span class="muted">ciechanow.ski</span></div></div></td>
+                <td><span class="label">Inbox</span></td>
+                <td class="text-right"><time datetime="2026-10-15T08:40">8:40 AM</time></td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #3B3B3B" aria-hidden="true">T</span><div><a href="link.html">How Tailscale works</a><br><span class="muted">tailscale.com</span></div></div></td>
+                <td><span class="label">Inbox</span></td>
+                <td class="text-right"><time datetime="2026-10-15T07:55">7:55 AM</time></td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #8A5A44" aria-hidden="true">R</span><div><a href="link.html">An app can be a home-cooked meal</a><br><span class="muted">robinsloan.com</span></div></div></td>
+                <td>Reading</td>
+                <td class="text-right"><time datetime="2026-10-14T21:06">Yesterday</time></td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #2E6F57" aria-hidden="true">L</span><div><a href="link.html">Litestream: Getting started</a><br><span class="muted">litestream.io</span></div></div></td>
+                <td>Home lab</td>
+                <td class="text-right"><time datetime="2026-10-13">Oct 13</time></td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #8C3F6F" aria-hidden="true">I</span><div><a href="link.html">Inclusive Components: Toggle buttons</a><br><span class="muted">inclusive-components.design</span></div></div></td>
+                <td>Design</td>
+                <td class="text-right"><time datetime="2026-10-13">Oct 13</time></td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #9E1B32" aria-hidden="true">S</span><div><a href="link.html">Train travel in Japan</a><br><span class="muted">seat61.com</span></div></div></td>
+                <td>Travel</td>
+                <td class="text-right"><time datetime="2026-10-12">Oct 12</time></td>
+              </tr>
+            </tbody>
+          </table>
+          <p><a href="library.html">All 248 links</a></p>
+        </div>
+
+        <div>
+          <h2>Read later <small>31</small></h2>
+          <p id="h-goal">Read in October: 21 of 30</p>
+          <div class="progress progress-success" role="meter" aria-labelledby="h-goal" aria-valuenow="21" aria-valuemin="0" aria-valuemax="30"><div class="bar" style="width: 70%"></div></div>
+          <table class="table table-condensed">
+            <thead>
+              <tr><th>Link</th><th class="text-right">Length</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><div data-media><span data-site style="--site: #3D5A80" aria-hidden="true">C</span><div><a href="link.html">Mechanical Watch</a><br><span class="muted">ciechanow.ski</span></div></div></td>
+                <td class="text-right">40 min</td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #3B3B3B" aria-hidden="true">T</span><div><a href="link.html">How Tailscale works</a><br><span class="muted">tailscale.com</span></div></div></td>
+                <td class="text-right">25 min</td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #8C3F6F" aria-hidden="true">I</span><div><a href="link.html">Inclusive Components: Toggle buttons</a><br><span class="muted">inclusive-components.design</span></div></div></td>
+                <td class="text-right">15 min</td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #5C4A2E" aria-hidden="true">G</span><div><a href="link.html">The Grug Brained Developer</a><br><span class="muted">grugbrain.dev</span></div></div></td>
+                <td class="text-right">20 min</td>
+              </tr>
+              <tr>
+                <td><div data-media><span data-site style="--site: #4F7A2E" aria-hidden="true">M</span><div><a href="link.html">A Brief History &amp; Ethos of the Digital Garden</a><br><span class="muted">maggieappleton.com</span></div></div></td>
+                <td class="text-right">30 min</td>
+              </tr>
+            </tbody>
+          </table>
+          <p><a href="library.html?in=later">All 31 to read</a></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">shelf runs on hearth-01. The links go to real pages; the dates, counts and notes are made up. Styled with <a href="../../site/index.html">bevel.css</a> 0.2.0, plus <a href="shelf.css">shelf.css</a> for what it doesn&rsquo;t have yet.</p>
+  </footer>
+</body>
+</html>

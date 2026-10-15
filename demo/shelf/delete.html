@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Delete Travel? · shelf</title>
+  <link rel="stylesheet" href="../../bevel.css">
+  <link rel="stylesheet" href="shelf.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">shelf</a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="library.html">Library</a>
+          <a href="collections.html">Collections</a>
+        </nav>
+        <nav class="nav nav-end" aria-label="Save">
+          <a href="add.html">Save a link</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <section class="section">
+      <div class="page-header">
+        <h1>Delete the Travel collection?</h1>
+      </div>
+
+      <!-- Reached from Delete on the collections page, bevel.css's confirm
+           before deleting pattern. Nothing goes until this form is posted. -->
+      <p class="lead">The collection goes, with its color and the order you put its links in. The links themselves stay unless you say otherwise.</p>
+
+      <dl class="row cols-4 stats">
+        <div>
+          <dt>Links</dt>
+          <dd>25</dd>
+        </div>
+        <div>
+          <dt>Unread</dt>
+          <dd>6</dd>
+        </div>
+        <div>
+          <dt>Starred</dt>
+          <dd>3</dd>
+        </div>
+        <div>
+          <dt>Pinned to Home</dt>
+          <dd>1</dd>
+        </div>
+      </dl>
+
+      <form action="collections.html" method="post">
+        <div class="control-group">
+          <label class="checkbox"><input type="checkbox" name="trash_links" aria-describedby="d-trash-help"> Move its 25 links to Trash too</label>
+          <p class="help-block" id="d-trash-help">Left unticked, they go back to the Inbox. Trash keeps links for 30 days.</p>
+        </div>
+        <div class="form-actions">
+          <button class="btn btn-danger" type="submit" name="delete" value="travel">Delete Travel</button>
+          <a class="btn" href="collections.html">Keep it</a>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">shelf runs on hearth-01. The links go to real pages; the dates, counts and notes are made up. Styled with <a href="../../site/index.html">bevel.css</a> 0.2.0, plus <a href="shelf.css">shelf.css</a> for what it doesn&rsquo;t have yet.</p>
+  </footer>
+</body>
+</html>

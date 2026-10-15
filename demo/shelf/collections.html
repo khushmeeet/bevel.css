@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Collections · shelf</title>
+  <link rel="stylesheet" href="../../bevel.css">
+  <link rel="stylesheet" href="shelf.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <a class="brand" href="index.html">shelf</a>
+        <nav class="nav" aria-label="Main">
+          <a href="index.html">Home</a>
+          <a href="library.html">Library</a>
+          <a href="collections.html" aria-current="page">Collections</a>
+        </nav>
+        <nav class="nav nav-end" aria-label="Save">
+          <a href="add.html">Save a link</a>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container" id="main">
+    <section class="section">
+      <div class="page-header">
+        <h1>Collections <small>6, and 3 smart ones</small></h1>
+      </div>
+
+      <div class="table-scroll" role="region" aria-label="Collections" tabindex="0">
+        <table class="table table-striped">
+          <thead>
+            <tr><th>Collection</th><th class="text-right">Links</th><th class="text-right">Unread</th><th>Last saved</th><th><span class="visually-hidden">Actions</span></th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div data-media><span data-site style="--site: #B4501E" aria-hidden="true">R</span><a href="library.html?collection=reading">Reading</a></div></td>
+              <td class="text-right">52</td><td class="text-right">14</td>
+              <td><time datetime="2026-10-14">Oct 14</time></td>
+              <td class="text-right"><a class="btn btn-small" href="collections.html?rename=reading">Rename</a> <a class="btn btn-small" href="delete.html">Delete</a></td>
+            </tr>
+            <tr>
+              <td><div data-media><span data-site style="--site: #1A5FB4" aria-hidden="true">D</span><a href="library.html?collection=dev">Dev</a></div></td>
+              <td class="text-right">71</td><td class="text-right">4</td>
+              <td><time datetime="2026-10-09">Oct 9</time></td>
+              <td class="text-right"><a class="btn btn-small" href="collections.html?rename=dev">Rename</a> <a class="btn btn-small" href="delete.html">Delete</a></td>
+            </tr>
+            <tr>
+              <td><div data-media><span data-site style="--site: #8C3F6F" aria-hidden="true">D</span><a href="library.html?collection=design">Design</a></div></td>
+              <td class="text-right">38</td><td class="text-right">5</td>
+              <td><time datetime="2026-10-13">Oct 13</time></td>
+              <td class="text-right"><a class="btn btn-small" href="collections.html?rename=design">Rename</a> <a class="btn btn-small" href="delete.html">Delete</a></td>
+            </tr>
+            <tr>
+              <td><div data-media><span data-site style="--site: #2E6F57" aria-hidden="true">H</span><a href="library.html?collection=home-lab">Home lab</a></div></td>
+              <td class="text-right">31</td><td class="text-right">2</td>
+              <td><time datetime="2026-10-13">Oct 13</time></td>
+              <td class="text-right"><a class="btn btn-small" href="collections.html?rename=home-lab">Rename</a> <a class="btn btn-small" href="delete.html">Delete</a></td>
+            </tr>
+            <tr>
+              <td><div data-media><span data-site style="--site: #9E1B32" aria-hidden="true">R</span><a href="library.html?collection=recipes">Recipes</a></div></td>
+              <td class="text-right">19</td><td class="text-right">0</td>
+              <td><time datetime="2026-10-12">Oct 12</time></td>
+              <td class="text-right"><a class="btn btn-small" href="collections.html?rename=recipes">Rename</a> <a class="btn btn-small" href="delete.html">Delete</a></td>
+            </tr>
+            <tr>
+              <td><div data-media><span data-site style="--site: #5B3F8C" aria-hidden="true">T</span><a href="library.html?collection=travel">Travel</a></div></td>
+              <td class="text-right">25</td><td class="text-right">6</td>
+              <td><time datetime="2026-10-12">Oct 12</time></td>
+              <td class="text-right"><a class="btn btn-small" href="collections.html?rename=travel">Rename</a> <a class="btn btn-small" href="delete.html">Delete</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <form action="collections.html" method="post">
+        <label for="c-new">New collection</label>
+        <div class="input-append">
+          <input id="c-new" type="text" name="name" placeholder="Name it" autocomplete="off">
+          <button class="btn" type="submit">Add</button>
+        </div>
+      </form>
+
+      <h2>Smart collections <small>fill themselves</small></h2>
+      <table class="table table-striped">
+        <thead>
+          <tr><th>Smart collection</th><th>Holds every link that</th><th class="text-right">Links</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><a href="library.html?smart=long-reads">Long reads</a></td><td>is tagged <a class="label" href="library.html?tag=essay">essay</a>, is unread and takes 20 minutes or more</td><td class="text-right">11</td></tr>
+          <tr><td><a href="library.html?smart=css">CSS references</a></td><td>is tagged <a class="label" href="library.html?tag=css">css</a>, or is on <code>developer.mozilla.org</code> or <code>web.dev</code></td><td class="text-right">23</td></tr>
+          <tr><td><a href="library.html?smart=broken">Broken links</a></td><td>didn&rsquo;t load at the last nightly check</td><td class="text-right"><span class="badge badge-important">3</span></td></tr>
+        </tbody>
+      </table>
+
+      <h2 id="tags">Tags <small>42</small></h2>
+      <ul data-tags>
+        <li><a class="label" href="library.html?tag=essay">essay 34</a></li>
+        <li><a class="label" href="library.html?tag=go">go 29</a></li>
+        <li><a class="label" href="library.html?tag=css">css 27</a></li>
+        <li><a class="label" href="library.html?tag=self-hosting">self-hosting 22</a></li>
+        <li><a class="label" href="library.html?tag=software">software 18</a></li>
+        <li><a class="label" href="library.html?tag=web">web 15</a></li>
+        <li><a class="label" href="library.html?tag=accessibility">accessibility 14</a></li>
+        <li><a class="label" href="library.html?tag=sqlite">sqlite 12</a></li>
+        <li><a class="label" href="library.html?tag=japan">japan 11</a></li>
+        <li><a class="label" href="library.html?tag=typography">typography 9</a></li>
+        <li><a class="label" href="library.html?tag=baking">baking 8</a></li>
+        <li><a class="label" href="library.html?tag=layout">layout 7</a></li>
+        <li><a class="label" href="library.html?tag=explainer">explainer 6</a></li>
+        <li><a class="label" href="library.html?tag=networking">networking 6</a></li>
+        <li><a class="label" href="library.html?tag=browsers">browsers 6</a></li>
+        <li><a class="label" href="library.html?tag=backups">backups 5</a></li>
+        <li><a class="label" href="library.html?tag=http">http 5</a></li>
+        <li><a class="label" href="library.html?tag=trains">trains 4</a></li>
+        <li><a class="label" href="library.html?tag=hearth">hearth 4</a></li>
+        <li><a class="label" href="library.html?tag=pizza">pizza 3</a></li>
+      </ul>
+      <p class="muted">The 20 tags you use most. 22 more have one or two links each; <a href="library.html?tags=all">see them all</a>.</p>
+
+      <h2>Trash</h2>
+      <div class="well well-empty">
+        <p><strong>Trash is empty.</strong> Links you move here stay 30 days, then go for good.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">shelf runs on hearth-01. The links go to real pages; the dates, counts and notes are made up. Styled with <a href="../../site/index.html">bevel.css</a> 0.2.0, plus <a href="shelf.css">shelf.css</a> for what it doesn&rsquo;t have yet.</p>
+  </footer>
+</body>
+</html>

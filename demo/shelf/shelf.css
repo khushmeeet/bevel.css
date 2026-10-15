@@ -1,0 +1,211 @@
+/* shelf.css: what shelf, a made-up bookmarking app, needed that bevel.css
+   0.2.0 doesn't have.
+
+   This is how an app on hearth adds to bevel.css: its own file, linked
+   after bevel.css and outside any layer, so it wins without !important.
+   Each block below is numbered as its gap in GAPS.md and uses only --bv-
+   tokens, so it can move into bevel.css as it is if another app needs it.
+
+   Like site/docs.css, it hangs off data attributes rather than classes, so
+   every class on these pages still comes from bevel.css. */
+
+/* Gap 1. Sidebar layout: a 220px column beside one that takes the rest,
+   from 768px up; below that the sidebar stacks above the page. A .row only
+   has equal columns. 220px is 2.0's span3. */
+@media (width >= 768px) {
+  [data-sidebar-layout] {
+    display: grid;
+    grid-template-columns: 13.75rem minmax(0, 1fr);
+    gap: var(--bv-space-6);
+    align-items: start;
+  }
+}
+
+/* Gap 2. Nav list: 2.0's .nav-list, a vertical list of links under small
+   headings, set in a well. bevel's .nav only styles links on the dark
+   navbar. Each link is 24px tall (WCAG 2.5.8) and its count sits at the
+   end; the current one fills with the primary blue, so white text keeps
+   4.8:1 on it. */
+[data-nav-list] {
+  padding-block: var(--bv-space-3);
+  padding-inline: 0;
+}
+
+[data-nav-list] h2 {
+  padding-inline: var(--bv-space-4);
+  margin: 0;
+  font-size: 0.6875rem;
+  line-height: var(--bv-line-height);
+  color: var(--bv-color-muted);
+  text-transform: uppercase;
+  text-shadow: var(--bv-emboss-soft);
+}
+
+[data-nav-list] ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+
+[data-nav-list] ul + h2 {
+  margin-block-start: var(--bv-space-3);
+}
+
+[data-nav-list] li > a {
+  display: flex;
+  gap: 0.375rem;
+  align-items: center;
+  padding: 0.1875rem var(--bv-space-4);
+  text-decoration: none;
+  text-shadow: var(--bv-emboss-soft);
+  transition: background-color var(--bv-duration-fast) var(--bv-ease);
+}
+
+[data-nav-list] li > a > .badge {
+  margin-inline-start: auto;
+}
+
+@media (hover: hover) {
+  [data-nav-list] li > a:hover {
+    background-color: var(--bv-color-border-soft);
+  }
+}
+
+[data-nav-list] li > a[aria-current="page"] {
+  color: var(--bv-color-surface);
+  text-shadow: var(--bv-emboss-dark);
+  background-color: var(--bv-color-primary);
+}
+
+[data-nav-list] li > a:focus-visible {
+  outline-offset: -2px;
+}
+
+/* Gap 3. Media object: an icon beside a block of text that wraps on its
+   own, not under the icon. 2.0 added it as .media in 2.3. */
+[data-media] {
+  display: flex;
+  gap: var(--bv-space-3);
+  align-items: flex-start;
+}
+
+[data-media] > :last-child {
+  min-width: 0;
+}
+
+/* Gap 4. Cards: 2.0's .thumbnail, a raised white tile around a preview or
+   a link, with its caption inside. The spec lists thumbnails under Never;
+   a bookmarking app shows almost everything this way. The title link
+   covers the whole card, so the card is one big target, and the card
+   takes the focus ring. The margin is set in full because a <figure>
+   keeps the browser's own: bevel's reset doesn't clear it. */
+[data-card] {
+  position: relative;
+  padding: var(--bv-space-3);
+  margin: 0 0 var(--bv-space-5);
+  background-color: var(--bv-color-surface);
+  border: 1px solid var(--bv-color-border);
+  border-radius: var(--bv-radius);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075);
+  transition:
+    border-color var(--bv-duration) var(--bv-ease),
+    box-shadow var(--bv-duration) var(--bv-ease);
+}
+
+[data-card] > :last-child {
+  margin-block-end: 0;
+}
+
+/* bevel.css trims the margin of whatever sits in a .row, but in a layer,
+   and this file is outside any layer, so its margin above would win and
+   add a second line under each row of cards. */
+.row > [data-card] {
+  margin-block-end: 0;
+}
+
+[data-card] a::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  border-radius: inherit;
+}
+
+[data-card] a:focus-visible {
+  outline: 0;
+}
+
+[data-card] a:focus-visible::after {
+  outline: 2px solid var(--bv-color-focus);
+  outline-offset: 1px;
+}
+
+@media (hover: hover) {
+  [data-card]:has(a):hover {
+    border-color: var(--bv-color-focus);
+    box-shadow: 0 1px 4px var(--bv-color-focus-glow);
+  }
+}
+
+/* A page preview fills the card's width. */
+[data-card] svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--bv-radius-sm);
+}
+
+[data-card] figcaption {
+  padding-block-start: var(--bv-space-3);
+  color: var(--bv-color-muted);
+}
+
+/* Gap 5. A button joined to a field, as in a search box or a quick-save
+   bar. .input-append lines up a .btn and squares its corners, but only an
+   .add-on gives up its side border, so field and button meet in a 2px
+   seam. The button overlaps the field's border instead. */
+:is(.input-prepend, .input-append) > .btn:not(:first-child) {
+  margin-inline-start: -1px;
+}
+
+/* Gap 6. A list of labels, such as every tag: chips that wrap with space
+   between rows. Inline in a paragraph, the rows touch, and the paragraph's
+   56ch cap stops them halfway across the page. A linked chip is 16px tall,
+   so rows sit 9px apart to keep 24px targets (WCAG 2.5.8). */
+[data-tags] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bv-space-3) var(--bv-space-1);
+  padding: 0;
+  margin-block: 0 var(--bv-space-3);
+  list-style: none;
+}
+
+/* shelf's own, not a gap: a site's first letter in a tile of its color, in
+   place of a favicon shelf hasn't fetched. The color comes from the page,
+   as --site, the way the server would set it. */
+[data-site] {
+  display: inline-grid;
+  flex-shrink: 0;
+  place-items: center;
+  inline-size: 1rem;
+  block-size: 1rem;
+  margin-block-start: 1px;
+  font-size: 0.625rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--bv-color-surface);
+  text-shadow: var(--bv-emboss-dark);
+  vertical-align: -0.1875rem;
+  background-color: var(--site, var(--bv-color-muted));
+  background-image: linear-gradient(rgba(255, 255, 255, 0.15), rgba(0, 0, 0, 0.1));
+  border-radius: var(--bv-radius-sm);
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.1);
+}
+
+[data-site="large"] {
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  margin-block-start: 0;
+  font-size: 1.125rem;
+  border-radius: var(--bv-radius-lg);
+}
