@@ -149,14 +149,14 @@ Neutral greys with a cool cast, one blue for everything you can press or follow,
 | `--bv-color-link` | #0B65C2 | #6CB0F5 | Links, checkbox and radio tint | 5.8:1 / 7.8:1 on the page; 5.2:1 / 7.2:1 or more on every grey surface and alert tint |
 | `--bv-color-link-hover` | #094A8F | #95C6F7 | Hovered links | 8.8:1 / 10.0:1 |
 | `--bv-color-primary` | #0B65C2 | #1F6BC4 | Primary button, current page in pagination | 5.8:1 / 5.3:1 for white text |
-| `--bv-color-primary-hover` | #0A57A8 | #1B5FAF | Hovered primary button; its border | 7.1:1 / 6.4:1 |
+| `--bv-color-primary-hover` | #0A5EB5 | #1D65BA | Fill under a hovered primary button's gloss; its border | 6.4:1 / 5.8:1 |
 | `--bv-color-primary-active` | #094A8F | #17539A | Pressed primary button; the current page's edge in pagination | 8.8:1 / 7.7:1 |
 | `--bv-color-danger` | #C4362E | #C23A31 | Danger button | 5.4:1 / 5.3:1 for white text |
-| `--bv-color-danger-hover` | #A92E27 | #AA322A | Hovered danger button; its border | 6.8:1 / 6.6:1 |
+| `--bv-color-danger-hover` | #B6322A | #B6362E | Fill under a hovered danger button's gloss; its border | 6.0:1 / 5.9:1 |
 | `--bv-color-danger-active` | #8F2620 | #922B24 | Pressed danger button | 8.5:1 / 8.1:1 |
 | `--bv-color-on-accent` | #FFFFFF | #FFFFFF | Text on primary and danger buttons and the current page in pagination |  |
 | `--bv-color-button` | #E6E9ED | #23272C | Default button, under its gloss: the color at its bottom edge | 13.0:1 / 12.1:1 for text, more where the gloss lightens it |
-| `--bv-color-button-hover` | #DDE1E6 | #2A2F35 | Hovered default button | 12.0:1 / 10.9:1 |
+| `--bv-color-button-hover` | #E6E9ED | #30353B | Fill under a hovered default button's gloss. In light it matches the fill, as 2.0's did, and the slide alone darkens the face; in dark it lightens | 13.0:1 / 10.0:1 |
 | `--bv-color-button-active` | #D9DEE4 | #1C1F23 | Pressed default button, with no gloss | 11.7:1 / 13.3:1 |
 | `--bv-color-button-border` | #C9CED4 | #3A3F46 | Default button border; its bottom edge is mixed 12% toward black |  |
 | `--bv-color-focus` | #0B65C2 | #6CB0F5 | Focus outline, focused field border | 5.8:1 / 7.8:1 on the page; 5.3:1 / 7.2:1 on `--bv-color-surface-alt` |
@@ -325,21 +325,21 @@ Raised things have a highlight along their top edge and a soft shadow under them
 
 | Token | Light value | Used on |
 | --- | --- | --- |
-| `--bv-sheen` | linear-gradient(#FFF, #FFF 25%, transparent): white over the top quarter, fading to the fill; in dark, white from .1 to .02 | Default buttons |
-| `--bv-sheen-accent` | linear-gradient(rgba(255,255,255,.2), transparent 50%, rgba(0,0,0,.12)): lighter at the top, the fill alone at the middle, darker at the bottom; .14 white in dark | Primary and danger buttons, progress bars |
+| `--bv-sheen` | linear-gradient(#FFF, #FFF 16.67%, transparent 66.67%), drawn 150% tall: white over the top quarter of the face, fading to the fill at its bottom; in dark, white from .1 to .02 | Default buttons |
+| `--bv-sheen-accent` | linear-gradient(rgba(255,255,255,.2), transparent 33.33%, rgba(0,0,0,.12) 66.67%), drawn 150% tall: lighter at the top of the face, the fill alone at the middle, darker at the bottom; .14 white in dark | Primary and danger buttons, progress bars |
 | `--bv-emboss` | 0 1px 0 rgba(255,255,255,.7); none in dark | Text pressed into a light surface: default buttons, alerts, add-ons |
 | `--bv-emboss-dark` | 0 -1px 0 rgba(0,0,0,.25) | Text cut out of a dark one: primary and danger buttons, navbar links, the brand, the current page in pagination |
 | `--bv-glow` | 0 0 10px rgba(255,255,255,.35) | The current navbar link's text |
 | `--bv-color-etch` | #FFFFFF; rgba(255,255,255,.04) in dark | The light half of an etched line: `hr`, the top of the form actions bar |
 
-- The gloss is a translucent gradient over a flat fill, so a variant sets only its fill and every button is lit the same way, as 2.0's gradients were. Hover changes the fill under it; pressing removes it.
+- The gloss is a translucent gradient over a flat fill, so a variant sets only its fill and every button is lit the same way, as 2.0's gradients were. It is drawn half again as tall as the face (`background-size: 100% 150%`), with its stops at 2/3 scale, and keeps its last color below the face's bottom edge. Hover slides it up; pressing removes it.
 - The navbar is the one opaque gradient, `--bv-color-navbar-top` to `--bv-color-navbar`, always top to bottom.
 
 ### Motion
 
 | Token | Value | Used for |
 | --- | --- | --- |
-| `--bv-duration-fast` | 100ms | Button background and shadow, table row and pagination hover |
+| `--bv-duration-fast` | 100ms | Button gloss slide, background and shadow; table row and pagination hover |
 | `--bv-duration` | 150ms | Link and navbar link color |
 | `--bv-duration-slow` | 200ms | Field border and glow |
 | `--bv-ease` | linear | All transitions, as in 2.0 |
@@ -539,7 +539,7 @@ A component is styled locally inside an app first. When a second app needs it, i
 | Danger (`.btn-danger`) | `--bv-color-danger`, `-hover`, `-active` | `--bv-color-on-accent`, `--bv-emboss-dark` | `--bv-color-danger-hover` | `--bv-sheen-accent`, `--bv-shadow-button-accent` |
 
 - **Rest:** 2.0's gloss over the fill: a default button white over its top quarter and fading to `--bv-color-button` at the bottom, a colored one lighter at the top and darker at the bottom. A highlight along the top edge, a soft shadow under the button, and a bottom border mixed 12% toward black (`color-mix()`). `display: inline-flex`, content centered, 6px between an icon and text; links lose their underline.
-- **Hover** (pointers that hover only, so it never sticks after a tap): the hover fill under the same gloss, over 100ms linear. Text is unchanged.
+- **Hover** (pointers that hover only, so it never sticks after a tap): as in 2.0, the gloss slides up by half the face's height (`background-position: 0 100%`), so the light top leaves and the darker lower part fills the face, while the fill changes to the hover fill; both over 100ms linear. The gloss covers the whole face at every point of the slide, so nothing wipes across it either way. Text is unchanged.
 - **Pressed** (`:active`, `.active` or `aria-pressed="true"`): the pressed fill, the gloss removed, and `--bv-shadow-pressed`, so the face sinks into the page. The weight doesn't change, so a latched toggle doesn't push its neighbours.
 - **Focus** (`:focus-visible`): 2px solid `--bv-color-focus` outline, 2px offset.
 - **Disabled** (`:disabled`, `.disabled` or `aria-disabled="true"`): opacity .5, gloss and shadows removed, `cursor: not-allowed`, no hover or press change.

@@ -2,6 +2,12 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
+## Unreleased
+
+### Changed
+
+- Hovering a button slides its gloss up by half the button's height, as 0.2.0 did, so the light top leaves and the darker lower part fills the face. 0.3.0 only changed the fill under the gloss, which barely showed on a default button. The gloss is now drawn half again as tall as the button, with its stops at 2/3 scale, and `--bv-sheen` and `--bv-sheen-accent` changed to match; an app that overrides either needs the same. Primary and danger hover fills are a step lighter, #0A5EB5 and #B6322A, since the slide darkens them too; the default hover fill matches the rest fill in light, as 2.0's did, and is #30353B in dark.
+
 ## [0.3.0] - 2026-10-16
 
 A new look on 2.0's frame: Helvetica Neue at 14px, neutral greys and one blue, controls still lit from above, and a dark mode. Class names and markup are unchanged, but every component looks different and most color and depth tokens are new or renamed, so check each app after upgrading. An app that overrides a removed token loses that override without warning.

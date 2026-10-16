@@ -70,14 +70,14 @@
     --bv-color-link: #0B65C2;
     --bv-color-link-hover: #094A8F;
     --bv-color-primary: #0B65C2;
-    --bv-color-primary-hover: #0A57A8;
+    --bv-color-primary-hover: #0A5EB5;
     --bv-color-primary-active: #094A8F;
     --bv-color-danger: #C4362E;
-    --bv-color-danger-hover: #A92E27;
+    --bv-color-danger-hover: #B6322A;
     --bv-color-danger-active: #8F2620;
     --bv-color-on-accent: #FFFFFF;
     --bv-color-button: #E6E9ED;
-    --bv-color-button-hover: #DDE1E6;
+    --bv-color-button-hover: #E6E9ED;
     --bv-color-button-active: #D9DEE4;
     --bv-color-button-border: #C9CED4;
     --bv-color-focus: #0B65C2;
@@ -166,9 +166,12 @@
        their fill: a default button is white over its top quarter and fades
        to its grey fill at the bottom; a colored one is lighter at the top
        and darker at the bottom, and its fill alone behind the middle of
-       the text. */
-    --bv-sheen: linear-gradient(#FFFFFF, #FFFFFF 25%, rgba(255, 255, 255, 0));
-    --bv-sheen-accent: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12));
+       the text. The gloss is drawn half again as tall as what it covers,
+       so its stops are at 2/3 scale: 16.67% is a quarter of the way down
+       the face, 66.67% its bottom. Below that it keeps its last color, so
+       a hovered button can slide it up and show that lower part. */
+    --bv-sheen: linear-gradient(#FFFFFF, #FFFFFF 16.67%, rgba(255, 255, 255, 0) 66.67%);
+    --bv-sheen-accent: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0) 33.33%, rgba(0, 0, 0, 0.12) 66.67%);
     --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 1px 2px rgba(31, 35, 40, 0.08);
     --bv-shadow-button-accent: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 1px 2px rgba(31, 35, 40, 0.18);
     --bv-shadow-pressed: inset 0 2px 4px rgba(31, 35, 40, 0.15);
@@ -212,13 +215,13 @@
       --bv-color-link: #6CB0F5;
       --bv-color-link-hover: #95C6F7;
       --bv-color-primary: #1F6BC4;
-      --bv-color-primary-hover: #1B5FAF;
+      --bv-color-primary-hover: #1D65BA;
       --bv-color-primary-active: #17539A;
       --bv-color-danger: #C23A31;
-      --bv-color-danger-hover: #AA322A;
+      --bv-color-danger-hover: #B6362E;
       --bv-color-danger-active: #922B24;
       --bv-color-button: #23272C;
-      --bv-color-button-hover: #2A2F35;
+      --bv-color-button-hover: #30353B;
       --bv-color-button-active: #1C1F23;
       --bv-color-button-border: #3A3F46;
       --bv-color-focus: #6CB0F5;
@@ -263,8 +266,8 @@
       --bv-color-navbar-current: #08090B;
       --bv-color-grid: rgba(228, 231, 235, 0.035);
 
-      --bv-sheen: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02));
-      --bv-sheen-accent: linear-gradient(rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 50%, rgba(0, 0, 0, 0.12));
+      --bv-sheen: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 66.67%);
+      --bv-sheen-accent: linear-gradient(rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 33.33%, rgba(0, 0, 0, 0.12) 66.67%);
       --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.5);
       --bv-shadow-button-accent: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 2px rgba(0, 0, 0, 0.5);
       --bv-shadow-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.45);
@@ -902,19 +905,27 @@
     cursor: pointer;
     background-color: var(--bv-btn-bg);
     background-image: var(--bv-btn-sheen);
+    background-repeat: no-repeat;
+    background-size: 100% 150%;
     border: 1px solid var(--bv-btn-border);
     border-block-end-color: color-mix(in srgb, var(--bv-btn-border), #000000 12%);
     border-radius: var(--bv-btn-radius);
     box-shadow: var(--bv-btn-shadow);
     transition:
       background-color var(--bv-duration-fast) var(--bv-ease),
+      background-position var(--bv-duration-fast) var(--bv-ease),
       box-shadow var(--bv-duration-fast) var(--bv-ease);
   }
 
-  /* Pointers that hover only: on touch it would stick after a tap. */
+  /* As in 2.0, hover slides the gloss up by half the button's height, so
+     the light top leaves and the darker lower part fills the face; the
+     fill changes under it at the same pace. The gloss covers the whole
+     face at every point of the slide, so nothing wipes across it either
+     way. Pointers that hover only: on touch it would stick after a tap. */
   @media (hover: hover) {
     .btn:hover {
       background-color: var(--bv-btn-bg-hover);
+      background-position: 0 100%;
     }
   }
 
@@ -1543,6 +1554,7 @@
     height: 100%;
     background-color: var(--bv-progress-color);
     background-image: var(--bv-sheen-accent);
+    background-size: 100% 150%;
     box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.15);
   }
 
@@ -1551,7 +1563,7 @@
     background-image:
       linear-gradient(135deg, rgba(255, 255, 255, 0.25) 25%, transparent 25% 50%, rgba(255, 255, 255, 0.25) 50% 75%, transparent 75%),
       var(--bv-sheen-accent);
-    background-size: 16px 16px, auto;
+    background-size: 16px 16px, 100% 150%;
   }
 
   /* bevel's one looping animation, for work under way. Reduced motion
