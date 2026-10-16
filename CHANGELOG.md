@@ -2,7 +2,7 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
-## Unreleased
+## [0.3.0] - 2026-10-16
 
 A new look on 2.0's frame: Helvetica Neue at 14px, neutral greys and one blue, controls still lit from above, and a dark mode. Class names and markup are unchanged, but every component looks different and most color and depth tokens are new or renamed, so check each app after upgrading. An app that overrides a removed token loses that override without warning.
 

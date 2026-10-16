@@ -9,7 +9,7 @@ The site lives in `site/`. Open `site/index.html` in a browser for what it is an
 Copy a release file into your app's static folder and link it before your own stylesheet:
 
 ```html
-<link rel="stylesheet" href="/static/bevel-0.2.0.css">
+<link rel="stylesheet" href="/static/bevel-0.3.0.css">
 <link rel="stylesheet" href="/static/app.css">
 ```
 

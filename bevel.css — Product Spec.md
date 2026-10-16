@@ -39,7 +39,7 @@ The library succeeds if every app looks like it came from the same hand, loads i
 
 ## Scope
 
-v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedback. v0.2 adds input add-ons, pagination, wells with empty states, progress bars, stats, a screen-reader-only utility, spacing after rows and around headings, and a documented pattern for confirming before deleting, all found missing while building the money demo. The next release, unreleased so far, redraws every component on the same classes, with 14px type, a new palette and softer depth, and adds a dark mode, the grid paper behind each page's title, and `h2` as a section label. Candidates are added only under the promotion rule in *Distribution and versioning*.
+v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedback. v0.2 adds input add-ons, pagination, wells with empty states, progress bars, stats, a screen-reader-only utility, spacing after rows and around headings, and a documented pattern for confirming before deleting, all found missing while building the money demo. v0.3 redraws every component on the same classes, with 14px type, a new palette and softer depth, and adds a dark mode, the grid paper behind each page's title, and `h2` as a section label. Candidates are added only under the promotion rule in *Distribution and versioning*.
 
 | Area | Release | Includes |
 | --- | --- | --- |
@@ -59,8 +59,8 @@ v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedba
 | Progress bars | v0.2 | `.progress` and `.bar`: plain, striped and animated striped; default, success, warning and danger |
 | Stats | v0.2 | `.stats`, a big figure with a small label, for a home page's numbers |
 | Confirm before deleting | v0.2 | A documented pattern, no CSS: a confirmation page in place of a dialog |
-| Dark mode | Unreleased | A dark value for every color and shadow, following the system's setting |
-| Grid paper and section labels | Unreleased | `.grid-paper`, the 20px grid behind the top of the page that opens an app; `h2` as a small-capitals label with a dotted leader to its subtitle |
+| Dark mode | v0.3 | A dark value for every color and shadow, following the system's setting |
+| Grid paper and section labels | v0.3 | `.grid-paper`, the 20px grid behind the top of the page that opens an app; `h2` as a small-capitals label with a dotted leader to its subtitle |
 | Masthead and section bar | Candidate | `.subhead`, a masthead on the grid paper; sticky `.subnav` |
 | Tabs and pills | Candidate | CSS only, for links between pages |
 | Dropdowns and carets | Candidate | Built on `<details>`; a small `bevel.js` only if a case needs it |
