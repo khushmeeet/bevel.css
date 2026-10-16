@@ -7,7 +7,7 @@
   <link rel="stylesheet" href="../bevel.css">
   <link rel="stylesheet" href="docs.css">
 </head>
-<body>
+<body class="grid-paper">
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="navbar navbar-sticky">
     <div class="navbar-inner">
@@ -33,7 +33,7 @@
         <h1>Reference <small>bevel.css 0.2.0</small></h1>
       </div>
       <p class="lead">Every class, variant and state, with the markup to copy.</p>
-      <p>Link bevel.css before your own stylesheet. Everything in it sits in <code>@layer bevel.*</code>, so your CSS, written outside any layer, overrides it without <code>!important</code>. States take the class or the ARIA attribute: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
+      <p>Link bevel.css before your own stylesheet. It follows the system&rsquo;s light or dark setting. Everything in it sits in <code>@layer bevel.*</code>, so your CSS, written outside any layer, overrides it without <code>!important</code>. States take the class or the ARIA attribute: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
 
       <pre><code>&lt;link rel="stylesheet" href="/static/bevel-0.2.0.css"&gt;
 &lt;link rel="stylesheet" href="/static/app.css"&gt;</code></pre>
@@ -63,7 +63,7 @@
       <div class="page-header">
         <h1>Tokens</h1>
       </div>
-      <p>Every custom property starts with <code>--bv-</code>. The swatches below read the live values, so an override in your app shows up here too.</p>
+      <p>Every custom property starts with <code>--bv-</code>. The swatches below read the live values, so an override in your app shows up here too. Every color has a light and a dark value, and the page follows the system&rsquo;s setting: switch it to see the other.</p>
       <pre><code>:root {
   --bv-color-link: #0066A0;
 }</code></pre>
@@ -71,60 +71,57 @@
       <ul class="row" data-chips>
         <li><span data-swatch style="background-color: var(--bv-color-text)"></span><code>--bv-color-text</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-muted)"></span><code>--bv-color-muted</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-input-text)"></span><code>--bv-color-input-text</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-surface)"></span><code>--bv-color-surface</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-surface-alt)"></span><code>--bv-color-surface-alt</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-stripe)"></span><code>--bv-color-stripe</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-field)"></span><code>--bv-color-field</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-track)"></span><code>--bv-color-track</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-border)"></span><code>--bv-color-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-border-soft)"></span><code>--bv-color-border-soft</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-border-strong)"></span><code>--bv-color-border-strong</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-border-bottom)"></span><code>--bv-color-border-bottom</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-grid)"></span><code>--bv-color-grid</code></li>
       </ul>
+      <p><code>--bv-color-grid</code> rules <code>.grid-paper</code> and <code>.hero-unit-grid</code>. Set it to <code>transparent</code> to turn the grid off.</p>
       <h2>Action and focus</h2>
       <ul class="row" data-chips>
         <li><span data-swatch style="background-color: var(--bv-color-link)"></span><code>--bv-color-link</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-link-hover)"></span><code>--bv-color-link-hover</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-primary-top)"></span><code>--bv-color-primary-top</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-primary-bottom)"></span><code>--bv-color-primary-bottom</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-primary)"></span><code>--bv-color-primary</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-primary-hover)"></span><code>--bv-color-primary-hover</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-primary-active)"></span><code>--bv-color-primary-active</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-danger-top)"></span><code>--bv-color-danger-top</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-danger-bottom)"></span><code>--bv-color-danger-bottom</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-danger)"></span><code>--bv-color-danger</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-danger-hover)"></span><code>--bv-color-danger-hover</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-danger-active)"></span><code>--bv-color-danger-active</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-on-accent)"></span><code>--bv-color-on-accent</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-button)"></span><code>--bv-color-button</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-button-hover)"></span><code>--bv-color-button-hover</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-button-active)"></span><code>--bv-color-button-active</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-button-border)"></span><code>--bv-color-button-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-focus)"></span><code>--bv-color-focus</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-focus-glow)"></span><code>--bv-color-focus-glow</code></li>
       </ul>
       <h2>Navbar</h2>
       <ul class="row" data-chips>
         <li><span data-swatch style="background-color: var(--bv-color-navbar-top)"></span><code>--bv-color-navbar-top</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-navbar-bottom)"></span><code>--bv-color-navbar-bottom</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-navbar)"></span><code>--bv-color-navbar</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-navbar-current)"></span><code>--bv-color-navbar-current</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-navbar-link)"></span><code>--bv-color-navbar-link</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-navbar-link-active)"></span><code>--bv-color-navbar-link-active</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-navbar-current)"></span><code>--bv-color-navbar-current</code></li>
+        <li><span data-swatch style="background-color: var(--bv-color-navbar-focus)"></span><code>--bv-color-navbar-focus</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-brand)"></span><code>--bv-color-brand</code></li>
       </ul>
       <h2>Labels and badges</h2>
       <ul class="row" data-chips>
         <li><span data-swatch style="background-color: var(--bv-label-default-bg)"></span><code>--bv-label-default-bg</code></li>
-        <li><span data-swatch style="background-color: var(--bv-label-default-border)"></span><code>--bv-label-default-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-default-text)"></span><code>--bv-label-default-text</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-success-bg)"></span><code>--bv-label-success-bg</code></li>
-        <li><span data-swatch style="background-color: var(--bv-label-success-border)"></span><code>--bv-label-success-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-success-text)"></span><code>--bv-label-success-text</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-warning-bg)"></span><code>--bv-label-warning-bg</code></li>
-        <li><span data-swatch style="background-color: var(--bv-label-warning-border)"></span><code>--bv-label-warning-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-warning-text)"></span><code>--bv-label-warning-text</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-important-bg)"></span><code>--bv-label-important-bg</code></li>
-        <li><span data-swatch style="background-color: var(--bv-label-important-border)"></span><code>--bv-label-important-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-important-text)"></span><code>--bv-label-important-text</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-info-bg)"></span><code>--bv-label-info-bg</code></li>
-        <li><span data-swatch style="background-color: var(--bv-label-info-border)"></span><code>--bv-label-info-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-info-text)"></span><code>--bv-label-info-text</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-inverse-bg)"></span><code>--bv-label-inverse-bg</code></li>
-        <li><span data-swatch style="background-color: var(--bv-label-inverse-border)"></span><code>--bv-label-inverse-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-label-inverse-text)"></span><code>--bv-label-inverse-text</code></li>
       </ul>
       <h2>Alerts</h2>
@@ -142,16 +139,48 @@
         <li><span data-swatch style="background-color: var(--bv-alert-info-border)"></span><code>--bv-alert-info-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-alert-info-text)"></span><code>--bv-alert-info-text</code></li>
       </ul>
+      <h2>Progress bars</h2>
+      <ul class="row" data-chips>
+        <li><span data-swatch style="background-color: var(--bv-progress-default)"></span><code>--bv-progress-default</code></li>
+        <li><span data-swatch style="background-color: var(--bv-progress-success)"></span><code>--bv-progress-success</code></li>
+        <li><span data-swatch style="background-color: var(--bv-progress-warning)"></span><code>--bv-progress-warning</code></li>
+        <li><span data-swatch style="background-color: var(--bv-progress-danger)"></span><code>--bv-progress-danger</code></li>
+      </ul>
       <h2>Form errors and code</h2>
       <ul class="row" data-chips>
         <li><span data-swatch style="background-color: var(--bv-color-error)"></span><code>--bv-color-error</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-error-border)"></span><code>--bv-color-error-border</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-error-focus)"></span><code>--bv-color-error-focus</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-error-glow)"></span><code>--bv-color-error-glow</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-code-text)"></span><code>--bv-color-code-text</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-code-bg)"></span><code>--bv-color-code-bg</code></li>
-        <li><span data-swatch style="background-color: var(--bv-color-code-border)"></span><code>--bv-color-code-border</code></li>
       </ul>
+      <h2>Depth</h2>
+      <p>Light comes from above: raised things have a highlight along their top edge and a shadow under them, sunken things a shade along their top inside edge. Dark mode has deeper shadows and no emboss.</p>
+      <div class="table-scroll" role="region" aria-label="Depth tokens" tabindex="0">
+      <table class="table table-condensed" id="depth-tokens">
+        <thead>
+          <tr><th>Token</th><th>Used on</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>--bv-sheen</code></td><td>Default buttons&rsquo; gloss: white over the top quarter, fading to the grey fill at the bottom</td></tr>
+          <tr><td><code>--bv-sheen-accent</code></td><td>Primary and danger buttons&rsquo; gloss, and progress bars: lighter at the top, darker at the bottom</td></tr>
+          <tr><td><code>--bv-shadow-button</code></td><td>Default buttons at rest</td></tr>
+          <tr><td><code>--bv-shadow-button-accent</code></td><td>Primary and danger buttons at rest</td></tr>
+          <tr><td><code>--bv-shadow-pressed</code></td><td>Pressed buttons, the current page in pagination</td></tr>
+          <tr><td><code>--bv-shadow-raised</code></td><td>Pagination links, the grid hero unit</td></tr>
+          <tr><td><code>--bv-shadow-field</code></td><td>Text fields, selects and textareas</td></tr>
+          <tr><td><code>--bv-shadow-focus</code></td><td>The glow around a focused field</td></tr>
+          <tr><td><code>--bv-shadow-focus-error</code></td><td>The glow around a focused field in error</td></tr>
+          <tr><td><code>--bv-shadow-navbar</code></td><td>The navbar</td></tr>
+          <tr><td><code>--bv-shadow-navbar-current</code></td><td>The current navbar link</td></tr>
+          <tr><td><code>--bv-shadow-well</code></td><td>Wells</td></tr>
+          <tr><td><code>--bv-shadow-track</code></td><td>Progress tracks</td></tr>
+          <tr><td><code>--bv-shadow-label</code></td><td>The edge of labels and badges</td></tr>
+          <tr><td><code>--bv-emboss</code></td><td>Text pressed into a light surface: default buttons, alerts, add-ons</td></tr>
+          <tr><td><code>--bv-emboss-dark</code></td><td>Text cut out of a dark one: colored buttons, navbar links, the brand, the current page in pagination</td></tr>
+          <tr><td><code>--bv-color-etch</code></td><td>The light half of an etched line: <code>hr</code>, the top of the form actions bar</td></tr>
+          <tr><td><code>--bv-glow</code></td><td>The current navbar link&rsquo;s text</td></tr>
+        </tbody>
+      </table>
+      </div>
     </section>
 
     <!-- Typography ====================================================== -->
@@ -160,6 +189,7 @@
         <h1>Typography</h1>
       </div>
       <p>A heading sits 9px above what it introduces and 18px below whatever came before it, so it always reads with the block under it. At the top of a column, alert or well it gets no space above.</p>
+      <p>An <code>h2</code> is a section label: small capitals, tracked out, with 36px above it. When it holds only text and a <code>&lt;small&gt;</code>, a dotted leader runs from the label to the <code>&lt;small&gt;</code> at the end of the line, for a count or a date.</p>
 
       <div class="row cols-2">
         <div>
@@ -178,8 +208,8 @@
       </div>
 
       <h2>Body text</h2>
-      <p class="lead">The lead paragraph: 20px on a 27px line, for the one sentence that sets up a page.</p>
-      <p id="link-demo">Body text is 13px on an 18px line. It carries <a href="#typography">links</a>, <strong>strong words</strong>, <small>small text that keeps the surrounding size</small> and inline code such as <code>hearth deploy recipes</code>.</p>
+      <p class="lead">The lead paragraph: 18px on a 28px line, for the one sentence that sets up a page.</p>
+      <p id="link-demo">Body text is 14px on a 20px line, in Helvetica Neue, or Helvetica or Arial where it isn&rsquo;t installed. It carries <a href="#typography">links</a>, <strong>strong words</strong>, <small>small text that keeps the surrounding size</small> and inline code such as <code>hearth deploy recipes</code>.</p>
       <p>A longer paragraph wraps at about 70 characters a line, however wide the page. Each app keeps a small manifest next to its code, and hearth reads it to decide how to pull, build and run the app, which port it listens on, and whether it should come back after the machine restarts. Everything else has a sensible default, so most manifests are four or five lines long.</p>
 
       <h2>Code blocks</h2>
@@ -191,26 +221,29 @@ start_on_boot = true</code></pre>
       <pre>2026-10-08T14:02:11Z eink-sync exited with status 1: open /var/lib/eink-sync/state/cache/2026-10/display-frame-buffer.bin: no such file or directory (retrying in 30s)</pre>
 
       <h2>Monospace</h2>
-      <p><code>code</code> and <code>pre</code> use <code>--bv-font-mono</code>: the first of Menlo, Monaco, Consolas and Courier New that this machine has, or else its own monospace font. The block below is set in whichever one that is.</p>
+      <p><code>code</code> and <code>pre</code> use <code>--bv-font-mono</code>: the system&rsquo;s own monospace where the browser offers it, as Safari does, then the first of Menlo, Cascadia Mono, Consolas and Liberation Mono that this machine has, or else its default monospace font. The block below is set in whichever one that is.</p>
       <pre>ABCDEFGHIJKLMNOPQRSTUVWXYZ
 abcdefghijklmnopqrstuvwxyz
 0123456789 0O 1lI| ({[&lt;&gt;]}) =&gt; != :: ; , . ' " ` ~ ! @ # $ % ^ &amp; * _ + - = / \</pre>
       <p>Each font in the stack on its own. A sample in a serif face means this machine doesn&rsquo;t have that font.</p>
+      <div class="table-scroll" role="region" aria-label="Monospace fonts" tabindex="0">
       <table class="table" id="mono-stack" data-samples>
         <thead>
           <tr><th>Font</th><th>Ships with</th><th>Sample</th></tr>
         </thead>
         <tbody>
+          <tr><td><code>ui-monospace</code></td><td>Safari on macOS and iOS, as SF Mono</td><td><code style="font-family: ui-monospace, serif">0O 1lI {} =&gt;</code></td></tr>
           <tr><td>Menlo</td><td>macOS 10.6 and later, iOS</td><td><code style="font-family: Menlo, serif">0O 1lI {} =&gt;</code></td></tr>
-          <tr><td>Monaco</td><td>macOS</td><td><code style="font-family: Monaco, serif">0O 1lI {} =&gt;</code></td></tr>
+          <tr><td>Cascadia Mono</td><td>Windows 11</td><td><code style="font-family: &quot;Cascadia Mono&quot;, serif">0O 1lI {} =&gt;</code></td></tr>
           <tr><td>Consolas</td><td>Windows Vista and later</td><td><code style="font-family: Consolas, serif">0O 1lI {} =&gt;</code></td></tr>
-          <tr><td>Courier New</td><td>Windows, macOS</td><td><code style="font-family: &quot;Courier New&quot;, serif">0O 1lI {} =&gt;</code></td></tr>
+          <tr><td>Liberation Mono</td><td>Most Linux distributions</td><td><code style="font-family: &quot;Liberation Mono&quot;, serif">0O 1lI {} =&gt;</code></td></tr>
           <tr><td><code>monospace</code></td><td>Every system, as its default monospace font</td><td><code style="font-family: monospace">0O 1lI {} =&gt;</code></td></tr>
         </tbody>
       </table>
+      </div>
 
       <h2>Rule</h2>
-      <p>An <code>&lt;hr&gt;</code> is 2.0&rsquo;s etched line.</p>
+      <p>An <code>&lt;hr&gt;</code> is 2.0&rsquo;s etched line: a rule over a highlight.</p>
       <hr>
     </section>
 
@@ -254,6 +287,10 @@ abcdefghijklmnopqrstuvwxyz
         <div data-demo>.cols-4</div>
         <div data-demo>A column with more text than the others wraps inside its own track and never pushes the grid wider.</div>
       </div>
+
+      <h2>Grid paper</h2>
+      <p>Add <code>.grid-paper</code> to <code>&lt;body&gt;</code> for the grid at the top of this page: lines every 20px in a band under the navbar, every fifth vertical one darker, fading out before the text. Use it on the page that opens an app, such as its home, with a <code>.hero-unit-grid</code> if it has one, and leave the rest plain.</p>
+      <pre><code>&lt;body class="grid-paper"&gt;</code></pre>
     </section>
 
     <!-- Navbar ========================================================== -->
@@ -261,7 +298,7 @@ abcdefghijklmnopqrstuvwxyz
       <div class="page-header">
         <h1>Navbar</h1>
       </div>
-      <p>Links on the left, the brand on the right. Mark the current page with <code>aria-current="page"</code> (as in the bar at the top of this page) or <code>.active</code> (below); it turns white on a darker tab with a blue bar along the bottom. Below 768px the links wrap onto more rows and the divider hides.</p>
+      <p>Links on the left, the brand on the right. Mark the current page with <code>aria-current="page"</code> (as in the bar at the top of this page) or <code>.active</code> (below); it turns white and glows, on a tab sunk into the bar. Below 768px the links wrap onto more rows and the divider hides.</p>
       <p>Add <code>.navbar-sticky</code> to keep the bar at the top while the page scrolls under it, as the bar on this page does. Below 768px it scrolls away with the page.</p>
       <p>Put a <code>.skip-link</code> first in the page, pointing at <code>&lt;main id="main"&gt;</code>. It stays off-screen until it takes keyboard focus, so keyboard users can jump past the navbar: press Tab at the top of this page to see it.</p>
 
@@ -393,7 +430,7 @@ abcdefghijklmnopqrstuvwxyz
       </div>
 
       <h2>Pressed</h2>
-      <p>Pressed buttons lose their gradient and sink. Use <code>.active</code>, or <code>aria-pressed="true"</code> on a toggle.</p>
+      <p>Pressed buttons lose their gloss and sink. Use <code>.active</code>, or <code>aria-pressed="true"</code> on a toggle.</p>
       <div class="btn-toolbar" id="buttons-pressed">
         <button class="btn active" type="button">.active</button>
         <button class="btn" type="button" aria-pressed="true">aria-pressed</button>
@@ -700,6 +737,7 @@ abcdefghijklmnopqrstuvwxyz
           <tr><td>notebook</td><td><span class="label label-warning">Deploying</span></td><td class="text-right">8083</td><td></td></tr>
         </tbody>
       </table>
+      <p>Give numeric columns <code>.text-right</code>. Their cells never wrap, so an amount such as &minus;$101.35 can&rsquo;t break between its sign and its digits on a narrow screen; the other columns wrap instead.</p>
 
       <h2>Striped and bordered</h2>
       <p>Wrap a table in <code>.table-scroll</code> and it scrolls inside its own box on small screens instead of widening the page. Give the wrapper <code>role="region"</code>, an <code>aria-label</code> and <code>tabindex="0"</code>, so keyboard users can focus it and scroll with the arrow keys.</p>
@@ -960,7 +998,7 @@ abcdefghijklmnopqrstuvwxyz
       <div class="page-header">
         <h1>Hero unit</h1>
       </div>
-      <p>Add <code>.hero-unit</code> when a page needs a large callout, such as an app&rsquo;s home page; leave it out and nothing changes. The heading is 60px from 768px up and 36px below it. Paragraphs inside are 18px on a 27px line.</p>
+      <p>Add <code>.hero-unit</code> when a page needs a large callout, such as an app&rsquo;s home page; leave it out and nothing changes. The heading is 44px from 768px up and 36px below it. Paragraphs inside are 18px on a 28px line.</p>
 
       <div class="hero-unit">
         <h1>Welcome to hearth</h1>
@@ -975,7 +1013,7 @@ abcdefghijklmnopqrstuvwxyz
 &lt;/div&gt;</code></pre>
 
       <h2>With a grid</h2>
-      <p>Add <code>.hero-unit-grid</code> to swap the grey fill for the 18px grid on white, ruled like the band at the top of this page, with a faint edge.</p>
+      <p>Add <code>.hero-unit-grid</code> to swap the grey fill for grid paper on the page color, ruled like <code>.grid-paper</code>: a line every 20px, every fifth one darker. It has a faint edge and a soft shadow under it.</p>
 
       <div class="hero-unit hero-unit-grid">
         <h1>Welcome to hearth</h1>
@@ -995,7 +1033,7 @@ abcdefghijklmnopqrstuvwxyz
       <div class="page-header">
         <h1>Stats</h1>
       </div>
-      <p>Add <code>.stats</code> to a <code>&lt;dl&gt;</code> for the few numbers a home page opens with: each <code>&lt;dt&gt;</code> is a muted label and each <code>&lt;dd&gt;</code> a 30px figure. Make the list a <code>.row</code> too, with each pair in a <code>&lt;div&gt;</code>, to set the figures side by side. A <code>&lt;small&gt;</code> in a figure holds its unit or the rest of a fraction.</p>
+      <p>Add <code>.stats</code> to a <code>&lt;dl&gt;</code> for the few numbers a home page opens with: each <code>&lt;dt&gt;</code> is a small muted label in capitals and each <code>&lt;dd&gt;</code> a 30px figure. Make the list a <code>.row</code> too, with each pair in a <code>&lt;div&gt;</code>, to set the figures side by side. A <code>&lt;small&gt;</code> in a figure holds its unit or the rest of a fraction.</p>
 
       <dl class="row cols-4 stats" id="stats-demo">
         <div><dt>Apps running</dt><dd>4 <small>of 5</small></dd></div>

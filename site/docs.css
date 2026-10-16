@@ -5,21 +5,6 @@
    These styles use data attributes rather than classes, so the coverage
    gate stays exact: every class on these pages comes from bevel.css. */
 
-/* The 2.0 docs' masked 18px grid, in a 306px band under the navbar:
-   faint lines every 18px, every fifth vertical one darker, fading out
-   after the first 200px. In 2.0 this was a docs page decoration
-   (docs.css), not part of bootstrap.css. */
-body {
-  background-image:
-    linear-gradient(transparent 200px, var(--bv-color-surface) 330px),
-    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.025) 0 1px, transparent 1px 90px),
-    repeating-linear-gradient(90deg, rgba(0, 0, 0, 0.027) 0 1px, transparent 1px 18px),
-    repeating-linear-gradient(rgba(0, 0, 0, 0.027) 0 1px, transparent 1px 18px);
-  background-repeat: no-repeat;
-  background-position: 0 2.5rem;
-  background-size: 100% 306px;
-}
-
 /* Reference: a grey box that shows where a layout column is. */
 [data-demo] {
   padding: 0.5625rem 0.75rem;
@@ -73,7 +58,7 @@ body {
   width: 1.75rem;
   height: 1.75rem;
   border-radius: var(--bv-radius);
-  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+  box-shadow: inset 0 0 0 1px var(--bv-color-border);
 }
 
 /* Changelog and source: bevel.css doesn't style lists yet, so give items
@@ -99,6 +84,6 @@ body {
   block-size: 36rem;
   margin-block-end: var(--bv-space-5);
   background-color: var(--bv-color-surface);
-  border: 1px solid rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--bv-color-border);
   border-radius: var(--bv-radius);
 }

@@ -1,6 +1,6 @@
 # bevel.css
 
-Bootstrap 2.0's look for every app on hearth, in one plain stylesheet built only on CSS that has worked in every major browser for at least 30 months. No build step, no web fonts, no images, no JavaScript.
+Bootstrap 2.0's look, brought up to date and in light and dark, for every app on hearth, in one plain stylesheet built only on CSS that has worked in every major browser for at least 30 months. No build step, no web fonts, no images, no JavaScript.
 
 The site lives in `site/`. Open `site/index.html` in a browser for what it is and why, and `site/reference.html` for every class, variant and state; `changelog.html` and `source.html` sit beside them. Their page-only styles are in `site/docs.css`, which isn't part of the library. Open `demo/index.html` to see the classes in a small made-up app, with no CSS of its own.
 

@@ -2,6 +2,41 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
+## Unreleased
+
+A new look on 2.0's frame: Helvetica Neue at 14px, neutral greys and one blue, controls still lit from above, and a dark mode. Class names and markup are unchanged, but every component looks different and most color and depth tokens are new or renamed, so check each app after upgrading. An app that overrides a removed token loses that override without warning.
+
+### Added
+
+- Dark mode: the colors and shadows have dark values under `prefers-color-scheme: dark`, and `color-scheme: light dark` turns native parts such as select arrows and scrollbars dark with them. Shadows are deeper and text emboss is dropped.
+- Grid paper, as in the 2.0 docs: add `.grid-paper` to `<body>` for a band of lines every 20px under the navbar, every fifth vertical one darker, fading out so it sits behind the page's opening and never its text. It's opt in, for the page that opens an app; the rest stay plain. Set `--bv-color-grid` to `transparent` to turn it off everywhere.
+- Section labels: `h2` is set in small tracked capitals with 36px above it. When it holds only text and a `<small>`, a dotted leader runs to the `<small>` at the end of the line, for a count or a date.
+- Tokens: `--bv-color-field`, `--bv-color-track`, `--bv-color-on-accent`, `--bv-color-primary-hover`, `--bv-color-danger-hover`, `--bv-color-button` with `-hover`, `-active` and `-border`, `--bv-color-navbar-focus`, `--bv-color-etch`, `--bv-progress-<variant>`, `--bv-sheen`, `--bv-sheen-accent`, `--bv-shadow-button-accent`, `--bv-shadow-pressed`, `--bv-shadow-raised`, `--bv-shadow-focus`, `--bv-shadow-focus-error`, `--bv-shadow-navbar-current`, `--bv-shadow-track`, `--bv-shadow-label`, `--bv-emboss` and `--bv-glow`.
+
+### Changed
+
+- **Breaking:** text is 14px on a 20px line, up from 2.0's 13px on 18px, still in Helvetica Neue. Buttons and fields are 30px tall instead of 28px; small buttons stay that height and large ones are 40px. Headings are weight 600, and `h3` to `h6` are 16, 14, 13 and 12px, with `h6` in capitals. The lead and hero text are 18px on a 28px line at the regular weight, and the hero heading is 44px from 768px up instead of 60px.
+- **Breaking:** the palette is neutral greys with a cool cast and one blue, #0B65C2, for links, primary buttons and focus, with red #C4362E for danger. Field borders are #8C949E, 3:1 on white, so the field border contrast exception is gone. Labels, badges and alerts have new tints with text at 5.5:1 or more on them; labels and badges trade their colored edge and emboss for a faint neutral edge.
+- Buttons have 2.0's gloss again, laid over a flat fill: a default button is white over its top quarter and fades to grey at the bottom, and a primary or danger button is lighter at the top and darker at the bottom. Each has a highlight along its top edge, a slightly darker bottom border, a soft shadow and embossed text. Hover darkens the fill under the gloss instead of sliding 2.0's gradient up. Pressed and latched buttons lose the gloss and sink.
+- The navbar is a graphite bar lit from above, with a shadow on the page. The current link sinks into the bar and its text turns white and glows, 3:1 brighter than the other links, in place of the blue bar along its bottom; `--bv-color-navbar-current` is now the sunken tab's fill. The brand is in bold tracked capitals, the divider is etched, and focus inside the bar is a lighter blue that shows on it.
+- A focused field gets a blue border and a soft 3px glow, red in an error state. The focus ring elsewhere sits 2px outside its element instead of 1px.
+- Table column heads and stat labels are 12px muted capitals. Labels and badges are 12px at weight 500.
+- Progress tracks are 8px tall and recessed; bars have the colored buttons' gloss, with stripes 16px apart.
+- The current page in a pagination strip is filled blue with white text, still sunk in.
+- Inline code is in the text color on a grey tint, with no border, and code blocks lose their border. The monospace stack is the system's own where the browser offers it, then Menlo, Cascadia Mono, Consolas and Liberation Mono.
+- `.hero-unit-grid` uses the same 20px grid on the page color, with a faint edge and a soft shadow. Wells have a 6px radius, as the hero unit does.
+- `h1` takes -0.015em letter-spacing, closing up bold Helvetica at display sizes; subtitles reset it. Link underlines sit 0.2em below the text, clear of descenders.
+- The hero heading has 9px under it instead of touching the text below, and the hero's last child drops its bottom margin, as a well's does, so the space under its buttons matches the space over its heading.
+
+### Removed
+
+- **Breaking:** the tokens for 2.0's gradients and edges: `--bv-color-input-text`, `--bv-color-border-bottom`, `--bv-color-primary-top` and `-bottom`, `--bv-color-danger-top` and `-bottom`, `--bv-color-focus-glow`, `--bv-color-navbar-bottom`, `--bv-color-error-focus`, `--bv-color-error-glow`, `--bv-color-code-text`, `--bv-color-code-border`, `--bv-label-<variant>-border`, `--bv-progress-<variant>-top` and `-bottom`, `--bv-radius-xl`, `--bv-shadow-button-pressed`, `--bv-shadow-field-focus`, `--bv-shadow-field-error-focus`, `--bv-shadow-pagination`, `--bv-shadow-progress`, `--bv-shadow-progress-bar`, `--bv-emboss-light` and `--bv-emboss-soft`. Their nearest replacements are under Added.
+
+### Fixed
+
+- Heading subtitles are their documented size again: 18px in `h1`, 14px in `h3`, and 13px at the end of an `h2`'s leader. The rule that keeps `small` at the surrounding size came after them at the same zero specificity, so every subtitle rendered at its heading's full size, and page titles with one wrapped onto extra lines on a phone. Subtitles now have a line height of 1, as in 2.3, so a heading with one is exactly as tall as one without.
+- Right-aligned table cells (`.text-right`) don't wrap. On a narrow screen an amount such as −$101.35 could break between its sign and its digits.
+
 ## [0.2.0] - 2026-10-11
 
 Everything the money demo had to work around or would have been better with, apart from the file input.
