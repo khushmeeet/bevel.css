@@ -2,7 +2,9 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
-## Unreleased
+## [0.4.0] - 2026-10-16
+
+Button hover is back to 0.2.0's strength.
 
 ### Changed
 
