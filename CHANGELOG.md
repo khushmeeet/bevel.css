@@ -2,7 +2,7 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
-## [Unreleased]
+## [0.6.0] - 2026-10-18
 
 Dark mode is lighter, the navbar stands apart from the page in light and dark, and a page can pick its scheme.
 

@@ -41,6 +41,23 @@
       </div>
       <p>Each release ships as <code>bevel-&lt;version&gt;.css</code>, with its files on <a href="https://github.com/khushmeeet/bevel.css/releases">GitHub</a>. Before 1.0, breaking changes ship in minor versions and are flagged here.</p>
 
+      <h2 id="v0.6.0">0.6.0 <small><time datetime="2026-10-18">Oct 18, 2026</time></small></h2>
+      <p>Dark mode is lighter, the navbar stands apart from the page in light and dark, and a page can pick its scheme.</p>
+
+      <h3>Added</h3>
+      <ul data-list>
+        <li><code>data-theme="light"</code> or <code>data-theme="dark"</code> on <code>&lt;html&gt;</code> forces that scheme over the system&rsquo;s setting, native parts such as select arrows included. Without it, nothing changes.</li>
+        <li>A <code>&lt;button&gt;</code> in a <code>.nav</code> looks like a link, for an action in the bar. Its content is centered, so an icon on its own sits in the middle of the bar. The demo and the site use one, with a small script of their own, to switch between light and dark: a moon in light and a sun in dark, showing what a click does.</li>
+      </ul>
+
+      <h3>Changed</h3>
+      <ul data-list>
+        <li>The dark page is #1C1F24 instead of #15171A, and every dark grey above it moves up with it: surfaces, stripes, fields, tracks, borders, buttons, code, and the label and alert tints. Table stripes and grey surfaces are a step further from the page so they still show. Every text pair stays at 4.5:1 or more.</li>
+        <li>The dark navbar is a graphite bar a step lighter than the page, #2F3339 to #21252A, with a dark line and a shadow under it, instead of a near-black bar the same shade as the page. The current link&rsquo;s sunken tab is #15171B, so it shows against the bar.</li>
+        <li>The navbar sits higher off the page in both schemes: under its top highlight, <code>--bv-shadow-navbar</code> now has a crisp 1px line and a 6px shadow below the bar, in place of a 3px blur.</li>
+        <li>On a <code>.grid-paper</code> page, <code>.hero-unit-grid</code> drops its own grid, edge and shadow and sits on the page&rsquo;s grid paper, so its edge no longer shows where the two grids don&rsquo;t line up.</li>
+      </ul>
+
       <h2 id="v0.5.0">0.5.0 <small><time datetime="2026-10-18">Oct 18, 2026</time></small></h2>
       <p>Fixes for forced colors and three layout edge cases.</p>
 
@@ -145,7 +162,7 @@
 
   <footer class="container">
     <hr>
-    <p class="muted">bevel.css 0.5.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
+    <p class="muted">bevel.css 0.6.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
   </footer>
 </body>
 </html>
