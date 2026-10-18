@@ -34,6 +34,21 @@
       </div>
       <p>Each release ships as <code>bevel-&lt;version&gt;.css</code>, with its files on <a href="https://github.com/khushmeeet/bevel.css/releases">GitHub</a>. Before 1.0, breaking changes ship in minor versions and are flagged here.</p>
 
+      <h2 id="v0.5.0">0.5.0 <small><time datetime="2026-10-18">Oct 18, 2026</time></small></h2>
+      <p>Fixes for forced colors and three layout edge cases.</p>
+
+      <h3>Changed</h3>
+      <ul data-list>
+        <li>An <code>h2</code> gets the dotted leader only when it holds a <code>&lt;small&gt;</code>, as 0.3.0 documented. A plain <code>h2</code> also drew one, to the end of the line, and as a flex row it ignored <code>text-align</code>, so it couldn&rsquo;t be centred in <code>.well-empty</code> or right-aligned with <code>.text-right</code>. It is ordinary block text again; give it a <code>&lt;small&gt;</code>, for a count or a date, to keep the leader.</li>
+      </ul>
+
+      <h3>Fixed</h3>
+      <ul data-list>
+        <li>Forced colors, such as Windows High Contrast: progress bars were invisible, with the bar and its track both painted the system background. The bar now takes the system highlight color and the track gets an edge. Pressed and latched buttons, the current navbar link and the current page in pagination take the highlight colors too, since the fill and shadows that marked them are dropped, and pages you can&rsquo;t go to read as disabled text.</li>
+        <li>The current page in a pagination strip shows its whole edge. The next page&rsquo;s border covered its end edge. A focused page still sits over both.</li>
+        <li>Checkboxes and radios in <code>.checkbox</code> and <code>.radio</code> are 13px in every browser, so they centre on the first line of text. Firefox drew them at 14px and WebKit at 12px, half a pixel off.</li>
+      </ul>
+
       <h2 id="v0.4.0">0.4.0 <small><time datetime="2026-10-16">Oct 16, 2026</time></small></h2>
       <p>Button hover is back to 0.2.0&rsquo;s strength.</p>
 
@@ -123,7 +138,7 @@
 
   <footer class="container">
     <hr>
-    <p class="muted">bevel.css 0.4.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
+    <p class="muted">bevel.css 0.5.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
   </footer>
 </body>
 </html>

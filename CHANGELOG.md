@@ -2,6 +2,20 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
+## [0.5.0] - 2026-10-18
+
+Fixes for forced colors and three layout edge cases.
+
+### Changed
+
+- An `h2` gets the dotted leader only when it holds a `<small>`, as 0.3.0 documented. A plain `h2` also drew one, to the end of the line, and as a flex row it ignored `text-align`, so it couldn't be centred in `.well-empty` or right-aligned with `.text-right`. It is ordinary block text again; give it a `<small>`, for a count or a date, to keep the leader.
+
+### Fixed
+
+- Forced colors, such as Windows High Contrast: progress bars were invisible, with the bar and its track both painted the system background. The bar now takes the system highlight color and the track gets an edge. Pressed and latched buttons, the current navbar link and the current page in pagination take the highlight colors too, since the fill and shadows that marked them are dropped, and pages you can't go to read as disabled text.
+- The current page in a pagination strip shows its whole edge. The next page's border covered its end edge. A focused page still sits over both.
+- Checkboxes and radios in `.checkbox` and `.radio` are 13px in every browser, so they centre on the first line of text. Firefox drew them at 14px and WebKit at 12px, half a pixel off.
+
 ## [0.4.0] - 2026-10-16
 
 Button hover is back to 0.2.0's strength.
