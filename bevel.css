@@ -380,14 +380,15 @@
 
   /* A dotted leader runs from the label to the end of the line, where the
      subtitle sits, as a count or a date. Only when the heading is plain
-     text and a subtitle: other markup inside keeps ordinary flow. */
-  :where(h2:not(:has(> :not(small)))) {
+     text and a subtitle: a heading with no subtitle, or other markup
+     inside, keeps ordinary flow, so it still follows text-align. */
+  :where(h2:has(> small):not(:has(> :not(small)))) {
     display: flex;
     gap: 0.75rem;
     align-items: baseline;
   }
 
-  :where(h2:not(:has(> :not(small))))::after {
+  :where(h2:has(> small):not(:has(> :not(small))))::after {
     flex: 1;
     order: 1;
     align-self: center;
@@ -811,6 +812,15 @@
     box-shadow: var(--bv-shadow-navbar-current);
   }
 
+  /* Forced colors make every link the same color and drop the tab, so the
+     current page takes the system's selection colors instead. */
+  @media (forced-colors: active) {
+    .nav > :where(a):is(.active, [aria-current="page"]) {
+      color: HighlightText;
+      background-color: Highlight;
+    }
+  }
+
   /* Keep the ring inside the bar, in a blue that shows on it. */
   .nav > :where(a):focus-visible,
   .brand:focus-visible {
@@ -935,6 +945,15 @@
     background-color: var(--bv-btn-bg-active);
     background-image: none;
     box-shadow: var(--bv-shadow-pressed);
+  }
+
+  /* Forced colors drop the shadow and the fill, so a pressed or latched
+     button takes the system's selection colors instead. */
+  @media (forced-colors: active) {
+    .btn:is(:active, .active, [aria-pressed="true"]) {
+      color: HighlightText;
+      background-color: Highlight;
+    }
   }
 
   /* Last, so a disabled button never shows hover or press. */
@@ -1116,11 +1135,15 @@
     margin-block-start: 0.375rem;
   }
 
-  /* Centre the 13px control on the first line of text. */
+  /* Centre the control on the first line of text. Its size is set, since
+     each engine draws its own: 12px in WebKit, 13px in Chromium, 14px in
+     Firefox. */
   .checkbox > :where(input),
   .radio > :where(input) {
     flex-shrink: 0;
-    margin: calc((var(--bv-line-height) - 13px) / 2) 0 0;
+    width: 0.8125rem;
+    height: 0.8125rem;
+    margin: calc((var(--bv-line-height) - 0.8125rem) / 2) 0 0;
   }
 
   .control-group.error :where(label, legend, .help-block) {
@@ -1500,10 +1523,11 @@
     }
   }
 
-  /* Over its neighbours, so the whole ring shows. */
+  /* Over its neighbours, and over the current page, so the whole ring
+     shows. */
   .pagination :where(li > a:focus-visible) {
     position: relative;
-    z-index: 1;
+    z-index: 2;
   }
 
   /* A page you can't go to, such as Previous on the first page, or a gap
@@ -1515,14 +1539,29 @@
   }
 
   /* The current page is filled and sunk in, so it doesn't rely on hue
-     alone. */
+     alone. Over the next page, so its whole edge shows. */
   .pagination :where(.active > a, .active > span, li > [aria-current="page"]) {
+    position: relative;
+    z-index: 1;
     color: var(--bv-color-on-accent);
     text-shadow: var(--bv-emboss-dark);
     cursor: default;
     background-color: var(--bv-color-primary);
     border-color: var(--bv-color-primary-active);
     box-shadow: var(--bv-shadow-pressed);
+  }
+
+  /* Forced colors drop the fill, so the current page takes the system's
+     selection colors, and a page you can't go to reads as disabled. */
+  @media (forced-colors: active) {
+    .pagination :where(li > span, .disabled > a, li > a[aria-disabled="true"]) {
+      color: GrayText;
+    }
+
+    .pagination :where(.active > a, .active > span, li > [aria-current="page"]) {
+      color: HighlightText;
+      background-color: Highlight;
+    }
   }
 }
 
@@ -1564,6 +1603,18 @@
       linear-gradient(135deg, rgba(255, 255, 255, 0.25) 25%, transparent 25% 50%, rgba(255, 255, 255, 0.25) 50% 75%, transparent 75%),
       var(--bv-sheen-accent);
     background-size: 16px 16px, 100% 150%;
+  }
+
+  /* Forced colors paint the track and the bar the same Canvas color, so
+     the bar takes the selection color and the track gets an edge. */
+  @media (forced-colors: active) {
+    .progress {
+      border: 1px solid CanvasText;
+    }
+
+    .progress :where(.bar) {
+      background-color: Highlight;
+    }
   }
 
   /* bevel's one looping animation, for work under way. Reduced motion
