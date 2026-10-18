@@ -90,6 +90,35 @@ func TestCoverage(t *testing.T) {
 	}
 }
 
+// data-theme="dark" forces the same dark values the system setting brings
+// in, so the two copies of the dark tokens can't drift apart.
+func TestForcedDark(t *testing.T) {
+	css := read(t, "bevel.css")
+	block := func(selector string) []string {
+		start := strings.Index(css, selector+" {")
+		if start < 0 {
+			t.Fatalf("no %s block in bevel.css", selector)
+		}
+		body := css[start+len(selector)+2:]
+		body = body[:strings.Index(body, "}")]
+		var lines []string
+		for _, line := range strings.Split(body, "\n") {
+			if line = strings.TrimSpace(line); line != "" {
+				lines = append(lines, line)
+			}
+		}
+		return lines
+	}
+	system := block(`:where(:root:not([data-theme="light"]))`)
+	forced := block(`:where(:root[data-theme="dark"])`)
+	if len(system) < 50 {
+		t.Fatalf("the system dark block has only %d declarations", len(system))
+	}
+	if !slices.Equal(system, forced) {
+		t.Errorf("the data-theme=\"dark\" block differs from the prefers-color-scheme: dark block")
+	}
+}
+
 // The changelog page has a section for every release in CHANGELOG.md, in the
 // same order, and every page that names a release names the newest one, so a
 // release can't leave the docs behind.

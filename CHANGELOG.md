@@ -2,6 +2,22 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
+## [Unreleased]
+
+Dark mode is lighter, the navbar stands apart from the page in light and dark, and a page can pick its scheme.
+
+### Added
+
+- `data-theme="light"` or `data-theme="dark"` on `<html>` forces that scheme over the system's setting, native parts such as select arrows included. Without it, nothing changes.
+- A `<button>` in a `.nav` looks like a link, for an action in the bar. Its content is centered, so an icon on its own sits in the middle of the bar. The demo and the site use one, with a small script of their own, to switch between light and dark: a moon in light and a sun in dark, showing what a click does.
+
+### Changed
+
+- The dark page is #1C1F24 instead of #15171A, and every dark grey above it moves up with it: surfaces, stripes, fields, tracks, borders, buttons, code, and the label and alert tints. Table stripes and grey surfaces are a step further from the page so they still show. Every text pair stays at 4.5:1 or more.
+- The dark navbar is a graphite bar a step lighter than the page, #2F3339 to #21252A, with a dark line and a shadow under it, instead of a near-black bar the same shade as the page. The current link's sunken tab is #15171B, so it shows against the bar.
+- The navbar sits higher off the page in both schemes: under its top highlight, `--bv-shadow-navbar` now has a crisp 1px line and a 6px shadow below the bar, in place of a 3px blur.
+- On a `.grid-paper` page, `.hero-unit-grid` drops its own grid, edge and shadow and sits on the page's grid paper, so its edge no longer shows where the two grids don't line up.
+
 ## [0.5.0] - 2026-10-18
 
 Fixes for forced colors and three layout edge cases.

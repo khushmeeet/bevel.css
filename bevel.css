@@ -179,7 +179,7 @@
     --bv-shadow-field: inset 0 1px 2px rgba(31, 35, 40, 0.07);
     --bv-shadow-focus: 0 0 0 3px rgba(11, 101, 194, 0.22);
     --bv-shadow-focus-error: 0 0 0 3px rgba(196, 54, 46, 0.2);
-    --bv-shadow-navbar: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 3px rgba(0, 0, 0, 0.25);
+    --bv-shadow-navbar: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 0 rgba(0, 0, 0, 0.15), 0 2px 6px rgba(31, 35, 40, 0.2);
     --bv-shadow-navbar-current: inset 0 2px 6px rgba(0, 0, 0, 0.35);
     --bv-shadow-well: inset 0 1px 2px rgba(31, 35, 40, 0.06);
     --bv-shadow-track: inset 0 1px 2px rgba(31, 35, 40, 0.12);
@@ -198,19 +198,21 @@
     --bv-ease: linear;
   }
 
-  /* Dark: the same roles, following the system setting. */
+  /* Dark: the same roles, following the system setting unless the page
+     sets data-theme="light" on <html>. data-theme="dark" forces them on any
+     system; its block below must stay the same as this one. */
   @media (prefers-color-scheme: dark) {
-    :where(:root) {
+    :where(:root:not([data-theme="light"])) {
       --bv-color-text: #E4E7EB;
       --bv-color-muted: #9CA4AE;
-      --bv-color-surface: #15171A;
-      --bv-color-surface-alt: #1C1F23;
-      --bv-color-stripe: #181B1E;
-      --bv-color-field: #101214;
-      --bv-color-track: #2A2E33;
-      --bv-color-border: #2F333A;
-      --bv-color-border-soft: #25282D;
-      --bv-color-border-strong: #6B737D;
+      --bv-color-surface: #1C1F24;
+      --bv-color-surface-alt: #25292F;
+      --bv-color-stripe: #21252A;
+      --bv-color-field: #16191E;
+      --bv-color-track: #32363C;
+      --bv-color-border: #383D44;
+      --bv-color-border-soft: #2D3137;
+      --bv-color-border-strong: #737B85;
 
       --bv-color-link: #6CB0F5;
       --bv-color-link-hover: #95C6F7;
@@ -220,36 +222,36 @@
       --bv-color-danger: #C23A31;
       --bv-color-danger-hover: #B6362E;
       --bv-color-danger-active: #922B24;
-      --bv-color-button: #23272C;
-      --bv-color-button-hover: #30353B;
-      --bv-color-button-active: #1C1F23;
-      --bv-color-button-border: #3A3F46;
+      --bv-color-button: #2B2F35;
+      --bv-color-button-hover: #383D44;
+      --bv-color-button-active: #202328;
+      --bv-color-button-border: #43484F;
       --bv-color-focus: #6CB0F5;
 
-      --bv-label-default-bg: #24282D;
+      --bv-label-default-bg: #2C3036;
       --bv-label-default-text: #B4BBC4;
-      --bv-label-success-bg: #16271B;
+      --bv-label-success-bg: #1D2E22;
       --bv-label-success-text: #86D49A;
-      --bv-label-warning-bg: #2B2312;
+      --bv-label-warning-bg: #322A19;
       --bv-label-warning-text: #E8C177;
-      --bv-label-important-bg: #2E1A18;
+      --bv-label-important-bg: #35211F;
       --bv-label-important-text: #F4A59C;
-      --bv-label-info-bg: #14243A;
+      --bv-label-info-bg: #1B2B41;
       --bv-label-info-text: #8EC1F5;
       --bv-label-inverse-bg: #E4E7EB;
-      --bv-label-inverse-text: #15171A;
+      --bv-label-inverse-text: #1C1F24;
 
-      --bv-alert-warning-bg: #241D10;
-      --bv-alert-warning-border: #4A3C1C;
+      --bv-alert-warning-bg: #2B2417;
+      --bv-alert-warning-border: #524423;
       --bv-alert-warning-text: #E8C177;
-      --bv-alert-error-bg: #271614;
-      --bv-alert-error-border: #4F2A26;
+      --bv-alert-error-bg: #2E1D1B;
+      --bv-alert-error-border: #57322E;
       --bv-alert-error-text: #F4A59C;
-      --bv-alert-success-bg: #132018;
-      --bv-alert-success-border: #24432D;
+      --bv-alert-success-bg: #1A271F;
+      --bv-alert-success-border: #2B4A34;
       --bv-alert-success-text: #86D49A;
-      --bv-alert-info-bg: #111E30;
-      --bv-alert-info-border: #23406A;
+      --bv-alert-info-bg: #182537;
+      --bv-alert-info-border: #2A4771;
       --bv-alert-info-text: #8EC1F5;
 
       --bv-progress-default: #6CB0F5;
@@ -259,11 +261,11 @@
 
       --bv-color-error: #F4A59C;
       --bv-color-error-border: #E0645A;
-      --bv-color-code-bg: #22262B;
+      --bv-color-code-bg: #2A2E34;
 
-      --bv-color-navbar: #0E1013;
-      --bv-color-navbar-top: #1A1D21;
-      --bv-color-navbar-current: #08090B;
+      --bv-color-navbar: #21252A;
+      --bv-color-navbar-top: #2F3339;
+      --bv-color-navbar-current: #15171B;
       --bv-color-grid: rgba(228, 231, 235, 0.035);
 
       --bv-sheen: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 66.67%);
@@ -275,7 +277,7 @@
       --bv-shadow-field: inset 0 1px 2px rgba(0, 0, 0, 0.35);
       --bv-shadow-focus: 0 0 0 3px rgba(108, 176, 245, 0.3);
       --bv-shadow-focus-error: 0 0 0 3px rgba(224, 100, 90, 0.3);
-      --bv-shadow-navbar: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 1px 3px rgba(0, 0, 0, 0.6);
+      --bv-shadow-navbar: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 0 rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.35);
       --bv-shadow-navbar-current: inset 0 2px 6px rgba(0, 0, 0, 0.5);
       --bv-shadow-well: inset 0 1px 2px rgba(0, 0, 0, 0.3);
       --bv-shadow-track: inset 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -285,6 +287,101 @@
       --bv-emboss-dark: 0 -1px 0 rgba(0, 0, 0, 0.35);
       --bv-color-etch: rgba(255, 255, 255, 0.04);
     }
+  }
+
+  :where(:root[data-theme="dark"]) {
+    --bv-color-text: #E4E7EB;
+    --bv-color-muted: #9CA4AE;
+    --bv-color-surface: #1C1F24;
+    --bv-color-surface-alt: #25292F;
+    --bv-color-stripe: #21252A;
+    --bv-color-field: #16191E;
+    --bv-color-track: #32363C;
+    --bv-color-border: #383D44;
+    --bv-color-border-soft: #2D3137;
+    --bv-color-border-strong: #737B85;
+
+    --bv-color-link: #6CB0F5;
+    --bv-color-link-hover: #95C6F7;
+    --bv-color-primary: #1F6BC4;
+    --bv-color-primary-hover: #1D65BA;
+    --bv-color-primary-active: #17539A;
+    --bv-color-danger: #C23A31;
+    --bv-color-danger-hover: #B6362E;
+    --bv-color-danger-active: #922B24;
+    --bv-color-button: #2B2F35;
+    --bv-color-button-hover: #383D44;
+    --bv-color-button-active: #202328;
+    --bv-color-button-border: #43484F;
+    --bv-color-focus: #6CB0F5;
+
+    --bv-label-default-bg: #2C3036;
+    --bv-label-default-text: #B4BBC4;
+    --bv-label-success-bg: #1D2E22;
+    --bv-label-success-text: #86D49A;
+    --bv-label-warning-bg: #322A19;
+    --bv-label-warning-text: #E8C177;
+    --bv-label-important-bg: #35211F;
+    --bv-label-important-text: #F4A59C;
+    --bv-label-info-bg: #1B2B41;
+    --bv-label-info-text: #8EC1F5;
+    --bv-label-inverse-bg: #E4E7EB;
+    --bv-label-inverse-text: #1C1F24;
+
+    --bv-alert-warning-bg: #2B2417;
+    --bv-alert-warning-border: #524423;
+    --bv-alert-warning-text: #E8C177;
+    --bv-alert-error-bg: #2E1D1B;
+    --bv-alert-error-border: #57322E;
+    --bv-alert-error-text: #F4A59C;
+    --bv-alert-success-bg: #1A271F;
+    --bv-alert-success-border: #2B4A34;
+    --bv-alert-success-text: #86D49A;
+    --bv-alert-info-bg: #182537;
+    --bv-alert-info-border: #2A4771;
+    --bv-alert-info-text: #8EC1F5;
+
+    --bv-progress-default: #6CB0F5;
+    --bv-progress-success: #4FA864;
+    --bv-progress-warning: #D9A23F;
+    --bv-progress-danger: #E0645A;
+
+    --bv-color-error: #F4A59C;
+    --bv-color-error-border: #E0645A;
+    --bv-color-code-bg: #2A2E34;
+
+    --bv-color-navbar: #21252A;
+    --bv-color-navbar-top: #2F3339;
+    --bv-color-navbar-current: #15171B;
+    --bv-color-grid: rgba(228, 231, 235, 0.035);
+
+    --bv-sheen: linear-gradient(rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.02) 66.67%);
+    --bv-sheen-accent: linear-gradient(rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 33.33%, rgba(0, 0, 0, 0.12) 66.67%);
+    --bv-shadow-button: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 1px 2px rgba(0, 0, 0, 0.5);
+    --bv-shadow-button-accent: inset 0 1px 0 rgba(255, 255, 255, 0.15), 0 1px 2px rgba(0, 0, 0, 0.5);
+    --bv-shadow-pressed: inset 0 2px 4px rgba(0, 0, 0, 0.45);
+    --bv-shadow-raised: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --bv-shadow-field: inset 0 1px 2px rgba(0, 0, 0, 0.35);
+    --bv-shadow-focus: 0 0 0 3px rgba(108, 176, 245, 0.3);
+    --bv-shadow-focus-error: 0 0 0 3px rgba(224, 100, 90, 0.3);
+    --bv-shadow-navbar: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 1px 0 rgba(0, 0, 0, 0.5), 0 2px 6px rgba(0, 0, 0, 0.35);
+    --bv-shadow-navbar-current: inset 0 2px 6px rgba(0, 0, 0, 0.5);
+    --bv-shadow-well: inset 0 1px 2px rgba(0, 0, 0, 0.3);
+    --bv-shadow-track: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+    --bv-shadow-label: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+
+    --bv-emboss: none;
+    --bv-emboss-dark: 0 -1px 0 rgba(0, 0, 0, 0.35);
+    --bv-color-etch: rgba(255, 255, 255, 0.04);
+  }
+
+  /* A forced scheme turns native parts such as select arrows to match. */
+  :where(:root[data-theme="light"]) {
+    color-scheme: light;
+  }
+
+  :where(:root[data-theme="dark"]) {
+    color-scheme: dark;
   }
 }
 
@@ -784,7 +881,8 @@
     flex-wrap: wrap;
   }
 
-  .nav > :where(a) {
+  /* A button in a nav, such as a light and dark switch, looks like a link. */
+  .nav > :where(a, button:not([hidden])) {
     display: block;
     padding: 0.625rem 0.625rem 0.6875rem;
     font-size: var(--bv-font-size);
@@ -796,8 +894,24 @@
     transition: color var(--bv-duration) var(--bv-ease);
   }
 
+  /* Its content is centered, so an icon on its own sits in the middle of
+     the bar rather than on the text's baseline. */
+  .nav > :where(button:not([hidden])) {
+    display: flex;
+    gap: var(--bv-space-2);
+    align-items: center;
+  }
+
+  .nav > :where(button) {
+    margin: 0;
+    font-family: inherit;
+    cursor: pointer;
+    background-color: transparent;
+    border: 0;
+  }
+
   @media (hover: hover) {
-    .nav > :where(a):hover {
+    .nav > :where(a, button):hover {
       color: var(--bv-color-navbar-link-active);
     }
   }
@@ -822,7 +936,7 @@
   }
 
   /* Keep the ring inside the bar, in a blue that shows on it. */
-  .nav > :where(a):focus-visible,
+  .nav > :where(a, button):focus-visible,
   .brand:focus-visible {
     outline-color: var(--bv-color-navbar-focus);
     outline-offset: -2px;
@@ -1465,6 +1579,14 @@
       repeating-linear-gradient(90deg, var(--bv-color-grid) 0 1px, transparent 1px 20px),
       repeating-linear-gradient(var(--bv-color-grid) 0 1px, transparent 1px 20px);
     box-shadow: inset 0 0 0 1px var(--bv-color-border), var(--bv-shadow-raised);
+  }
+
+  /* On a .grid-paper page the hero drops its own paper and edge and sits
+     on the page's, as the 2.0 docs' masthead did: two grids that don't
+     line up would show a seam. */
+  .grid-paper :where(.hero-unit-grid) {
+    background: none;
+    box-shadow: none;
   }
 }
 
