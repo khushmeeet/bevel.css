@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reference · bevel.css</title>
   <link rel="stylesheet" href="../bevel.css">
+  <script src="../demo/theme.js"></script>
   <link rel="stylesheet" href="docs.css">
 </head>
 <body class="grid-paper">
@@ -20,6 +21,12 @@
           <span class="divider-vertical"></span>
           <a href="../demo/index.html">Demo</a>
         </nav>
+        <nav class="nav nav-end" aria-label="Preferences">
+          <button type="button" data-theme-toggle title="Switch to dark mode" hidden>
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.5 10.1A6 6 0 0 1 5.9 2.5a6 6 0 1 0 7.6 7.6Z"/></svg>
+            <span class="visually-hidden">Switch to dark mode</span>
+          </button>
+        </nav>
         <a class="brand" href="index.html">bevel.css</a>
       </div>
     </div>
@@ -33,7 +40,7 @@
         <h1>Reference <small>bevel.css 0.4.0</small></h1>
       </div>
       <p class="lead">Every class, variant and state, with the markup to copy.</p>
-      <p>Link bevel.css before your own stylesheet. It follows the system&rsquo;s light or dark setting. Everything in it sits in <code>@layer bevel.*</code>, so your CSS, written outside any layer, overrides it without <code>!important</code>. States take the class or the ARIA attribute: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
+      <p>Link bevel.css before your own stylesheet. It follows the system&rsquo;s light or dark setting; set <code>data-theme="light"</code> or <code>data-theme="dark"</code> on <code>&lt;html&gt;</code> to force one. Everything in it sits in <code>@layer bevel.*</code>, so your CSS, written outside any layer, overrides it without <code>!important</code>. States take the class or the ARIA attribute: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
 
       <pre><code>&lt;link rel="stylesheet" href="/static/bevel-0.4.0.css"&gt;
 &lt;link rel="stylesheet" href="/static/app.css"&gt;</code></pre>
@@ -63,7 +70,7 @@
       <div class="page-header">
         <h1>Tokens</h1>
       </div>
-      <p>Every custom property starts with <code>--bv-</code>. The swatches below read the live values, so an override in your app shows up here too. Every color has a light and a dark value, and the page follows the system&rsquo;s setting: switch it to see the other.</p>
+      <p>Every custom property starts with <code>--bv-</code>. The swatches below read the live values, so an override in your app shows up here too. Every color has a light and a dark value, and the page follows the system&rsquo;s setting: switch it, or use the moon or sun in the bar, to see the other.</p>
       <pre><code>:root {
   --bv-color-link: #0066A0;
 }</code></pre>
@@ -335,6 +342,16 @@ abcdefghijklmnopqrstuvwxyz
   &lt;/div&gt;
 &lt;/header&gt;
 &lt;main class="container" id="main"&gt;&hellip;&lt;/main&gt;</code></pre>
+
+      <h2>A switch in the bar</h2>
+      <p>A <code>&lt;button&gt;</code> in a <code>.nav</code> looks like a link, for an action such as switching between light and dark, and its content is centered in the bar. For an icon on its own, put the words in a <code>.visually-hidden</code> span so screen readers still name it. The switch at the top of this page shows what a click does: a moon in light, a sun in dark. bevel.css has no JavaScript, so the page&rsquo;s own script sets <code>data-theme</code> on <code>&lt;html&gt;</code> and swaps the icon and its words.</p>
+
+      <pre><code>&lt;nav class="nav nav-end" aria-label="Preferences"&gt;
+  &lt;button type="button" title="Switch to dark mode"&gt;
+    &lt;svg aria-hidden="true" &hellip;&gt;&hellip;&lt;/svg&gt;
+    &lt;span class="visually-hidden"&gt;Switch to dark mode&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/nav&gt;</code></pre>
 
       <h2>Brand on the left</h2>
       <p>Put <code>.brand</code> before the links and it sits on the left, with the links right after it. Add <code>.nav-end</code> to a group of links to push it, and anything after it, to the right. Below 768px the brand starts the first row.</p>
@@ -1013,7 +1030,7 @@ abcdefghijklmnopqrstuvwxyz
 &lt;/div&gt;</code></pre>
 
       <h2>With a grid</h2>
-      <p>Add <code>.hero-unit-grid</code> to swap the grey fill for grid paper on the page color, ruled like <code>.grid-paper</code>: a line every 20px, every fifth one darker. It has a faint edge and a soft shadow under it.</p>
+      <p>Add <code>.hero-unit-grid</code> to swap the grey fill for grid paper on the page color, ruled like <code>.grid-paper</code>: a line every 20px, every fifth one darker. It has a faint edge and a soft shadow under it. On a <code>.grid-paper</code> page it drops its own grid, edge and shadow and sits on the page&rsquo;s grid paper instead, as on the home page.</p>
 
       <div class="hero-unit hero-unit-grid">
         <h1>Welcome to hearth</h1>

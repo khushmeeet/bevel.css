@@ -60,6 +60,7 @@ v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedba
 | Stats | v0.2 | `.stats`, a big figure with a small label, for a home page's numbers |
 | Confirm before deleting | v0.2 | A documented pattern, no CSS: a confirmation page in place of a dialog |
 | Dark mode | v0.3 | A dark value for every color and shadow, following the system's setting |
+| Forced color scheme | Unreleased | `data-theme="light"` or `"dark"` on `<html>` overrides the system's setting, for an app that must stay one way or offers a switch |
 | Grid paper and section labels | v0.3 | `.grid-paper`, the 20px grid behind the top of the page that opens an app; `h2` as a small-capitals label with a dotted leader to its subtitle |
 | Masthead and section bar | Candidate | `.subhead`, a masthead on the grid paper; sticky `.subnav` |
 | Tabs and pills | Candidate | CSS only, for links between pages |
@@ -70,7 +71,6 @@ v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedba
 | Horizontal forms | Candidate | Label-left layout |
 | More button colors | Candidate | Success, info, warning, inverse |
 | Dismissible alerts | Candidate | Close button; needs JavaScript |
-| Forced color scheme | Candidate | A `[data-theme]` override for an app that must stay light or dark |
 | Carousel, typeahead, scrollspy, affix, popovers, thumbnails, collapsing navbar, 12-column grid | Never | Marketing-site features, or replaced by plain CSS |
 
 ## Technical baseline
@@ -130,24 +130,24 @@ Neutral greys with a cool cast, one blue for everything you can press or follow,
 
 | Token | Light | Dark | Used for | Contrast, light / dark |
 | --- | --- | --- | --- | --- |
-| `--bv-color-text` | #1F2328 | #E4E7EB | Body text, headings, field text, inline code | 15.8:1 / 14.5:1 on the page |
-| `--bv-color-muted` | #59636E | #9CA4AE | Help text, subtitles, `.muted`, placeholders, column heads, stat labels, add-ons | 6.1:1 / 7.1:1 on the page; 5.7:1 / 6.6:1 on `--bv-color-surface-alt` |
-| `--bv-color-surface` | #FFFFFF | #15171A | Page, pagination links, grid hero unit |  |
-| `--bv-color-surface-alt` | #F5F6F8 | #1C1F23 | Hero unit, wells, form actions bar, add-ons, `pre`, row hover, disabled fields |  |
-| `--bv-color-stripe` | #FAFAFB | #181B1E | Odd rows of a striped table |  |
-| `--bv-color-field` | #FFFFFF | #101214 | Text field background |  |
-| `--bv-color-track` | #EAECEF | #2A2E33 | Progress track |  |
-| `--bv-color-border` | #DFE2E6 | #2F333A | Page header rule, `hr`, rule under a table's head, bordered tables, pagination, form actions top edge, disabled field border |  |
-| `--bv-color-border-soft` | #EBEDF0 | #25282D | Rules between table rows, well edge |  |
-| `--bv-color-border-strong` | #8C949E | #6B737D | Field and add-on borders, the `h2` leader, skip link border | 3.1:1 / 3.7:1 on the page, for a field's edge (WCAG 1.4.11) |
+| `--bv-color-text` | #1F2328 | #E4E7EB | Body text, headings, field text, inline code | 15.8:1 / 13.3:1 on the page |
+| `--bv-color-muted` | #59636E | #9CA4AE | Help text, subtitles, `.muted`, placeholders, column heads, stat labels, add-ons | 6.1:1 / 6.6:1 on the page; 5.7:1 / 5.8:1 on `--bv-color-surface-alt` |
+| `--bv-color-surface` | #FFFFFF | #1C1F24 | Page, pagination links, grid hero unit |  |
+| `--bv-color-surface-alt` | #F5F6F8 | #25292F | Hero unit, wells, form actions bar, add-ons, `pre`, row hover, disabled fields |  |
+| `--bv-color-stripe` | #FAFAFB | #21252A | Odd rows of a striped table |  |
+| `--bv-color-field` | #FFFFFF | #16191E | Text field background |  |
+| `--bv-color-track` | #EAECEF | #32363C | Progress track |  |
+| `--bv-color-border` | #DFE2E6 | #383D44 | Page header rule, `hr`, rule under a table's head, bordered tables, pagination, form actions top edge, disabled field border |  |
+| `--bv-color-border-soft` | #EBEDF0 | #2D3137 | Rules between table rows, well edge |  |
+| `--bv-color-border-strong` | #8C949E | #737B85 | Field and add-on borders, the `h2` leader, skip link border | 3.1:1 / 3.9:1 on the page, for a field's edge (WCAG 1.4.11) |
 | `--bv-color-grid` | rgba(31, 35, 40, 0.04) | rgba(228, 231, 235, 0.035) | `.grid-paper` and `.hero-unit-grid`; `transparent` turns both off |  |
 
 ### Action and focus
 
 | Token | Light | Dark | Used for | Contrast, light / dark |
 | --- | --- | --- | --- | --- |
-| `--bv-color-link` | #0B65C2 | #6CB0F5 | Links, checkbox and radio tint | 5.8:1 / 7.8:1 on the page; 5.2:1 / 7.2:1 or more on every grey surface and alert tint |
-| `--bv-color-link-hover` | #094A8F | #95C6F7 | Hovered links | 8.8:1 / 10.0:1 |
+| `--bv-color-link` | #0B65C2 | #6CB0F5 | Links, checkbox and radio tint | 5.8:1 / 7.2:1 on the page; 5.2:1 / 6.4:1 or more on every grey surface and alert tint |
+| `--bv-color-link-hover` | #094A8F | #95C6F7 | Hovered links | 8.8:1 / 9.2:1 |
 | `--bv-color-primary` | #0B65C2 | #1F6BC4 | Primary button, current page in pagination | 5.8:1 / 5.3:1 for white text |
 | `--bv-color-primary-hover` | #0A5EB5 | #1D65BA | Fill under a hovered primary button's gloss; its border | 6.4:1 / 5.8:1 |
 | `--bv-color-primary-active` | #094A8F | #17539A | Pressed primary button; the current page's edge in pagination | 8.8:1 / 7.7:1 |
@@ -155,11 +155,11 @@ Neutral greys with a cool cast, one blue for everything you can press or follow,
 | `--bv-color-danger-hover` | #B6322A | #B6362E | Fill under a hovered danger button's gloss; its border | 6.0:1 / 5.9:1 |
 | `--bv-color-danger-active` | #8F2620 | #922B24 | Pressed danger button | 8.5:1 / 8.1:1 |
 | `--bv-color-on-accent` | #FFFFFF | #FFFFFF | Text on primary and danger buttons and the current page in pagination |  |
-| `--bv-color-button` | #E6E9ED | #23272C | Default button, under its gloss: the color at its bottom edge | 13.0:1 / 12.1:1 for text, more where the gloss lightens it |
-| `--bv-color-button-hover` | #E6E9ED | #30353B | Fill under a hovered default button's gloss. In light it matches the fill, as 2.0's did, and the slide alone darkens the face; in dark it lightens | 13.0:1 / 10.0:1 |
-| `--bv-color-button-active` | #D9DEE4 | #1C1F23 | Pressed default button, with no gloss | 11.7:1 / 13.3:1 |
-| `--bv-color-button-border` | #C9CED4 | #3A3F46 | Default button border; its bottom edge is mixed 12% toward black |  |
-| `--bv-color-focus` | #0B65C2 | #6CB0F5 | Focus outline, focused field border | 5.8:1 / 7.8:1 on the page; 5.3:1 / 7.2:1 on `--bv-color-surface-alt` |
+| `--bv-color-button` | #E6E9ED | #2B2F35 | Default button, under its gloss: the color at its bottom edge | 13.0:1 / 10.9:1 for text, more where the gloss lightens it |
+| `--bv-color-button-hover` | #E6E9ED | #383D44 | Fill under a hovered default button's gloss. In light it matches the fill, as 2.0's did, and the slide alone darkens the face; in dark it lightens | 13.0:1 / 8.8:1 |
+| `--bv-color-button-active` | #D9DEE4 | #202328 | Pressed default button, with no gloss | 11.7:1 / 12.7:1 |
+| `--bv-color-button-border` | #C9CED4 | #43484F | Default button border; its bottom edge is mixed 12% toward black |  |
+| `--bv-color-focus` | #0B65C2 | #6CB0F5 | Focus outline, focused field border | 5.8:1 / 7.2:1 on the page; 5.3:1 / 6.4:1 on `--bv-color-surface-alt` |
 
 White text on a colored button is measured under its gloss from the tops of the letters, about a third of the way down, to the bottom: the gloss lightens the fill above the middle and darkens it below, and every pair stays at 4.8:1 or more.
 
@@ -167,13 +167,13 @@ White text on a colored button is measured under its gloss from the tops of the 
 
 | Token | Light | Dark | Used for | Contrast, light / dark |
 | --- | --- | --- | --- | --- |
-| `--bv-color-navbar-top` | #2B3036 | #1A1D21 | Top of the bar's gradient |  |
-| `--bv-color-navbar` | #1F2328 | #0E1013 | Bottom of the gradient; flat fallback |  |
-| `--bv-color-navbar-current` | #16191D | #08090B | The current link's sunken tab |  |
-| `--bv-color-navbar-link` | #8C939C | #8C939C | Links | 4.7:1 / 5.8:1 at the bar's midpoint |
-| `--bv-color-navbar-link-active` | #FFFFFF | #FFFFFF | Hovered and current links | 17.6:1 / 19.9:1 on the tab; 3.1:1 brighter than the other links |
-| `--bv-color-navbar-focus` | #6CB0F5 | #6CB0F5 | Focus ring inside the bar | 5.8:1 / 7.4:1 or more against the bar and the tab |
-| `--bv-color-brand` | #FFFFFF | #FFFFFF | Brand | 13.3:1 / 16.9:1 or more |
+| `--bv-color-navbar-top` | #2B3036 | #2F3339 | Top of the bar's gradient |  |
+| `--bv-color-navbar` | #1F2328 | #21252A | Bottom of the gradient; flat fallback |  |
+| `--bv-color-navbar-current` | #16191D | #15171B | The current link's sunken tab |  |
+| `--bv-color-navbar-link` | #8C939C | #8C939C | Links | 4.7:1 / 4.5:1 at the bar's midpoint |
+| `--bv-color-navbar-link-active` | #FFFFFF | #FFFFFF | Hovered and current links | 17.6:1 / 17.9:1 on the tab; 3.1:1 brighter than the other links |
+| `--bv-color-navbar-focus` | #6CB0F5 | #6CB0F5 | Focus ring inside the bar | 5.8:1 / 5.5:1 or more against the bar and the tab |
+| `--bv-color-brand` | #FFFFFF | #FFFFFF | Brand | 13.3:1 / 12.7:1 or more |
 
 Text on the bar's gradient is measured at its midpoint, as text on 0.2.0's gradient buttons was.
 
@@ -181,12 +181,12 @@ Text on the bar's gradient is measured at its midpoint, as text on 0.2.0's gradi
 
 | Variant | Light background / text | Dark background / text | Text contrast, light / dark |
 | --- | --- | --- | --- |
-| Default (`.label`, `.badge`) | #EEF0F2 / #4B535D | #24282D / #B4BBC4 | 6.8:1 / 7.7:1 |
-| Success | #E6F4EA / #1A6E33 | #16271B / #86D49A | 5.6:1 / 8.9:1 |
-| Warning | #FCF1D6 / #875200 | #2B2312 / #E8C177 | 5.8:1 / 9.1:1 |
-| Important | #FDECEA / #B42318 | #2E1A18 / #F4A59C | 5.8:1 / 8.4:1 |
-| Info | #E7F0FB / #0B5CAD | #14243A / #8EC1F5 | 5.8:1 / 8.3:1 |
-| Inverse | #1F2328 / #FFFFFF | #E4E7EB / #15171A | 15.8:1 / 14.5:1 |
+| Default (`.label`, `.badge`) | #EEF0F2 / #4B535D | #2C3036 / #B4BBC4 | 6.8:1 / 6.9:1 |
+| Success | #E6F4EA / #1A6E33 | #1D2E22 / #86D49A | 5.6:1 / 8.1:1 |
+| Warning | #FCF1D6 / #875200 | #322A19 / #E8C177 | 5.8:1 / 8.3:1 |
+| Important | #FDECEA / #B42318 | #35211F / #F4A59C | 5.8:1 / 7.7:1 |
+| Info | #E7F0FB / #0B5CAD | #1B2B41 / #8EC1F5 | 5.8:1 / 7.6:1 |
+| Inverse | #1F2328 / #FFFFFF | #E4E7EB / #1C1F24 | 15.8:1 / 13.3:1 |
 
 A chip is a tint and its text, with a faint neutral edge (`--bv-shadow-label`). The four status hues are 2.0's, so blue, green, amber and red mean what they did. Inverse is the one chip meant to stand out. Tokens follow `--bv-label-<variant>-bg` and `-text`.
 
@@ -194,10 +194,10 @@ A chip is a tint and its text, with a faint neutral edge (`--bv-shadow-label`). 
 
 | Variant | Light background / border / text | Dark background / border / text | Text contrast, light / dark |
 | --- | --- | --- | --- |
-| Warning (default `.alert`) | #FDF6E3 / #F3E2B5 / #875200 | #241D10 / #4A3C1C / #E8C177 | 6.0:1 / 9.8:1 |
-| Error (`.alert-error`) | #FEF1EF / #F7D0CB / #B42318 | #271614 / #4F2A26 / #F4A59C | 6.0:1 / 8.8:1 |
-| Success (`.alert-success`) | #EDF7F0 / #CFE8D7 / #1A6E33 | #132018 / #24432D / #86D49A | 5.8:1 / 9.5:1 |
-| Info (`.alert-info`) | #EEF4FC / #CFE0F5 / #0B5CAD | #111E30 / #23406A / #8EC1F5 | 6.0:1 / 8.9:1 |
+| Warning (default `.alert`) | #FDF6E3 / #F3E2B5 / #875200 | #2B2417 / #524423 / #E8C177 | 6.0:1 / 9.0:1 |
+| Error (`.alert-error`) | #FEF1EF / #F7D0CB / #B42318 | #2E1D1B / #57322E / #F4A59C | 6.0:1 / 8.2:1 |
+| Success (`.alert-success`) | #EDF7F0 / #CFE8D7 / #1A6E33 | #1A271F / #2B4A34 / #86D49A | 5.8:1 / 8.8:1 |
+| Info (`.alert-info`) | #EEF4FC / #CFE0F5 / #0B5CAD | #182537 / #2A4771 / #8EC1F5 | 6.0:1 / 8.2:1 |
 
 Paler tints than the labels, with the same text colors. Tokens follow `--bv-alert-<variant>-bg`, `-border` and `-text`.
 
@@ -205,10 +205,10 @@ Paler tints than the labels, with the same text colors. Tokens follow `--bv-aler
 
 | Variant | Light | Dark | Against the track, light / dark |
 | --- | --- | --- | --- |
-| Default (`.progress`) | #0B65C2 | #6CB0F5 | 4.9:1 / 6.0:1 |
-| Success (`.progress-success`) | #2E8540 | #4FA864 | 3.9:1 / 4.6:1 |
-| Warning (`.progress-warning`) | #B7740F | #D9A23F | 3.2:1 / 6.0:1 |
-| Danger (`.progress-danger`) | #C4362E | #E0645A | 4.5:1 / 4.0:1 |
+| Default (`.progress`) | #0B65C2 | #6CB0F5 | 4.9:1 / 5.3:1 |
+| Success (`.progress-success`) | #2E8540 | #4FA864 | 3.9:1 / 4.1:1 |
+| Warning (`.progress-warning`) | #B7740F | #D9A23F | 3.2:1 / 5.3:1 |
+| Danger (`.progress-danger`) | #C4362E | #E0645A | 4.5:1 / 3.6:1 |
 
 Every bar keeps 3:1 against its track (WCAG 1.4.11). 2.0.0 had no warning bar, and its info bar is close enough to the default blue to leave out. Tokens follow `--bv-progress-<variant>`.
 
@@ -216,9 +216,9 @@ Every bar keeps 3:1 against its track (WCAG 1.4.11). 2.0.0 had no warning bar, a
 
 | Token | Light | Dark | Used for | Contrast, light / dark |
 | --- | --- | --- | --- | --- |
-| `--bv-color-error` | #B42318 | #F4A59C | Error label, legend, help text and field text | 6.6:1 / 9.6:1 on the field |
-| `--bv-color-error-border` | #C4362E | #E0645A | Field border in error | 5.4:1 / 5.5:1 on the field |
-| `--bv-color-code-bg` | #F0F2F4 | #22262B | Inline `code` background | 14.1:1 / 12.3:1 for text |
+| `--bv-color-error` | #B42318 | #F4A59C | Error label, legend, help text and field text | 6.6:1 / 9.0:1 on the field |
+| `--bv-color-error-border` | #C4362E | #E0645A | Field border in error | 5.4:1 / 5.2:1 on the field |
+| `--bv-color-code-bg` | #F0F2F4 | #2A2E34 | Inline `code` background | 14.1:1 / 11.0:1 for text |
 
 ## Typography
 
@@ -315,7 +315,7 @@ Raised things have a highlight along their top edge and a soft shadow under them
 | `--bv-shadow-field` | inset 0 1px 2px rgba(31,35,40,.07) | Text fields, selects, textareas |
 | `--bv-shadow-focus` | 0 0 0 3px rgba(11,101,194,.22) | Focused fields, over their own shadow |
 | `--bv-shadow-focus-error` | 0 0 0 3px rgba(196,54,46,.2) | Focused fields in error |
-| `--bv-shadow-navbar` | inset 0 1px 0 rgba(255,255,255,.08), 0 1px 3px rgba(0,0,0,.25) | Navbar |
+| `--bv-shadow-navbar` | inset 0 1px 0 rgba(255,255,255,.08), 0 1px 0 rgba(0,0,0,.15), 0 2px 6px rgba(31,35,40,.2) | Navbar: a highlight along its top, then a crisp 1px line and a soft shadow under it, so the bar sits above the page. The same three layers in dark, deeper |
 | `--bv-shadow-navbar-current` | inset 0 2px 6px rgba(0,0,0,.35) | The current navbar link |
 | `--bv-shadow-well` | inset 0 1px 2px rgba(31,35,40,.06) | Wells |
 | `--bv-shadow-track` | inset 0 1px 2px rgba(31,35,40,.12) | Progress track |
@@ -423,6 +423,7 @@ The 2.0 docs top bar, in graphite: 40px tall, lit from above, links on the left,
 | Link (`.nav > a`) | 14px on a 19px line; padding 10px 10px 11px; `--bv-color-navbar-link`; `--bv-emboss-dark`; no underline; never wraps |
 | Link, hover | `--bv-color-navbar-link-active` over 150ms linear; background unchanged; only on pointers that hover |
 | Link, current (`.active` or `aria-current="page"`) | `--bv-color-navbar-link-active` with `--bv-glow`, on a `--bv-color-navbar-current` tab the full height of the bar, sunk with `--bv-shadow-navbar-current`. The white is 3:1 brighter than the other links, so the current page doesn't rely on hue, and the link is no wider than at rest, so the bar looks the same on every page. A deliberate change from 0.2.0, which marked it with a 3px blue bar along the bottom |
+| Button (`.nav > button`) | Looks like a link, for an action in the bar such as a light and dark switch: the link's type, padding and colors, no border or fill, `cursor: pointer`. Its content is centered in the bar with a 5px gap, so an icon on its own sits in the middle; name an icon-only button with a `.visually-hidden` span. A `hidden` button stays hidden |
 | Link and brand, focus | 2px `--bv-color-navbar-focus` outline with `outline-offset: -2px`, so it stays inside the bar and shows on it |
 | Divider (`.divider-vertical`) | 1px wide, margin 10px 9px; rgba(0,0,0,.35) with a 1px rgba(255,255,255,.07) end border, an etched line; hidden below 768px |
 | Brand (`.brand`) | 15px bold on a 22px line, uppercase, 0.12em letter-spacing; `--bv-color-brand`; `--bv-emboss-dark`; no underline; padding 9px 20px. Source order picks the side: first in the row, on the left with a -20px start margin; after a `.nav`, pushed right with `margin-inline-start: auto` and a -20px end margin. Either way the text sits on the content edge, as in 2.0, with room inside the box for the focus ring. After a `.nav-end`, it sits flush against those links, and still ends the last row if it wraps |
@@ -512,7 +513,7 @@ A component is styled locally inside an app first. When a second app needs it, i
 - [x] **Field borders:** decided: #8C949E, 3:1 on white. 0.2.0 kept 2.0's #CCCCCC under an exception.
 - [ ] **Size budget:** is 20 KB gzipped the right ceiling?
 - [x] **Naming:** decided: no import path or shared URL; each app ships its own copy as `bevel-<version>.css`.
-- [x] **Dark mode:** decided: it follows the system setting. An app can't yet force one scheme; add a `[data-theme]` override when one needs to.
+- [x] **Dark mode:** decided: it follows the system setting, unless `<html>` has `data-theme="light"` or `"dark"`. The demo and the site needed a switch, so the override was added. The dark tokens appear twice, under the media query and under `data-theme="dark"`, and a Go test keeps the two copies the same.
 
 ## Sources
 
@@ -771,7 +772,7 @@ A big figure with a small label above it, for the few numbers a home page opens 
 | Heading (`.hero-unit h1`) | 44px on a 56px line; weight 600; h1's -0.015em letter-spacing; no top margin and 9px below, so its descenders clear the text under it |
 | Text (`.hero-unit p`) | 18px on a 28px line at the regular weight; the usual 9px paragraph margin |
 | Actions | A button in its own paragraph; 2.0 used `.btn-primary.btn-large` |
-| Grid (`.hero-unit-grid`) | Optional. `--bv-color-surface` ruled with 1px `--bv-color-grid` lines every 20px both ways, every fifth vertical line darker where two layers meet, as in the band behind the top of the page; a 1px `--bv-color-border` inset edge, so the box keeps its size, and `--bv-shadow-raised` under it. 2.0's hero had no grid |
+| Grid (`.hero-unit-grid`) | Optional. `--bv-color-surface` ruled with 1px `--bv-color-grid` lines every 20px both ways, every fifth vertical line darker where two layers meet, as in the band behind the top of the page; a 1px `--bv-color-border` inset edge, so the box keeps its size, and `--bv-shadow-raised` under it. On a `.grid-paper` page it drops its fill, grid, edge and shadow and sits on the page's grid paper, as the 2.0 docs' masthead did, since two grids that don't line up would show a seam. 2.0's hero had no grid |
 | Below 768px | Padding 20px; heading 36px on a 40px line, the page header title's size, so it fits a 320px screen without horizontal scrolling. 2.0 had no small-screen hero |
 
 ### Wells and empty states
