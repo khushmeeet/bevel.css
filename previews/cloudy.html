@@ -1,0 +1,311 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bevel Cloudy Previews</title>
+  <!-- A look at bevel.css with two changes borrowed from cloudy.so: a serif
+       for display headings and a brighter, rounder primary button. Not part
+       of the library or the site. The overrides below are ordinary app CSS
+       outside any layer, scoped to each panel, the way an app would apply
+       them. The third panel loads Newsreader from Google Fonts, which
+       bevel.css itself never would. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&display=swap">
+  <link rel="stylesheet" href="../bevel.css">
+  <style>
+    /* Layout: three stacked panels with the same content, so only the type
+       and the button change between them. */
+
+    /* The proposed display token: a serif for big headings only. Body text,
+       labels and controls stay in Helvetica Neue. */
+    .v-system {
+      --bv-font-display: "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", P052, Charter, Georgia, serif;
+    }
+
+    .v-web {
+      --bv-font-display: Newsreader, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+    }
+
+    /* Cloudy's blue: brighter than bevel's #0B65C2, still 5:1 under white
+       text. The gloss is stronger at the top and the corners rounder. */
+    .v-cloudy {
+      --bv-color-primary: #2A6AD8;
+      --bv-color-primary-hover: #2563D0;
+      --bv-color-primary-active: #1D57BD;
+      --bv-color-primary-border: #1F5BC6;
+      --bv-color-highlight: #FDF0A6;
+      --bv-color-highlight-text: inherit;
+      --bv-sheen-accent: linear-gradient(rgba(255, 255, 255, 0.24), rgba(255, 255, 255, 0.06) 33.33%, rgba(0, 0, 0, 0.1) 66.67%);
+      --bv-shadow-button-accent: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 1px 2px rgba(20, 52, 120, 0.3), 0 2px 8px rgba(42, 106, 216, 0.22);
+      --bv-radius: 6px;
+      --bv-radius-lg: 9px;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) .v-cloudy {
+        --bv-color-primary: #2E6FDC;
+        --bv-color-primary-hover: #2A6AD8;
+        --bv-color-primary-active: #1F5BC6;
+        --bv-color-primary-border: #3B7BE0;
+        --bv-color-highlight: #4A3F14;
+        --bv-sheen-accent: linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.03) 33.33%, rgba(0, 0, 0, 0.12) 66.67%);
+        --bv-shadow-button-accent: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(46, 111, 220, 0.25);
+      }
+    }
+
+    :root[data-theme="dark"] .v-cloudy {
+      --bv-color-primary: #2E6FDC;
+      --bv-color-primary-hover: #2A6AD8;
+      --bv-color-primary-active: #1F5BC6;
+      --bv-color-primary-border: #3B7BE0;
+      --bv-color-highlight: #4A3F14;
+      --bv-sheen-accent: linear-gradient(rgba(255, 255, 255, 0.18), rgba(255, 255, 255, 0.03) 33.33%, rgba(0, 0, 0, 0.12) 66.67%);
+      --bv-shadow-button-accent: inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 1px 2px rgba(0, 0, 0, 0.5), 0 2px 10px rgba(46, 111, 220, 0.25);
+    }
+
+    .v-cloudy .btn-primary {
+      --bv-btn-border: var(--bv-color-primary-border);
+      font-weight: 600;
+    }
+
+    .v-cloudy .btn-large {
+      --bv-btn-padding: 0.625rem 1.25rem;
+    }
+
+    /* Display headings: the hero's and each page header's h1. */
+    .v-cloudy :where(.hero-unit h1, .page-header h1) {
+      font-family: var(--bv-font-display);
+      font-weight: 400;
+      letter-spacing: -0.01em;
+    }
+
+    /* The hero centered and set large, as on cloudy.so. */
+    .v-cloudy .hero-unit {
+      text-align: center;
+    }
+
+    .v-cloudy .hero-unit :where(h1) {
+      font-size: clamp(2.5rem, 7vw, 4.75rem);
+      line-height: 1.05;
+      text-wrap: balance;
+    }
+
+    .v-cloudy .hero-unit :where(p) {
+      margin-inline: auto;
+    }
+
+    .v-cloudy .hero-unit :where(.hero-actions) {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--bv-space-4);
+      justify-content: center;
+      max-inline-size: none;
+      margin-block-start: var(--bv-space-6);
+    }
+
+    .v-cloudy .page-header :where(h1) {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+
+    /* A highlighter stroke behind a phrase. */
+    .v-cloudy :where(mark) {
+      padding: 0.05em 0.3em;
+      color: var(--bv-color-highlight-text);
+      background-color: var(--bv-color-highlight);
+      border-radius: var(--bv-radius-sm);
+      box-decoration-break: clone;
+    }
+
+    /* Page-only helpers, not part of either look. */
+    .hero-actions {
+      max-inline-size: none;
+    }
+
+    .panel-note {
+      max-inline-size: 72ch;
+    }
+
+    .demo-strip {
+      display: grid;
+      gap: var(--bv-space-5);
+    }
+
+    .demo-strip > * {
+      margin: 0;
+    }
+  </style>
+  <script>
+    // Light and dark switch: sets data-theme on <html>, as bevel.css expects.
+    (() => {
+      const root = document.documentElement;
+      try {
+        const saved = localStorage.getItem("bevel-preview-theme");
+        if (saved === "light" || saved === "dark") root.dataset.theme = saved;
+      } catch {}
+      document.addEventListener("DOMContentLoaded", () => {
+        const button = document.querySelector("[data-theme-toggle]");
+        const dark = matchMedia("(prefers-color-scheme: dark)");
+        const current = () => root.dataset.theme ?? (dark.matches ? "dark" : "light");
+        const sync = () => {
+          const next = current() === "dark" ? "light" : "dark";
+          button.textContent = `Switch to ${next}`;
+        };
+        button.addEventListener("click", () => {
+          root.dataset.theme = current() === "dark" ? "light" : "dark";
+          try { localStorage.setItem("bevel-preview-theme", root.dataset.theme); } catch {}
+          sync();
+        });
+        dark.addEventListener("change", sync);
+        sync();
+      });
+    })();
+  </script>
+</head>
+<body>
+  <header class="navbar navbar-sticky">
+    <div class="navbar-inner">
+      <div class="container">
+        <nav class="nav" aria-label="Panels">
+          <a href="#today">Today</a>
+          <a href="#system-serif">System serif</a>
+          <a href="#web-serif">Web serif</a>
+          <a href="#tokens">Tokens</a>
+        </nav>
+        <nav class="nav nav-end" aria-label="Preferences">
+          <button type="button" data-theme-toggle>Switch to dark</button>
+        </nav>
+        <span class="brand">bevel.css previews</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="section">
+      <div class="page-header">
+        <h1>The cloudy.so look <small>Serif headlines and a brighter blue button</small></h1>
+      </div>
+      <p class="panel-note">Three panels with the same content. The first is bevel.css 0.6.0 as it ships. The other two take cloudy.so&rsquo;s two big moves: a serif for display headings and a brighter, rounder primary button. Body text, labels and controls stay in Helvetica Neue in all three. Switch to dark in the navbar to see both themes.</p>
+    </section>
+
+    <!-- Panel: today -->
+    <section class="section" id="today">
+      <h2>Today, bevel.css 0.6.0</h2>
+      <p class="panel-note muted">Helvetica Neue at 600 for every heading and the #0B65C2 primary with 2.0&rsquo;s gloss. Left-aligned hero.</p>
+      <div class="hero-unit hero-unit-grid">
+        <h1>Bootstrap 2.0&rsquo;s look, built to last.</h1>
+        <p>Shaded buttons, a dark top bar and sunken fields, in light and dark, <mark>with nothing to download</mark>. One plain file on CSS every browser has had for 30 months.</p>
+        <p class="hero-actions">
+          <a class="btn btn-primary btn-large" href="#today">Download bevel-0.6.0.css</a>
+          <a class="btn btn-large" href="#today">Read the reference</a>
+        </p>
+      </div>
+      <div class="demo-strip">
+        <div class="page-header"><h1>Budgets <small>October, 4 of 6 on track</small></h1></div>
+        <div class="btn-toolbar">
+          <button type="button" class="btn btn-primary">Save budget</button>
+          <button type="button" class="btn">Cancel</button>
+          <button type="button" class="btn btn-primary active">Pressed</button>
+          <button type="button" class="btn btn-primary" disabled>Disabled</button>
+          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-primary btn-small">Small</button>
+        </div>
+        <div class="input-append">
+          <label class="visually-hidden" for="today-amount">Monthly limit</label>
+          <input id="today-amount" type="text" value="420.00">
+          <button type="button" class="btn btn-primary">Set limit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel: system serif -->
+    <section class="section v-cloudy v-system" id="system-serif">
+      <h2>Cloudy look, system serif</h2>
+      <p class="panel-note muted">Display headings in Iowan Old Style on Apple systems, Palatino Linotype on Windows and P052 or URW Palladio on Linux, so it keeps bevel&rsquo;s no-web-fonts rule. The primary is #2A6AD8 with a brighter top edge, rounder corners and a soft blue glow under it. Centered hero.</p>
+      <div class="hero-unit hero-unit-grid">
+        <h1>Bootstrap 2.0&rsquo;s look, built to last.</h1>
+        <p>Shaded buttons, a dark top bar and sunken fields, in light and dark, <mark>with nothing to download</mark>. One plain file on CSS every browser has had for 30 months.</p>
+        <p class="hero-actions">
+          <a class="btn btn-primary btn-large" href="#system-serif">Download bevel-0.6.0.css</a>
+          <a class="btn btn-large" href="#system-serif">Read the reference</a>
+        </p>
+      </div>
+      <div class="demo-strip">
+        <div class="page-header"><h1>Budgets <small>October, 4 of 6 on track</small></h1></div>
+        <div class="btn-toolbar">
+          <button type="button" class="btn btn-primary">Save budget</button>
+          <button type="button" class="btn">Cancel</button>
+          <button type="button" class="btn btn-primary active">Pressed</button>
+          <button type="button" class="btn btn-primary" disabled>Disabled</button>
+          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-primary btn-small">Small</button>
+        </div>
+        <div class="input-append">
+          <label class="visually-hidden" for="system-amount">Monthly limit</label>
+          <input id="system-amount" type="text" value="420.00">
+          <button type="button" class="btn btn-primary">Set limit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel: web serif -->
+    <section class="section v-cloudy v-web" id="web-serif">
+      <h2>Cloudy look, web serif</h2>
+      <p class="panel-note muted">The same button, with Newsreader from Google Fonts for display headings. It&rsquo;s closer to cloudy.so&rsquo;s headline face and looks the same on every system, but it&rsquo;s a download, which bevel.css rules out today.</p>
+      <div class="hero-unit hero-unit-grid">
+        <h1>Bootstrap 2.0&rsquo;s look, built to last.</h1>
+        <p>Shaded buttons, a dark top bar and sunken fields, in light and dark, <mark>with nothing to download</mark>. One plain file on CSS every browser has had for 30 months.</p>
+        <p class="hero-actions">
+          <a class="btn btn-primary btn-large" href="#web-serif">Download bevel-0.6.0.css</a>
+          <a class="btn btn-large" href="#web-serif">Read the reference</a>
+        </p>
+      </div>
+      <div class="demo-strip">
+        <div class="page-header"><h1>Budgets <small>October, 4 of 6 on track</small></h1></div>
+        <div class="btn-toolbar">
+          <button type="button" class="btn btn-primary">Save budget</button>
+          <button type="button" class="btn">Cancel</button>
+          <button type="button" class="btn btn-primary active">Pressed</button>
+          <button type="button" class="btn btn-primary" disabled>Disabled</button>
+          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-primary btn-small">Small</button>
+        </div>
+        <div class="input-append">
+          <label class="visually-hidden" for="web-amount">Monthly limit</label>
+          <input id="web-amount" type="text" value="420.00">
+          <button type="button" class="btn btn-primary">Set limit</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="tokens">
+      <h2>What would change in bevel.css</h2>
+      <p class="panel-note">Light theme values. Contrast is white text on the button fill.</p>
+      <div class="table-scroll">
+        <table class="table table-bordered">
+          <thead>
+            <tr><th scope="col">Token</th><th scope="col">Today</th><th scope="col">Cloudy look</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>--bv-font-display</code> (new)</td><td>none, headings use <code>--bv-font-sans</code></td><td>Iowan Old Style, Palatino Linotype, P052, Georgia, serif</td></tr>
+            <tr><td><code>--bv-color-primary</code></td><td>#0B65C2, 5.7:1</td><td>#2A6AD8, 5.1:1</td></tr>
+            <tr><td><code>--bv-color-primary-hover</code></td><td>#0A5EB5</td><td>#2563D0</td></tr>
+            <tr><td><code>--bv-color-primary-active</code></td><td>#094A8F</td><td>#1D57BD</td></tr>
+            <tr><td><code>--bv-sheen-accent</code></td><td>white 20% at the top</td><td>white 24% at the top, 6% through the upper third</td></tr>
+            <tr><td><code>--bv-shadow-button-accent</code></td><td>1px grey drop</td><td>1px blue-grey drop plus an 8px blue glow</td></tr>
+            <tr><td><code>--bv-radius</code> / <code>--bv-radius-lg</code></td><td>4px / 6px</td><td>6px / 9px</td></tr>
+            <tr><td><code>mark</code></td><td>browser yellow</td><td>a pale highlighter, #FDF0A6</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer class="container">
+    <hr>
+    <p class="muted">Preview only. cloudy.so&rsquo;s styles were matched by eye from a screenshot.</p>
+  </footer>
+</body>
+</html>
