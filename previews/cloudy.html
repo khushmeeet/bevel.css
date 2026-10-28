@@ -81,6 +81,17 @@
       letter-spacing: -0.01em;
     }
 
+    /* The Cloudy button with bevel's own headings: Helvetica Neue at 600,
+       tracked a little tighter at the hero's size. */
+    .v-sans {
+      --bv-font-display: var(--bv-font-sans);
+    }
+
+    .v-sans :where(.hero-unit h1, .page-header h1) {
+      font-weight: 600;
+      letter-spacing: -0.025em;
+    }
+
     /* The hero centered and set large, as on cloudy.so. */
     .v-cloudy .hero-unit {
       text-align: center;
@@ -172,6 +183,7 @@
           <a href="#today">Today</a>
           <a href="#system-serif">System serif</a>
           <a href="#web-serif">Web serif</a>
+          <a href="#helvetica">Helvetica Neue</a>
           <a href="#tokens">Tokens</a>
         </nav>
         <nav class="nav nav-end" aria-label="Preferences">
@@ -187,7 +199,7 @@
       <div class="page-header">
         <h1>The cloudy.so look <small>Serif headlines and a brighter blue button</small></h1>
       </div>
-      <p class="panel-note">Three panels with the same content. The first is bevel.css 0.6.0 as it ships. The other two take cloudy.so&rsquo;s two big moves: a serif for display headings and a brighter, rounder primary button. Body text, labels and controls stay in Helvetica Neue in all three. Switch to dark in the navbar to see both themes.</p>
+      <p class="panel-note">Four panels with the same content. The first is bevel.css 0.6.0 as it ships. The next two take cloudy.so&rsquo;s two big moves: a serif for display headings and a brighter, rounder primary button. The last keeps the new button with bevel&rsquo;s own Helvetica Neue headings. Body text, labels and controls stay in Helvetica Neue in all four. Switch to dark in the navbar to see both themes.</p>
     </section>
 
     <!-- Panel: today -->
@@ -275,6 +287,36 @@
         <div class="input-append">
           <label class="visually-hidden" for="web-amount">Monthly limit</label>
           <input id="web-amount" type="text" value="420.00">
+          <button type="button" class="btn btn-primary">Set limit</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Panel: Helvetica Neue -->
+    <section class="section v-cloudy v-sans" id="helvetica">
+      <h2>Cloudy button, Helvetica Neue</h2>
+      <p class="panel-note muted">The system-serif panel&rsquo;s button, glow, corners, highlight and centered hero, with bevel&rsquo;s own Helvetica Neue for the headings at 600, tracked a little tighter at hero size. No new font token needed.</p>
+      <div class="hero-unit hero-unit-grid">
+        <h1>Bootstrap 2.0&rsquo;s look, built to last.</h1>
+        <p>Shaded buttons, a dark top bar and sunken fields, in light and dark, <mark>with nothing to download</mark>. One plain file on CSS every browser has had for 30 months.</p>
+        <p class="hero-actions">
+          <a class="btn btn-primary btn-large" href="#helvetica">Download bevel-0.6.0.css</a>
+          <a class="btn btn-large" href="#helvetica">Read the reference</a>
+        </p>
+      </div>
+      <div class="demo-strip">
+        <div class="page-header"><h1>Budgets <small>October, 4 of 6 on track</small></h1></div>
+        <div class="btn-toolbar">
+          <button type="button" class="btn btn-primary">Save budget</button>
+          <button type="button" class="btn">Cancel</button>
+          <button type="button" class="btn btn-primary active">Pressed</button>
+          <button type="button" class="btn btn-primary" disabled>Disabled</button>
+          <button type="button" class="btn btn-danger">Delete</button>
+          <button type="button" class="btn btn-primary btn-small">Small</button>
+        </div>
+        <div class="input-append">
+          <label class="visually-hidden" for="sans-amount">Monthly limit</label>
+          <input id="sans-amount" type="text" value="420.00">
           <button type="button" class="btn btn-primary">Set limit</button>
         </div>
       </div>
