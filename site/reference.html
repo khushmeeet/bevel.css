@@ -22,6 +22,9 @@
           <a href="../demo/index.html">Demo</a>
         </nav>
         <nav class="nav nav-end" aria-label="Preferences">
+          <button type="button" data-headings-toggle title="Set headings in Iowan Old Style" hidden>
+            <span data-headings-name>Serif</span><span class="visually-hidden"> headings</span>
+          </button>
           <button type="button" data-theme-toggle title="Switch to dark mode" hidden>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.5 10.1A6 6 0 0 1 5.9 2.5a6 6 0 1 0 7.6 7.6Z"/></svg>
             <span class="visually-hidden">Switch to dark mode</span>
@@ -37,12 +40,12 @@
     <!-- Contents ======================================================== -->
     <section class="section" id="contents">
       <div class="page-header">
-        <h1>Reference <small>bevel.css 0.6.0</small></h1>
+        <h1>Reference <small>bevel.css 0.7.0</small></h1>
       </div>
       <p class="lead">Every class, variant and state, with the markup to copy.</p>
-      <p>Link bevel.css before your own stylesheet. It follows the system&rsquo;s light or dark setting; set <code>data-theme="light"</code> or <code>data-theme="dark"</code> on <code>&lt;html&gt;</code> to force one. Everything in it sits in <code>@layer bevel.*</code>, so your CSS, written outside any layer, overrides it without <code>!important</code>. States take the class or the ARIA attribute: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
+      <p>Link bevel.css before your own stylesheet. It follows the system&rsquo;s light or dark setting; set <code>data-theme="light"</code> or <code>data-theme="dark"</code> on <code>&lt;html&gt;</code> to force one. Headings are in Helvetica Neue; add <code>.display-serif</code> to set them in a serif. Everything in it sits in <code>@layer bevel.*</code>, so your CSS, written outside any layer, overrides it without <code>!important</code>. States take the class or the ARIA attribute: <code>.active</code> or <code>aria-current</code>, <code>.disabled</code> or <code>aria-disabled</code>, <code>.error</code> or <code>aria-invalid</code>.</p>
 
-      <pre><code>&lt;link rel="stylesheet" href="/static/bevel-0.6.0.css"&gt;
+      <pre><code>&lt;link rel="stylesheet" href="/static/bevel-0.7.0.css"&gt;
 &lt;link rel="stylesheet" href="/static/app.css"&gt;</code></pre>
 
       <nav class="btn-toolbar" aria-label="On this page">
@@ -159,6 +162,23 @@
         <li><span data-swatch style="background-color: var(--bv-color-error-border)"></span><code>--bv-color-error-border</code></li>
         <li><span data-swatch style="background-color: var(--bv-color-code-bg)"></span><code>--bv-color-code-bg</code></li>
       </ul>
+      <h2>Type</h2>
+      <div class="table-scroll" role="region" aria-label="Type tokens" tabindex="0">
+      <table class="table table-condensed" id="type-tokens">
+        <thead>
+          <tr><th>Token</th><th>Used for</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><code>--bv-font-sans</code></td><td>Everything but code: Helvetica Neue, then Helvetica, then Arial</td></tr>
+          <tr><td><code>--bv-font-serif</code></td><td>The serif for display headings: Iowan Old Style, then Palatino Linotype, Palatino, URW Palladio, P052 and Georgia</td></tr>
+          <tr><td><code>--bv-font-mono</code></td><td><code>code</code> and <code>pre</code></td></tr>
+          <tr><td><code>--bv-font-display</code></td><td>Every <code>h1</code>, the page header&rsquo;s and the hero&rsquo;s included: <code>--bv-font-sans</code>, or <code>--bv-font-serif</code> under <code>.display-serif</code></td></tr>
+          <tr><td><code>--bv-font-display-weight</code></td><td>Their weight: 600 in Helvetica Neue, 400 in the serif</td></tr>
+          <tr><td><code>--bv-font-display-tracking</code></td><td>Their letter-spacing: -0.015em in Helvetica Neue, -0.01em in the serif</td></tr>
+        </tbody>
+      </table>
+      </div>
+
       <h2>Depth</h2>
       <p>Light comes from above: raised things have a highlight along their top edge and a shadow under them, sunken things a shade along their top inside edge. Dark mode has deeper shadows and no emboss.</p>
       <div class="table-scroll" role="region" aria-label="Depth tokens" tabindex="0">
@@ -168,9 +188,11 @@
         </thead>
         <tbody>
           <tr><td><code>--bv-sheen</code></td><td>Default buttons&rsquo; gloss: white over the top quarter, fading to the grey fill at the bottom. Drawn half again as tall as the button, so hovering slides it up</td></tr>
-          <tr><td><code>--bv-sheen-accent</code></td><td>Primary and danger buttons&rsquo; gloss, and progress bars: lighter at the top, darker at the bottom</td></tr>
+          <tr><td><code>--bv-sheen-accent</code></td><td>Primary and danger buttons&rsquo; gloss, and progress bars: brightest over the top quarter, darker at the bottom</td></tr>
           <tr><td><code>--bv-shadow-button</code></td><td>Default buttons at rest</td></tr>
           <tr><td><code>--bv-shadow-button-accent</code></td><td>Primary and danger buttons at rest</td></tr>
+          <tr><td><code>--bv-shadow-glow-primary</code></td><td>The soft blue glow under a primary button</td></tr>
+          <tr><td><code>--bv-shadow-glow-danger</code></td><td>The soft red glow under a danger button</td></tr>
           <tr><td><code>--bv-shadow-pressed</code></td><td>Pressed buttons, the current page in pagination</td></tr>
           <tr><td><code>--bv-shadow-raised</code></td><td>Pagination links, the grid hero unit</td></tr>
           <tr><td><code>--bv-shadow-field</code></td><td>Text fields, selects and textareas</td></tr>
@@ -213,6 +235,25 @@
           <h3>Backups <small>The last one finished 6 hours ago</small></h3>
         </div>
       </div>
+
+      <h2>Display headings</h2>
+      <p>Every <code>h1</code>, the page header&rsquo;s and the hero&rsquo;s included, is in Helvetica Neue at weight 600. Add <code>.display-serif</code> to set them in the system&rsquo;s serif at its regular weight instead: Iowan Old Style on Apple systems, Palatino Linotype on Windows, and URW Palladio or P052 on Linux. Nothing is downloaded. Put it on <code>&lt;html&gt;</code> or <code>&lt;body&gt;</code> for the whole app, or on any element for the headings in it. Body text, labels, buttons and the smaller headings stay in Helvetica Neue. The &ldquo;Serif&rdquo; switch in the bar sets this page that way.</p>
+
+      <div class="display-serif" id="display-headings" data-demo data-spaced>
+        <div class="page-header">
+          <h1>Apps <small>Five on hearth-01</small></h1>
+        </div>
+        <h1>Backups ran overnight</h1>
+        <p>Both headings above are under <code>.display-serif</code>; the rest of this box is in Helvetica Neue.</p>
+      </div>
+
+      <pre><code>&lt;body class="display-serif"&gt;</code></pre>
+      <p>Or set the tokens yourself, for a face of your own:</p>
+      <pre><code>:root {
+  --bv-font-display: "Charter", Georgia, serif;
+  --bv-font-display-weight: 400;
+  --bv-font-display-tracking: -0.01em;
+}</code></pre>
 
       <h2>Body text</h2>
       <p class="lead">The lead paragraph: 18px on a 28px line, for the one sentence that sets up a page.</p>
@@ -344,7 +385,7 @@ abcdefghijklmnopqrstuvwxyz
 &lt;main class="container" id="main"&gt;&hellip;&lt;/main&gt;</code></pre>
 
       <h2>A switch in the bar</h2>
-      <p>A <code>&lt;button&gt;</code> in a <code>.nav</code> looks like a link, for an action such as switching between light and dark, and its content is centered in the bar. For an icon on its own, put the words in a <code>.visually-hidden</code> span so screen readers still name it. The switch at the top of this page shows what a click does: a moon in light, a sun in dark. bevel.css has no JavaScript, so the page&rsquo;s own script sets <code>data-theme</code> on <code>&lt;html&gt;</code> and swaps the icon and its words.</p>
+      <p>A <code>&lt;button&gt;</code> in a <code>.nav</code> looks like a link, for an action such as switching between light and dark, and its content is centered in the bar. For an icon on its own, put the words in a <code>.visually-hidden</code> span so screen readers still name it. The switches at the top of this page show what a click does: a moon in light, a sun in dark, and &ldquo;Serif&rdquo; or &ldquo;Sans&rdquo; for the headings. bevel.css has no JavaScript, so the page&rsquo;s own script sets <code>data-theme</code> or <code>.display-serif</code> on <code>&lt;html&gt;</code> and swaps the icon or the words.</p>
 
       <pre><code>&lt;nav class="nav nav-end" aria-label="Preferences"&gt;
   &lt;button type="button" title="Switch to dark mode"&gt;
@@ -396,7 +437,7 @@ abcdefghijklmnopqrstuvwxyz
       </div>
 
       <h2>Variants</h2>
-      <p>Blue is the one action you most expect someone to take; red is the one they can&rsquo;t undo.</p>
+      <p>Blue is the one action you most expect someone to take; red is the one they can&rsquo;t undo. Both are bright, with bold text, a gloss that&rsquo;s brightest along the top and a soft glow of their own color under them. Corners are 6px, 8px on a large button.</p>
       <div class="btn-toolbar" id="buttons-variants">
         <button class="btn" id="btn-default" type="button">Default</button>
         <button class="btn btn-primary" id="btn-primary" type="button">Primary</button>
@@ -1043,6 +1084,20 @@ abcdefghijklmnopqrstuvwxyz
   &lt;p&gt;Five apps on hearth-01.&lt;/p&gt;
   &lt;p&gt;&lt;a class="btn btn-primary btn-large" href="/deploy"&gt;Deploy an app&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;</code></pre>
+
+      <h2>With a serif heading</h2>
+      <p>Add <code>.display-serif</code> to the hero, or to anything around it, to set its heading in the serif.</p>
+
+      <div class="hero-unit hero-unit-grid display-serif" id="hero-serif">
+        <h1>Welcome to hearth</h1>
+        <p>Five apps on hearth-01. Each one deploys with a git push and comes back on its own after the machine restarts.</p>
+        <p><a class="btn btn-primary btn-large" href="#hero">Deploy an app</a></p>
+      </div>
+
+      <pre><code>&lt;div class="hero-unit hero-unit-grid display-serif"&gt;
+  &lt;h1&gt;Welcome to hearth&lt;/h1&gt;
+  &hellip;
+&lt;/div&gt;</code></pre>
     </section>
 
     <!-- Stats =========================================================== -->
@@ -1201,7 +1256,7 @@ abcdefghijklmnopqrstuvwxyz
 
   <footer class="container">
     <hr>
-    <p class="muted">bevel.css 0.6.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
+    <p class="muted">bevel.css 0.7.0, MIT licensed. Styles after Bootstrap 2.0 by @mdo and @fat. Source on <a href="https://github.com/khushmeeet/bevel.css">GitHub</a>.</p>
   </footer>
 </body>
 </html>

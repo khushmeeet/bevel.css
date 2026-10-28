@@ -1,10 +1,13 @@
-// The light and dark switch in the navbar of the demo and the site. Not part
-// of bevel.css, which needs no JavaScript: it follows the system setting
-// until <html> has data-theme="light" or "dark". This script sets that
-// attribute, remembers the choice across pages, and shows the switch, which
-// stays hidden without it. The switch shows what a click does: a moon in
-// light, a sun in dark. Load it in <head> so a saved choice applies before
-// the page is drawn.
+// The light and dark switch and the headings switch in the navbar of the
+// demo and the site. Not part of bevel.css, which needs no JavaScript: it
+// follows the system setting until <html> has data-theme="light" or "dark",
+// and sets headings in Helvetica Neue until an element has .display-serif.
+// This script sets that attribute and that class on <html>, remembers each
+// choice across pages, and shows the switches, which stay hidden without
+// it. Each switch shows what a click does: a moon in light, a sun in dark;
+// "Serif" while headings are in Helvetica Neue, "Sans" while they're in
+// the serif. Load it in <head> so a saved choice applies before the page
+// is drawn.
 (() => {
   const root = document.documentElement;
   const systemDark = matchMedia("(prefers-color-scheme: dark)");
@@ -48,6 +51,42 @@
       sync();
     });
     systemDark.addEventListener("change", sync);
+    sync();
+    button.hidden = false;
+  });
+})();
+
+(() => {
+  const root = document.documentElement;
+  const key = "bevel-headings";
+
+  let saved = null;
+  try {
+    saved = localStorage.getItem(key);
+  } catch {
+    // Storage is off: the switch still works, for this page.
+  }
+  if (saved === "serif") root.classList.add("display-serif");
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const button = document.querySelector("[data-headings-toggle]");
+    if (!button) return;
+    const name = button.querySelector("[data-headings-name]");
+
+    // The button offers the other face.
+    const sync = () => {
+      const next = root.classList.contains("display-serif") ? "sans" : "serif";
+      name.textContent = next === "serif" ? "Serif" : "Sans";
+      button.title = next === "serif" ? "Set headings in Iowan Old Style" : "Set headings in Helvetica Neue";
+    };
+
+    button.addEventListener("click", () => {
+      const serif = root.classList.toggle("display-serif");
+      try {
+        localStorage.setItem(key, serif ? "serif" : "sans");
+      } catch {}
+      sync();
+    });
     sync();
     button.hidden = false;
   });

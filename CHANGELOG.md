@@ -2,6 +2,22 @@
 
 Each release ships as `bevel-<version>.css`. Before 1.0, breaking changes ship in minor versions and are flagged here.
 
+## [0.7.0] - 2026-10-28
+
+Brighter, bolder colored buttons, after cloudy.so, and a serif for display headings as an option.
+
+### Added
+
+- `.display-serif` sets every `h1`, the page header's and the hero's included, in the system's serif at its regular weight: Iowan Old Style on Apple systems, Palatino Linotype on Windows, and URW Palladio or P052 on Linux, so nothing is downloaded. Put it on `<html>` or `<body>` for the whole app, or on any element for the headings in it. Body text, labels and controls stay in Helvetica Neue. Without it, nothing changes.
+- Tokens: `--bv-font-serif`; `--bv-font-display`, `--bv-font-display-weight` and `--bv-font-display-tracking`, which every `h1` now reads; `--bv-radius-button` and `--bv-radius-button-large`; `--bv-shadow-glow-primary` and `--bv-shadow-glow-danger`.
+- The demo and the site have a second switch in the bar, beside the light and dark one, that sets headings in the serif or back in Helvetica Neue. It shows what a click does: "Serif" or "Sans".
+
+### Changed
+
+- The primary blue is brighter: #2563D0 instead of #0B65C2, #205CC6 under the hover gloss and #1A4CA6 pressed; in dark, #2766D6, #2563D0 and #1D52AE. The current page in pagination takes it too. Links, the focus ring and progress bars keep #0B65C2, a darker step of the same blue that reads better as text.
+- Primary and danger buttons are lit more strongly: `--bv-sheen-accent` is brightest over the top quarter of the face, with a new stop at 16.67%, the highlight along the top edge is brighter, and each sits on a soft glow of its own color. Their text is bold, weight 600. White text stays at 4.8:1 or more under the gloss.
+- Buttons have rounder corners: 6px, and 8px for a large button, instead of 4px and 6px. Large buttons have 20px each side instead of 16px. Button groups keep square inner corners.
+
 ## [0.6.0] - 2026-10-18
 
 Dark mode is lighter, the navbar stands apart from the page in light and dark, and a page can pick its scheme.

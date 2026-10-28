@@ -23,7 +23,7 @@ The library succeeds if every app looks like it came from the same hand, loads i
 
 ### Design principles
 
-- **Physical, not flat.** Light comes from above: 2.0's gloss on buttons and a highlight along their top edge, darker bottom borders, recessed fields, wells and tracks, 1px text emboss, and a navbar lit from the top.
+- **Physical, not flat.** Light comes from above: 2.0's gloss on buttons and a highlight along their top edge, a soft glow of their own color under colored ones, darker bottom borders, recessed fields, wells and tracks, 1px text emboss, and a navbar lit from the top.
 - **One rhythm.** 14px text on a 20px line, with the grid paper ruled at the same 20px. Blocks keep 2.0's spacing in steps of 9px.
 - **Color means something.** Blue is action and links. Green, amber and red are status. Everything else is grey.
 - **Light and dark.** Every color and shadow has a dark value, and the page follows the system's setting.
@@ -61,6 +61,7 @@ v0.1 ships ten areas: enough for a page, a nav, text, a form, a table and feedba
 | Confirm before deleting | v0.2 | A documented pattern, no CSS: a confirmation page in place of a dialog |
 | Dark mode | v0.3 | A dark value for every color and shadow, following the system's setting |
 | Forced color scheme | Unreleased | `data-theme="light"` or `"dark"` on `<html>` overrides the system's setting, for an app that must stay one way or offers a switch |
+| Serif display headings | v0.7 | `.display-serif` sets every `h1` in the system's serif; Helvetica Neue stays the default |
 | Grid paper and section labels | v0.3 | `.grid-paper`, the 20px grid behind the top of the page that opens an app; `h2` as a small-capitals label with a dotted leader to its subtitle |
 | Masthead and section bar | Candidate | `.subhead`, a masthead on the grid paper; sticky `.subnav` |
 | Tabs and pills | Candidate | CSS only, for links between pages |
@@ -105,7 +106,7 @@ Only features that are Baseline Widely available (in every major browser for 30+
 ```
 
 1. `bevel.reset`: `box-sizing: border-box` everywhere; margins removed from headings, paragraphs and lists; images and video capped at their container's width.
-2. `bevel.base`: element styles (body, headings, links, `code`, `pre`, `hr`, form controls), all inside `:where()` so their specificity is zero.
+2. `bevel.base`: the tokens and `.display-serif`, which only reassigns three of them; element styles (body, headings, links, `code`, `pre`, `hr`, form controls). All inside `:where()` so their specificity is zero.
 3. `bevel.layout`: `.container`, `.row`, `.grid-paper`, `.page-header`.
 4. `bevel.components`: navbar, buttons, form classes and add-ons, tables, alerts, labels, badges, hero unit, pagination, progress bars, stats, wells.
 5. `bevel.utilities`: `.muted`, `.text-right`, `.table-scroll`, `.visually-hidden`; the rule that trims the last margin in each `.row` column, and the reduced-motion override, both here because they must beat component styles.
@@ -148,9 +149,9 @@ Neutral greys with a cool cast, one blue for everything you can press or follow,
 | --- | --- | --- | --- | --- |
 | `--bv-color-link` | #0B65C2 | #6CB0F5 | Links, checkbox and radio tint | 5.8:1 / 7.2:1 on the page; 5.2:1 / 6.4:1 or more on every grey surface and alert tint |
 | `--bv-color-link-hover` | #094A8F | #95C6F7 | Hovered links | 8.8:1 / 9.2:1 |
-| `--bv-color-primary` | #0B65C2 | #1F6BC4 | Primary button, current page in pagination | 5.8:1 / 5.3:1 for white text |
-| `--bv-color-primary-hover` | #0A5EB5 | #1D65BA | Fill under a hovered primary button's gloss; its border | 6.4:1 / 5.8:1 |
-| `--bv-color-primary-active` | #094A8F | #17539A | Pressed primary button; the current page's edge in pagination | 8.8:1 / 7.7:1 |
+| `--bv-color-primary` | #2563D0 | #2766D6 | Primary button, current page in pagination. Brighter than the link blue, after cloudy.so's buttons | 5.6:1 / 5.3:1 for white text |
+| `--bv-color-primary-hover` | #205CC6 | #2563D0 | Fill under a hovered primary button's gloss; its border | 6.2:1 / 5.6:1 |
+| `--bv-color-primary-active` | #1A4CA6 | #1D52AE | Pressed primary button; the current page's edge in pagination | 8.0:1 / 7.3:1 |
 | `--bv-color-danger` | #C4362E | #C23A31 | Danger button | 5.4:1 / 5.3:1 for white text |
 | `--bv-color-danger-hover` | #B6322A | #B6362E | Fill under a hovered danger button's gloss; its border | 6.0:1 / 5.9:1 |
 | `--bv-color-danger-active` | #8F2620 | #922B24 | Pressed danger button | 8.5:1 / 8.1:1 |
@@ -161,7 +162,9 @@ Neutral greys with a cool cast, one blue for everything you can press or follow,
 | `--bv-color-button-border` | #C9CED4 | #43484F | Default button border; its bottom edge is mixed 12% toward black |  |
 | `--bv-color-focus` | #0B65C2 | #6CB0F5 | Focus outline, focused field border | 5.8:1 / 7.2:1 on the page; 5.3:1 / 6.4:1 on `--bv-color-surface-alt` |
 
-White text on a colored button is measured under its gloss from the tops of the letters, about a third of the way down, to the bottom: the gloss lightens the fill above the middle and darkens it below, and every pair stays at 4.8:1 or more.
+White text on a colored button is measured under its gloss from the tops of the letters, about a third of the way down, to the bottom: the gloss lightens the fill above the middle and darkens it below, and every pair stays at 4.8:1 or more. That sets how bright the primary can be: the gloss is brightest over the top quarter, above the letters.
+
+Links, the focus ring and the default progress bar keep #0B65C2, a darker step of the same blue: it reads better as text, and keeps 5.2:1 on every grey surface and alert tint.
 
 ### Navbar
 
@@ -222,14 +225,25 @@ Every bar keeps 3:1 against its track (WCAG 1.4.11). 2.0.0 had no warning bar, a
 
 ## Typography
 
-Text is Helvetica Neue, 2.0's face, at 14px on a 20px line: a step up from 2.0's 13px on 18px, which reads small on today's screens. Nothing is downloaded.
+Text is Helvetica Neue, 2.0's face, at 14px on a 20px line: a step up from 2.0's 13px on 18px, which reads small on today's screens. Display headings, every `h1`, can be set in the system's serif instead with `.display-serif`. Nothing is downloaded either way.
 
 ### Families
 
 | Token | Stack | Renders as |
 | --- | --- | --- |
 | `--bv-font-sans` | "Helvetica Neue", Helvetica, Arial, sans-serif | 2.0's stack. Helvetica Neue on Apple systems, Arial on Windows, and the system's Helvetica substitute on Linux |
+| `--bv-font-serif` | "Iowan Old Style", "Palatino Linotype", Palatino, "URW Palladio L", P052, Georgia, serif | For display headings under `.display-serif`. Iowan Old Style on Apple systems, Palatino Linotype on Windows, URW Palladio or P052 on Linux, Georgia where none of those is installed |
 | `--bv-font-mono` | ui-monospace, Menlo, "Cascadia Mono", Consolas, "Liberation Mono", monospace | For `code` and `pre` only. SF Mono in Safari, Menlo in other browsers on Apple systems, Cascadia Mono on Windows 11, Consolas on earlier Windows, Liberation Mono on Linux |
+
+Display headings, every `h1` including the page header's and the hero's, read three tokens:
+
+| Token | Default | Under `.display-serif` |
+| --- | --- | --- |
+| `--bv-font-display` | `var(--bv-font-sans)` | `var(--bv-font-serif)` |
+| `--bv-font-display-weight` | 600 | 400; the serif's regular cut is the display face, and its bold reads heavy at 30–44px |
+| `--bv-font-display-tracking` | -0.015em | -0.01em; a serif needs less closing up |
+
+`.display-serif` goes on `<html>` or `<body>` for a whole app, or on any element for the headings in it; the tokens are inherited, so it reaches every `h1` inside. It changes nothing else: body text, labels, controls, `h2` to `h6` and stat figures stay in `--bv-font-sans`. An app can also set the three tokens in its own `:root` for a face of its own.
 
 `--bv-font-size` is 14px (0.875rem) and `--bv-line-height` 20px (1.25rem). Helvetica Neue has Regular, Medium and Bold on Apple systems, so weight 500 is Medium and 600 and 700 are both Bold; Arial has no Medium, so 500 is Regular there.
 
@@ -239,8 +253,8 @@ Text is Helvetica Neue, 2.0's face, at 14px on a 20px line: a step up from 2.0's
 | --- | --- | --- | --- | --- | --- |
 | Body | `body` | 14px (0.875rem) | 20px, as the ratio 1.4286 | 400 | `--bv-color-text` |
 | Lead | `.lead` | 18px (1.125rem) | 28px (1.75rem) | 400 | `--bv-color-text` |
-| Page header title | `.page-header h1` | 36px (2.25rem) | 40px (2.5rem) | 600, -0.015em | `--bv-color-text` |
-| Heading 1 | `h1` | 30px (1.875rem) | 36px (2.25rem) | 600, -0.015em | `--bv-color-text` |
+| Page header title | `.page-header h1` | 36px (2.25rem) | 40px (2.5rem) | The display tokens: 600, -0.015em; 400, -0.01em in the serif | `--bv-color-text` |
+| Heading 1 | `h1` | 30px (1.875rem) | 36px (2.25rem) | The display tokens: 600, -0.015em; 400, -0.01em in the serif | `--bv-color-text` |
 | Heading 2, a section label | `h2` | 12px (0.75rem) | 20px (1.25rem) | 700, uppercase, 0.1em | `--bv-color-text` |
 | Heading 3 | `h3` | 16px (1rem) | 24px (1.5rem) | 600 | `--bv-color-text` |
 | Heading 4 | `h4` | 14px (0.875rem) | 20px (1.25rem) | 600 | `--bv-color-text` |
@@ -255,7 +269,7 @@ Text is Helvetica Neue, 2.0's face, at 14px on a 20px line: a step up from 2.0's
 | Stat figure | `.stats dd` | 30px (1.875rem) | 36px (2.25rem) | 500, -0.01em, tabular figures | `--bv-color-text` |
 | Inline code | `code` | 13px (0.8125rem) | 1, so a line with code stays 20px | 400 | `--bv-color-text` |
 | Code block | `pre` | 13px (0.8125rem) | 20px (1.25rem) | 400 | `--bv-color-text` |
-| Hero title | `.hero-unit h1` | 44px (2.75rem); 36px below 768px | 56px (3.5rem); 40px below 768px | 600, -0.015em | `--bv-color-text` |
+| Hero title | `.hero-unit h1` | 44px (2.75rem); 36px below 768px | 56px (3.5rem); 40px below 768px | The display tokens: 600, -0.015em; 400, -0.01em in the serif | `--bv-color-text` |
 | Hero text | `.hero-unit p` | 18px (1.125rem) | 28px (1.75rem) | 400 | `--bv-color-text` |
 
 Buttons, labels and badges set their own sizes; see their sections. The lead and hero text are at the regular weight: 2.0's 200 maps to the hairline Thin cut today, and Light reads faint at 18px.
@@ -267,7 +281,7 @@ Buttons, labels and badges set their own sizes; see their sections. The lead and
 - **Body:** line height 1.4286, a ratio that gives 20px at 14px, so text an app sets larger keeps proportional leading; `overflow-wrap: break-word`, so long paths and hashes break instead of widening the page.
 - **Grid paper (`.grid-paper`):** opt in, on `<body>`, for the page that opens an app; other pages stay plain. A 320px band under the 40px navbar, ruled with 1px `--bv-color-grid` lines every 20px both ways and every fifth vertical one darker where two layers meet, fading into the page color over its last 120px, so it sits behind the page's opening and never behind its text. The 2.0 docs drew this grid as a page decoration; here it is the library's.
 - **Images and video:** at most 100% of their container's width, with height kept in proportion.
-- **Headings:** margin 0 0 9px, plus an 18px top margin when the heading isn't the first child of its parent, 36px for an `h2`. A heading so sits closer to what it introduces than to what came before it, and a heading at the top of a column, alert or well lines up with its neighbours. The page header, the hero unit and `.alert-heading` set their own. A deliberate change: 2.0.0 headings had no margin, which left a heading touching a form label or table beneath it. `h1` takes -0.015em letter-spacing, which closes up bold Helvetica at display sizes; a subtitle resets it.
+- **Headings:** margin 0 0 9px, plus an 18px top margin when the heading isn't the first child of its parent, 36px for an `h2`. A heading so sits closer to what it introduces than to what came before it, and a heading at the top of a column, alert or well lines up with its neighbours. The page header, the hero unit and `.alert-heading` set their own. A deliberate change: 2.0.0 headings had no margin, which left a heading touching a form label or table beneath it. `h1` takes its family, weight and letter-spacing from the display tokens: -0.015em closes up bold Helvetica at display sizes; a subtitle resets the tracking and keeps the heading's family.
 - **Section labels:** an `h2` that holds only text and a `<small>` is a flex row with a 12px gap: a 1px dotted `--bv-color-border-strong` leader, at least 18px long, runs from the label to the `<small>` at the end of the line, for a count or a date. Any other markup inside an `h2` keeps ordinary flow.
 - **`strong`, `b`:** weight 600. **`small`** outside headings keeps the surrounding size, as in 2.0; inside `h1` to `h3` it is the subtitle size above.
 - **`code`:** padding 2px 5px, radius 3px, `--bv-color-text` on `--bv-color-code-bg`, no border.
@@ -296,9 +310,11 @@ Depth comes from light falling from above: 2.0's gloss over flat button fills, h
 | Token | Value | Used for |
 | --- | --- | --- |
 | `--bv-radius-sm` | 3px | Fields, add-ons, labels, inline code, progress track |
-| `--bv-radius` | 4px | Buttons, button groups, alerts, bordered tables, `pre`, the ends of a pagination strip, form actions bar, skip link |
-| `--bv-radius-lg` | 6px | Large buttons, hero unit, wells |
+| `--bv-radius` | 4px | Alerts, bordered tables, `pre`, the ends of a pagination strip, form actions bar, skip link |
+| `--bv-radius-lg` | 6px | Hero unit, wells |
 | `--bv-radius-pill` | 9px | Badges |
+| `--bv-radius-button` | 6px | Buttons and the ends of a button group, after cloudy.so's rounder buttons |
+| `--bv-radius-button-large` | 8px | Large buttons |
 
 Every border is 1px, and solid except the dashed edge of an empty well. The navbar and full-width bars have no radius.
 
@@ -309,7 +325,9 @@ Raised things have a highlight along their top edge and a soft shadow under them
 | Token | Light value | Used on |
 | --- | --- | --- |
 | `--bv-shadow-button` | inset 0 1px 0 rgba(255,255,255,.6), 0 1px 2px rgba(31,35,40,.08) | Default buttons at rest |
-| `--bv-shadow-button-accent` | inset 0 1px 0 rgba(255,255,255,.18), 0 1px 2px rgba(31,35,40,.18) | Primary and danger buttons at rest |
+| `--bv-shadow-button-accent` | inset 0 1px 0 rgba(255,255,255,.3), 0 1px 2px rgba(20,40,80,.25) | Primary and danger buttons at rest |
+| `--bv-shadow-glow-primary` | 0 2px 8px rgba(37,99,208,.22); 10px at .3 in dark | A soft glow of the fill's own blue under a primary button, after cloudy.so's. Laid under `--bv-shadow-button-accent`; pressing removes it |
+| `--bv-shadow-glow-danger` | 0 2px 8px rgba(196,54,46,.18); 10px at .25 in dark | The same in red under a danger button |
 | `--bv-shadow-pressed` | inset 0 2px 4px rgba(31,35,40,.15) | Pressed and latched buttons; the current page in pagination |
 | `--bv-shadow-raised` | 0 1px 2px rgba(31,35,40,.06) | Pagination links; the grid hero unit |
 | `--bv-shadow-field` | inset 0 1px 2px rgba(31,35,40,.07) | Text fields, selects, textareas |
@@ -326,7 +344,7 @@ Raised things have a highlight along their top edge and a soft shadow under them
 | Token | Light value | Used on |
 | --- | --- | --- |
 | `--bv-sheen` | linear-gradient(#FFF, #FFF 16.67%, transparent 66.67%), drawn 150% tall: white over the top quarter of the face, fading to the fill at its bottom; in dark, white from .1 to .02 | Default buttons |
-| `--bv-sheen-accent` | linear-gradient(rgba(255,255,255,.2), transparent 33.33%, rgba(0,0,0,.12) 66.67%), drawn 150% tall: lighter at the top of the face, the fill alone at the middle, darker at the bottom; .14 white in dark | Primary and danger buttons, progress bars |
+| `--bv-sheen-accent` | linear-gradient(rgba(255,255,255,.28), rgba(255,255,255,.1) 16.67%, transparent 33.33%, rgba(0,0,0,.12) 66.67%), drawn 150% tall: brightest over the top quarter of the face, above the letters, the fill alone at the middle, darker at the bottom; .2 and .07 white in dark | Primary and danger buttons, progress bars |
 | `--bv-emboss` | 0 1px 0 rgba(255,255,255,.7); none in dark | Text pressed into a light surface: default buttons, alerts, add-ons |
 | `--bv-emboss-dark` | 0 -1px 0 rgba(0,0,0,.25) | Text cut out of a dark one: primary and danger buttons, navbar links, the brand, the current page in pagination |
 | `--bv-glow` | 0 0 10px rgba(255,255,255,.35) | The current navbar link's text |
@@ -512,6 +530,7 @@ A component is styled locally inside an app first. When a second app needs it, i
 - [x] **Base size:** decided: 14px on a 20px line. 0.2.0 kept 2.0's 13px on 18px, which reads small on today's screens.
 - [x] **Field borders:** decided: #8C949E, 3:1 on white. 0.2.0 kept 2.0's #CCCCCC under an exception.
 - [ ] **Size budget:** is 20 KB gzipped the right ceiling?
+- [x] **Display face:** decided: Helvetica Neue by default, and the system's serif, Iowan Old Style first, under `.display-serif`, after cloudy.so's headlines. A web font would match cloudy.so more closely on every system, but goal 2 rules out downloads.
 - [x] **Naming:** decided: no import path or shared URL; each app ships its own copy as `bevel-<version>.css`.
 - [x] **Dark mode:** decided: it follows the system setting, unless `<html>` has `data-theme="light"` or `"dark"`. The demo and the site needed a switch, so the override was added. The dark tokens appear twice, under the media query and under `data-theme="dark"`, and a Go test keeps the two copies the same.
 
@@ -528,20 +547,22 @@ A component is styled locally inside an app first. When a second app needs it, i
 | Property | `.btn` | `.btn-small` | `.btn-large` |
 | --- | --- | --- | --- |
 | Font size / line height | 14px / 20px | 12px / 18px | 16px / 20px |
-| Weight | 500 | 500 | 500 |
-| Padding | 4px 12px | 5px 10px | 9px 16px |
+| Weight | 500; 600 on primary and danger | 500; 600 on primary and danger | 500; 600 on primary and danger |
+| Padding | 4px 12px | 5px 10px | 9px 20px |
 | Height, borders included | 30px | 30px | 40px |
-| Radius | 4px | 4px | 6px |
+| Radius | 6px | 6px | 8px |
 
 | Variant | Fill / hover / pressed | Text | Border | Sheen and shadow |
 | --- | --- | --- | --- | --- |
 | Default (`.btn`) | `--bv-color-button`, `-hover`, `-active` | `--bv-color-text`, `--bv-emboss` | `--bv-color-button-border` | `--bv-sheen`, `--bv-shadow-button` |
-| Primary (`.btn-primary`) | `--bv-color-primary`, `-hover`, `-active` | `--bv-color-on-accent`, `--bv-emboss-dark` | `--bv-color-primary-hover` | `--bv-sheen-accent`, `--bv-shadow-button-accent` |
-| Danger (`.btn-danger`) | `--bv-color-danger`, `-hover`, `-active` | `--bv-color-on-accent`, `--bv-emboss-dark` | `--bv-color-danger-hover` | `--bv-sheen-accent`, `--bv-shadow-button-accent` |
+| Primary (`.btn-primary`) | `--bv-color-primary`, `-hover`, `-active` | `--bv-color-on-accent`, `--bv-emboss-dark` | `--bv-color-primary-hover` | `--bv-sheen-accent`, `--bv-shadow-button-accent`, `--bv-shadow-glow-primary` |
+| Danger (`.btn-danger`) | `--bv-color-danger`, `-hover`, `-active` | `--bv-color-on-accent`, `--bv-emboss-dark` | `--bv-color-danger-hover` | `--bv-sheen-accent`, `--bv-shadow-button-accent`, `--bv-shadow-glow-danger` |
 
-- **Rest:** 2.0's gloss over the fill: a default button white over its top quarter and fading to `--bv-color-button` at the bottom, a colored one lighter at the top and darker at the bottom. A highlight along the top edge, a soft shadow under the button, and a bottom border mixed 12% toward black (`color-mix()`). `display: inline-flex`, content centered, 6px between an icon and text; links lose their underline.
+The colored buttons follow cloudy.so's: a bright fill, bold text, a gloss that's brightest along the top and a soft glow of the fill's own color under the button. Each variant sets `--bv-btn-glow`; the default button's is a transparent shadow, so it has none.
+
+- **Rest:** 2.0's gloss over the fill: a default button white over its top quarter and fading to `--bv-color-button` at the bottom, a colored one brightest over its top quarter and darker at the bottom. A highlight along the top edge, a soft shadow under the button, a colored button's glow, and a bottom border mixed 12% toward black (`color-mix()`). `display: inline-flex`, content centered, 6px between an icon and text; links lose their underline.
 - **Hover** (pointers that hover only, so it never sticks after a tap): as in 2.0, the gloss slides up by half the face's height (`background-position: 0 100%`), so the light top leaves and the darker lower part fills the face, while the fill changes to the hover fill; both over 100ms linear. The gloss covers the whole face at every point of the slide, so nothing wipes across it either way. Text is unchanged.
-- **Pressed** (`:active`, `.active` or `aria-pressed="true"`): the pressed fill, the gloss removed, and `--bv-shadow-pressed`, so the face sinks into the page. The weight doesn't change, so a latched toggle doesn't push its neighbours.
+- **Pressed** (`:active`, `.active` or `aria-pressed="true"`): the pressed fill, the gloss and glow removed, and `--bv-shadow-pressed`, so the face sinks into the page. The weight doesn't change, so a latched toggle doesn't push its neighbours.
 - **Focus** (`:focus-visible`): 2px solid `--bv-color-focus` outline, 2px offset.
 - **Disabled** (`:disabled`, `.disabled` or `aria-disabled="true"`): opacity .5, gloss and shadows removed, `cursor: not-allowed`, no hover or press change.
 
@@ -769,7 +790,7 @@ A big figure with a small label above it, for the few numbers a home page opens 
 | Part | Spec |
 | --- | --- |
 | Box (`.hero-unit`) | Padding 60px; margin-bottom 30px; `--bv-color-surface-alt`; radius 6px; no border or shadow. Its last child drops its bottom margin, as in a well, so the space under the last line matches the space over the first |
-| Heading (`.hero-unit h1`) | 44px on a 56px line; weight 600; h1's -0.015em letter-spacing; no top margin and 9px below, so its descenders clear the text under it |
+| Heading (`.hero-unit h1`) | 44px on a 56px line; h1's display face, weight and letter-spacing, so `.display-serif` sets it in the serif; no top margin and 9px below, so its descenders clear the text under it |
 | Text (`.hero-unit p`) | 18px on a 28px line at the regular weight; the usual 9px paragraph margin |
 | Actions | A button in its own paragraph; 2.0 used `.btn-primary.btn-large` |
 | Grid (`.hero-unit-grid`) | Optional. `--bv-color-surface` ruled with 1px `--bv-color-grid` lines every 20px both ways, every fifth vertical line darker where two layers meet, as in the band behind the top of the page; a 1px `--bv-color-border` inset edge, so the box keeps its size, and `--bv-shadow-raised` under it. On a `.grid-paper` page it drops its fill, grid, edge and shadow and sits on the page's grid paper, as the 2.0 docs' masthead did, since two grids that don't line up would show a seam. 2.0's hero had no grid |

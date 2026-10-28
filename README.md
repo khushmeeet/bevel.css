@@ -9,7 +9,7 @@ The site lives in `site/`. Open `site/index.html` in a browser for what it is an
 Copy a release file into your app's static folder and link it before your own stylesheet:
 
 ```html
-<link rel="stylesheet" href="/static/bevel-0.6.0.css">
+<link rel="stylesheet" href="/static/bevel-0.7.0.css">
 <link rel="stylesheet" href="/static/app.css">
 ```
 
@@ -21,6 +21,12 @@ Everything in bevel.css sits in `@layer bevel.*`. Write your app's CSS outside a
 :root {
   --bv-color-link: #0066A0;
 }
+```
+
+Headings are in Helvetica Neue. For the system's serif instead (Iowan Old Style on Apple systems, Palatino Linotype on Windows), add `.display-serif` to `<html>` or `<body>`, or to any element for the headings inside it:
+
+```html
+<body class="display-serif">
 ```
 
 ## Developing

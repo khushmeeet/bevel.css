@@ -24,6 +24,9 @@
           <a href="../demo/index.html">Demo</a>
         </nav>
         <nav class="nav nav-end" aria-label="Preferences">
+          <button type="button" data-headings-toggle title="Set headings in Iowan Old Style" hidden>
+            <span data-headings-name>Serif</span><span class="visually-hidden"> headings</span>
+          </button>
           <button type="button" data-theme-toggle title="Switch to dark mode" hidden>
             <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M13.5 10.1A6 6 0 0 1 5.9 2.5a6 6 0 1 0 7.6 7.6Z"/></svg>
             <span class="visually-hidden">Switch to dark mode</span>
@@ -40,7 +43,7 @@
         <h1>bevel.css</h1>
         <p>A stylesheet with a hint of nostalgia: Bootstrap 2.0&rsquo;s shaded buttons, dark top bar and sunken fields, built to last ten years.</p>
         <p>
-          <a class="btn btn-primary btn-large" href="https://github.com/khushmeeet/bevel.css/releases/download/v0.6.0/bevel-0.6.0.css">Download bevel-0.6.0.css</a>
+          <a class="btn btn-primary btn-large" href="https://github.com/khushmeeet/bevel.css/releases/download/v0.7.0/bevel-0.7.0.css">Download bevel-0.7.0.css</a>
           <a class="btn btn-large" href="reference.html">Read the reference</a>
         </p>
       </div>
@@ -54,7 +57,8 @@
 
         <div>
           <h2>Why bevel</h2>
-          <p><strong>Light from above.</strong> Glossy buttons, sunken fields, embossed text and grid paper, in Helvetica Neue.</p>
+          <p><strong>Light from above.</strong> Glossy buttons with a soft glow, sunken fields, embossed text and grid paper, in Helvetica Neue.</p>
+          <p><strong>Sans or serif.</strong> Headings in Helvetica Neue, or in the system&rsquo;s serif with one class.</p>
           <p><strong>Light and dark.</strong> It follows the system&rsquo;s setting, or the one your app picks.</p>
           <p><strong>Built to last.</strong> One plain file and no build step, on CSS every major browser has had for 30 months.</p>
           <p><strong>Nothing else to load.</strong> Under 20 KB gzipped, with no web fonts, images or JavaScript.</p>
@@ -64,9 +68,9 @@
 
         <div>
           <h2>Get started</h2>
-          <p>Copy <a href="https://github.com/khushmeeet/bevel.css/releases/download/v0.6.0/bevel-0.6.0.css">bevel-0.6.0.css</a> into your app&rsquo;s static folder and link it before your own stylesheet:</p>
+          <p>Copy <a href="https://github.com/khushmeeet/bevel.css/releases/download/v0.7.0/bevel-0.7.0.css">bevel-0.7.0.css</a> into your app&rsquo;s static folder and link it before your own stylesheet:</p>
           <pre><code>&lt;link rel="stylesheet"
-      href="/static/bevel-0.6.0.css"&gt;
+      href="/static/bevel-0.7.0.css"&gt;
 &lt;link rel="stylesheet"
       href="/static/app.css"&gt;</code></pre>
           <p>Override any <code>--bv-</code> token in your own <code>:root</code>. Before 1.0, breaking changes are flagged in the <a href="changelog.html">changelog</a>.</p>
